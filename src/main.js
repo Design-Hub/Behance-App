@@ -19,11 +19,11 @@ Vue.use(VueResource)
 Vue.use(VueFire)
 
 //import components
-import Home from './components/Home/Home'
+// import Home from './components/Home/Home'
 import Jay from './components/GameDesign-Jay/GameDesign-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
-import Contact from './components/Contact/Contact'
+// import Contact from './components/Contact/Contact'
 
 const routes = [
 { path: '/', component: Home },
