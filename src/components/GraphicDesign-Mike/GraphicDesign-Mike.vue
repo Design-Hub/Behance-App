@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div>This is the Graphic Design page
   </div>
 </template>
 
