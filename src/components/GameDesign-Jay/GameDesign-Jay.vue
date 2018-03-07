@@ -1,5 +1,5 @@
 <template>
-  <div class="outer">
+  <div class="outer" v-bind:style="getbackground()">
     <div class="window">
     </div>
   </div>
@@ -10,95 +10,98 @@ export default {
   name: 'gameDesign',
   data() {
     return {
+      initialRight: 0,
+      initialBottom: 0,
+
+      size: [60,20],
+      margin: [30,17],
+      color: ['#E9008D','#F5BFE1'],
+      opacity: [0.13,0.1],
+      blur: [20,15],
+      spread: [2,3],
+      positionLeeway: [10,6],
+      opacityLeeway: '0.15',
+      name: ['purple','pink']
     }
   },
 
   methods: {
     getbackground: function() {
-      var blackboardHeight = $(".blackboard").height(),
-        blackboardWidth = $(".blackboard").width(),
-        blackboardArea = blackboardHeight * blackboardWidth,
-        viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-        expandedWidth = viewportWidth * 1.1,
-        viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-        expandedHeight = viewportHeight * 1.1,
-        viewportArea = viewportWidth * viewportHeight,
-        expandedArea = expandedWidth * expandedHeight,
-        initialRight = 0,
-        initialBottom = 0;
+      const blackboardHeight = $(".blackboard").height();
+      const blackboardWidth = $(".blackboard").width();
 
-      function circleMaker(size, margin, color, opacity, blur, spread, positionLeeway, opacityLeeway, name) {
+      var blackboardArea = blackboardHeight * blackboardWidth,
+      viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+      expandedWidth = viewportWidth * 1.1,
+      viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+      expandedHeight = viewportHeight * 1.1,
+      viewportArea = viewportWidth * viewportHeight,
+      expandedArea = expandedWidth * expandedHeight;
 
-        var lsCellSide = size + (margin * 2),
-          lsRows = Math.floor(expandedHeight / lsCellSide),
-          lsColumns = Math.floor(expandedWidth / lsCellSide),
-          lsQuantity = lsRows * lsColumns;
-        console.log(name + " rows=" + lsRows);
-        console.log(name + " columns=" + lsColumns);
-        console.log(name + " quantity=" + lsQuantity);
+      var lsCellSide = this.size + (this.margin * 2),
+        lsRows = Math.floor(this.expandedHeight / this.lsCellSide),
+        lsColumns = Math.floor(this.expandedWidth / this.lsCellSide),
+        lsQuantity = this.lsRows * this.lsColumns;
+      console.log(this.name + " rows=" + this.lsRows);
+      console.log(this.name + " columns=" + this.lsColumns);
+      console.log(this.name + " quantity=" + this.lsQuantity);
 
-        var paneHTML = '<div id="' + name + '-1" class=" ' + name + '-pane pane" style="top: 0; left: 0;' +
-          ' width:' + (lsColumns * lsCellSide) + 'px; height:' + (lsRows * lsCellSide) + 'px;"></div>';
-        $('.window').append(paneHTML);
+      var paneHTML = '<div id="' + this.name + '-1" class=" ' + this.name + '-pane pane" style="top: 0; left: 0;' +
+        ' width:' + (this.lsColumns * this.lsCellSide) + 'px; height:' + (this.lsRows * this.lsCellSide) + 'px;"></div>';
+      $('.window').append(this.paneHTML);
 
-        var columnBlock = Math.floor(lsColumns / 3);
-        var columnBlockRemainder = lsColumns % 3;
+      var columnBlock = Math.floor(this.lsColumns / 3);
+      var columnBlockRemainder = this.lsColumns % 3;
 
-        console.log("columnBlock = " + columnBlock);
-        console.log("columnBlockRemainder = " + columnBlockRemainder);
+      console.log("columnBlock = " + this.columnBlock);
+      console.log("columnBlockRemainder = " + this.columnBlockRemainder);
 
-        for (var i = 0; i < lsQuantity; i++) {
+      for (var i = 0; i < this.lsQuantity; i++) {
 
-          var thisRow = Math.floor(i / lsColumns) + 1;
-          var thisCol = (i % lsColumns) + 1;
+        var thisRow = Math.floor(this.i / this.lsColumns) + 1;
+        var thisCol = (this.i % this.lsColumns) + 1;
 
-          var thisColBlock = 0;
+        var thisColBlock = 0;
 
-          if (thisCol <= columnBlock) {
-            thisColBlock = 1;
-          } else if (thisCol <= columnBlock * 2) {
-            thisColBlock = 2;
-          } else if (thisCol <= columnBlock * 3 + columnBlockRemainder) {
-            thisColBlock = 3;
-          }
-
-          var initTranslateX = thisCol * lsCellSide;
-          var initTranslateY = thisRow * lsCellSide;
-
-          var randomRight = Math.floor(Math.random() * (positionLeeway + 1)),
-            randomRight = randomRight *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
-
-          var randomBottom = Math.floor(Math.random() * (positionLeeway + 1)),
-            randomBottom = randomBottom *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
-
-          var randomOpacity = Math.random() * opacityLeeway,
-            randomOpacity = randomOpacity *= Math.floor(Math.random() * 2) == 1 ? 1 : -1,
-            randomOpacity = opacity + randomOpacity;
-
-          var lsHTML = '<div class="ls-' + name + ' ls-col-' + thisColBlock + '" style="' +
-            'height:' + size + "px; " +
-            'width:' + size + "px;" +
-            'left:' + (initialRight + randomRight - (margin + size) + initTranslateX) + 'px;' + //LOOK HERE FOR INITIAL POSITIONING
-            'top:' + (initialBottom + randomBottom - (margin + size) + initTranslateY) + 'px;' +
-            'background-color:' + color + ';' +
-            'opacity:' + randomOpacity + ';' +
-            'box-shadow: 0 0 ' + blur + 'px ' + spread + 'px ' + color + ';' +
-            '"></div>';
-
-          $('#' + name + '-1').append(lsHTML);
-
+        if (this.thisCol <= this.columnBlock) {
+          this.thisColBlock = 1;
+        } else if (this.thisCol <= this.columnBlock * 2) {
+          this.thisColBlock = 2;
+        } else if (this.thisCol <= this.columnBlock * 3 + this.columnBlockRemainder) {
+          this.thisColBlock = 3;
         }
 
-        for (var i = 2; i < 3; i++) {
-          var leftPosition = ((i - 1) * (lsColumns * lsCellSide));
-          $('#' + name + '-1').clone().attr("id", name + "-" + i).css("left", leftPosition).appendTo('.window');
-          //$('#' + name + '-1').clone().attr("id", name + "-duplicate-" + i).removeClass("pane").addClass("duplicate-pane").css("left", leftPosition).appendTo('.window');
-        }
+        var initTranslateX = this.thisCol * this.lsCellSide;
+        var initTranslateY = this.thisRow * this.lsCellSide;
+
+        var randomRight = Math.floor(Math.random() * (this.positionLeeway + 1)),
+          randomRight = this.randomRight *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+
+        var randomBottom = Math.floor(Math.random() * (this.positionLeeway + 1)),
+          randomBottom = this.randomBottom *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+
+        var randomOpacity = Math.random() * this.opacityLeeway,
+          randomOpacity = this.randomOpacity *= Math.floor(Math.random() * 2) == 1 ? 1 : -1,
+          randomOpacity = this.opacity + this.randomOpacity;
+
+        var lsHTML = '<div class="ls-' + this.name + ' ls-col-' + this.thisColBlock + '" style="' +
+          'height:' + this.size + "px; " +
+          'width:' + this.size + "px;" +
+          'left:' + (this.initialRight + this.randomRight - (this.margin + this.size) + this.initTranslateX) + 'px;' + //LOOK HERE FOR INITIAL POSITIONING
+          'top:' + (this.initialBottom + this.randomBottom - (this.margin + this.size) + this.initTranslateY) + 'px;' +
+          'background-color:' + this.color + ';' +
+          'opacity:' + this.randomOpacity + ';' +
+          'box-shadow: 0 0 ' + this.blur + 'px ' + this.spread + 'px ' + this.color + ';' +
+          '"></div>';
+
+        $('#' + this.name + '-1').append(this.lsHTML);
+
       }
 
-      circleMaker(60, 30, "#E9008D", 0.13, 20, 2, 10, 0.15, "purple");
-      circleMaker(20, 17, "#F5BFE1", 0.1, 15, 3, 6, 0.15, "pink");
-      //circleMaker(5, 80, "#FFFFFF", 0.1, 30, 3, 20, 0.1, "white");
+      for (var i = 2; i < 3; i++) {
+        var leftPosition = ((this.i - 1) * (this.lsColumns * this.lsCellSide));
+        $('#' + this.name + '-1').clone().attr("id", this.name + "-" + i).css("left", this.leftPosition).appendTo('.window');
+      }
     }
 
   }
