@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <router-link v-bind:to="'/'">Home</router-link>
+    <!--<router-link v-bind:to="'/'">Home</router-link>
 	<router-link v-bind:to="'/gameDesign'">Game Design</router-link>
     <router-link v-bind:to="'/graphicDesign'">Graphic Design</router-link>
     <router-link v-bind:to="'/photography'">Photography</router-link>
-	    <router-link v-bind:to="'/contact'">Contact</router-link>
+	    <router-link v-bind:to="'/contact'">Contact</router-link>-->
     <router-view></router-view>
   </div>
 </template>
@@ -22,6 +22,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  overflow: hidden;
 }
 </style>
