@@ -2,7 +2,7 @@
     <div class="photographer-list-page">
         <div class="main-container">
             <div class="design-hub-logo">
-                <router-link v-bind:to="'/'"><img class="design-hub-logo--logo"  src="../../images/logoWhite.png"></router-link>
+                <router-link v-bind:to="'/'"><img class="design-hub-logo--logo" src="../../images/logoWhite.png"></router-link>
             </div>
             <div class="photographer-list">
                 <div class="photographer-list-info">
@@ -14,28 +14,28 @@
                         <div class="user-stats">
                             <div class="user-stats--project-views">
                                 <div class="project-views-icon">
-                                    <img class="project-views-icon--icon icons"  src="../../images/victor/Project-views.png">
+                                    <img class="project-views-icon--icon icons" src="../../images/victor/Project-views.png">
                                 </div>
                                 <div class="project-views-title">Project Views</div>
                                 <div class="project-views-stats stats">44207</div>
                             </div>
                             <div class="user-stats--appreciations">
                                 <div class="appreciations-icon">
-                                    <img class="appreciations--icon icons"  src="../../images/victor/Appreciations.png">
+                                    <img class="appreciations--icon icons" src="../../images/victor/Appreciations.png">
                                 </div>
                                 <div class="appreciations-title">Apprecidations</div>
                                 <div class="appreciations-stats stats">9206</div>
                             </div>
                             <div class="user-stats--followers">
                                 <div class="followers-icon">
-                                    <img class="followers--icon icons"  src="../../images/victor/Followers.png">
+                                    <img class="followers--icon icons" src="../../images/victor/Followers.png">
                                 </div>
                                 <div class="followers-title">Followers</div>
                                 <div class="followers-stats stats">2375</div>
                             </div>
                             <div class="user-stats--following">
                                 <div class="following-icon">
-                                    <img class="following--icon icons"  src="../../images/victor/Following.png">
+                                    <img class="following--icon icons" src="../../images/victor/Following.png">
                                 </div>
                                 <div class="following-title">Following</div>
                                 <div class="following-stats stats">109</div>
@@ -50,116 +50,136 @@
 
 <script>
 export default {
-  name: "photographer-list-page",
-  data() {
-    return {};
-  },
+    name: "photographer-list-page",
+    data() {
+        return {};
+    },
 
-  methods: {}
+    methods: {}
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
-  margin: 0;
-  padding: 0;
-  color: #e5e5e5;
+    margin: 0;
+    padding: 0;
+    color: #e5e5e5;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .photographer-list-page {
-  width: 100%;
-  height: 100vh;
-  background: url("../../images/victor/photographyhomepageblur.jpg");
-  background-size: cover;
+    width: 100%;
+    height: 100vh;
+    background: url("../../images/victor/photographyhomepageblur.jpg");
+    background-size: cover;
 }
 
 .main-container {
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .design-hub-logo {
-  height: 40vh;
-  width: 100%;
+    height: 40vh;
+    width: 100%;
 }
 
 .design-hub-logo--logo {
-  width: 22vw;
-  display: block;
-  padding: 20px 20px;
+    width: 22vw;
+    display: block;
+    padding: 20px 20px;
 }
 
 .photographer-list {
-  display: flex;
-  width: 100%;
-  height: 80vh;
-}
-.photographer-list-info{
-    background-color:#579068;
-    width:25%;
-    height:150px;
-    margin-left:20px;
     display: flex;
-    cursor: pointer;user-select: none;
+    width: 100%;
+    height: 80vh;
 }
-.photographer-list-info--user-photo{
-    width:35%;
+
+.photographer-list-info {
+    background-color: #579068;
+    width: 25%;
+    height: 150px;
+    margin-left: 20px;
+    display: flex;
+    cursor: pointer;
+    user-select: none;
 }
-.user-photo{
+
+.photographer-list-info--user-photo {
+    width: 35%;
+}
+
+.user-photo {
     background-image: url("https://mir-s3-cdn-cf.behance.net/user/138/e24bca2575205.5581363aaf6e1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    width:100%;
-    height:150px;
+    width: 100%;
+    height: 150px;
 }
-.photographer-list-info--user-info{
-    width:65%;
-    background-color:#579068;
-    height:150px;
+
+.photographer-list-info--user-info {
+    width: 65%;
+    background-color: #579068;
+    height: 150px;
 }
-.user-name{
-    width:85%;
-    border-bottom:2px solid #63A476;
-    padding:8px 8px 2px 8px;
-    margin:auto;
-    font-size:1.2vw;
+
+.user-name {
+    width: 85%;
+    border-bottom: 2px solid #63A476;
+    padding: 8px 8px 2px 8px;
+    margin: auto;
+    font-size: 1.2vw;
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
-.user-stats--project-views, .user-stats--appreciations, .user-stats--followers, .user-stats--following{
-    width:100%;
-    display:flex;
+
+.user-stats--project-views,
+.user-stats--appreciations,
+.user-stats--followers,
+.user-stats--following {
+    width: 100%;
+    display: flex;
 }
-.user-stats--project-views{
-    margin-top:5px;
-    margin-bottom:2px;
+
+.user-stats--project-views {
+    margin-top: 5px;
+    margin-bottom: 2px;
 }
-.icons{
-    width:0.9vw;
+
+.icons {
+    width: 0.9vw;
     margin: 3px 10px 10px 23px;
 }
-.project-views-icon--icon{
-    width:1vw;
+
+.project-views-icon--icon {
+    width: 1vw;
 }
-.appreciations--icon{
-    width:0.8vw
+
+.appreciations--icon {
+    width: 0.8vw
 }
-.stats{
-    display:flex;
+
+.stats {
+    display: flex;
     justify-content: flex-end;
 }
-.project-views-stats{
-    width:50%
+
+.project-views-stats {
+    width: 50%
 }
-.appreciations-stats{
-    width:48%
+
+.appreciations-stats {
+    width: 48%
 }
-.followers-stats{
-    width:58%;
+
+.followers-stats {
+    width: 58%;
 }
-.following-stats{
-    width:58%;
+
+.following-stats {
+    width: 58%;
 }
 </style>

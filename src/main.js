@@ -25,6 +25,7 @@ import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
+import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
 
 const routes = [
   { path: '/', component: Home },
@@ -32,6 +33,7 @@ const routes = [
   { path: '/graphicDesign', component: Mike },
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
+  { path: '/photographer-profile-detail-page', component: VictorPhotographerProfileDetailPage},
   { path: '/contact', component: Contact }
 
 ];
