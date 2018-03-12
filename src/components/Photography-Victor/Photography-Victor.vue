@@ -92,7 +92,7 @@ p {
 
 .design-hub-logo {
   height: 40vh;
-  width: 100%;
+  width: 20%;
 }
 
 .design-hub-logo--logo {
