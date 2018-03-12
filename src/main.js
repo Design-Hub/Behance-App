@@ -24,26 +24,16 @@ import Jay from './components/GameDesign-Jay/GameDesign-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
+import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 
 const routes = [
-{ path: '/', component: Home },
+  { path: '/', component: Home },
   { path: '/gameDesign', component: Jay },
   { path: '/graphicDesign', component: Mike },
-  { path: '/photography', component: Victor },
+  { path: '/photography', component: Victor},
+  { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/contact', component: Contact }
-  // {
-  //   path: '/admin', component: Admin,
-  //   children: [
-  //     {
-  //       path: '/',
-  //       component: Posts
-  //     },
-  //     {
-  //       path: 'comments',
-  //       component: Comments
-  //     }
-  //   ]
-  // }
+
 ];
 
 const router = new VueRouter({
