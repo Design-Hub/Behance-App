@@ -20,7 +20,9 @@ Vue.use(VueFire)
 
 //import components
 import Home from './components/Home/Home'
-import Jay from './components/GameDesign-Jay/GameDesign-Jay'
+import GameDesignHome from './components/GameDesign-Jay/GameDesign_Home-Jay'
+import GameDesignDesigner from './components/GameDesign-Jay/GameDesign_Designer-Jay'
+import GameDesignProjects from './components/GameDesign-Jay/GameDesign_Project-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
@@ -29,7 +31,9 @@ import VictorPhotographerProfileDetailPage from './components/Photography-Victor
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/gameDesign', component: Jay },
+  { path: '/gameDesignHome', component: GameDesignHome },
+  { path: '/gameDesignDesigner', component: GameDesignDesigner },
+  { path: '/gameDesignProjects', component: GameDesignProjects },
   { path: '/graphicDesign', component: Mike },
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
