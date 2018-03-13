@@ -54,10 +54,23 @@ export default {
     data() {
         return {
             toPhotographerProfileDetailPage: "/photographer-profile-detail-page"
+            // userDatasList: []
         };
     },
-
-    methods: {}
+    methods: {
+        getUserDatasFromBehance: function(){
+            this.$http.jsonp('https://api.behance.net/v2/users/scott-council?api_key=B1xsiZdRJZOAivUcQgU0TZFrC9X2NlJC')
+            .then(response =>{
+                this.firstUser = response.body.user;
+                // this.userDatasList.push(this.firstUser);
+                console.log(this.firstUser.first_name);
+            })
+            
+        }
+    },
+    created: function(){
+        this.getUserDatasFromBehance();
+    }
 };
 </script>
 

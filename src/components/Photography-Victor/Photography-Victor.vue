@@ -57,7 +57,9 @@ export default {
   color: #e5e5e5;
   user-select: none;
 }
-
+a:hover{
+  text-decoration:none;
+}
 h1 {
   font-size: 4vw;
   margin-bottom: 20px;
