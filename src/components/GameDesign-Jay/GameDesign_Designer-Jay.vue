@@ -30,7 +30,12 @@
 
     <!--Designer's list of projects-->
     <div class="designer-project-list">
-
+      <div v-for="project in projects">
+        <a v-bind:href="project.url">
+          <h1>{{ project.name }}</h1>
+          <img v-bind:src="project.covers[202]">
+        </a>
+      </div>
     </div>
 
   </div>
@@ -39,20 +44,18 @@
 <script>
 export default {
   name: 'gameDesignDesigner',
-  props: ['projectSource'],
   data() {
     return {
-      projects: []
+      projects: [],
     }
   },
 
 
-    created: function(){
-        this.$http.get('https://api.behance.net/v2/users/BorisSurovsky/projects?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y')
-    .then(response => {
+  created: function() {
+    this.$http.jsonp('https://api.behance.net/v2/users/ducnguyenmai/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
       this.projects = response.body.projects;
     });
-    }
+  }
 }
 </script>
 
@@ -198,6 +201,12 @@ table {
 
 
 
+
+
+
+
+
+
 /*CONTAINER*/
 
 .container {
@@ -207,6 +216,12 @@ table {
   background-size: 100%;
   background-color: black;
 }
+
+
+
+
+
+
 
 
 
@@ -247,6 +262,12 @@ a:hover {
 
 
 
+
+
+
+
+
+
 /*BACK button*/
 
 .back-button {
@@ -260,4 +281,25 @@ a:hover {
   font-size: 1.5vw;
 }
 
+
+
+
+
+
+/*PROJECTS*/
+
+.designer-project-list {
+  display: flex;
+  /*align-items: flex-end;*/
+  justify-content: center;
+  font-family: 'Anonymous Pro', monospace;
+  color: white;
+  font-size: 30px;
+  top: 40%;
+  left: 40%;
+  position: absolute;
+  width: 60vw;
+  height: 70vh;
+  padding: 0 30px 0 0;
+}
 </style>
