@@ -18,17 +18,14 @@
 
     <!-- Designers -->
     <div class="designers">
-      <div v-for="designer in designers" class="designer">
+      <div v-for="designer in designers">
         <h1>
-          <a href="/gameDesignDesigner">{{ designer.name }}</a>
+          <a href="/gameDesignDesigner">{{ designer.firstName }}</a>
         </h1>
-        <div class="designer-character">
-          <a href="/gameDesignDesigner">
-            <img v-bind:src="designer.imageSrc">
-          </a>
-        </div>
+        <a href="/gameDesignDesigner">
+          <img v-bind:src="designer.characterImage">
+        </a>
       </div>
-
     </div>
 
   </div>
@@ -39,22 +36,30 @@ export default {
   name: 'gameDesignHome',
   data() {
     return {
-      designers: [{
-        name: "James Gordon",
-        imageSrc: "../../images/jay/jamesGordon.png"
-      },
-      {
-        name: "Lisa Smith",
-        imageSrc: "../../images/jay/lisaSmith.png"
-      },
-      {
-        name: "Derek Shephard",
-        imageSrc: "../../images/jay/derekShephard.png"
-    }]
+      designers: [
+        {
+          id: "ducnguyenmai",
+          characterImage: require('../../images/jay/jamesGordon.png'),
+          firstName: ''
+        },
+        {
+          id: "Aleksey_Bazik",
+          characterImage: require('../../images/jay/lisaSmith.png')
+        },
+        {
+          id: "atokaruk",
+          characterImage: require('../../images/jay/derekShephard.png')
+        }],
+    }
+  },
 
+  created: function() {
+    for (var i = 0; i < this.designers.length; i++) {
+      this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].id + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+        this.designers.firstName = response.body.designers.first_name;
+      });
     }
   }
-
 }
 </script>
 
@@ -202,6 +207,12 @@ table {
 
 
 
+
+
+
+
+
+
 /*CONTAINER*/
 
 .container {
@@ -211,6 +222,12 @@ table {
   background-size: 100%;
   background-color: black;
 }
+
+
+
+
+
+
 
 
 
@@ -265,6 +282,12 @@ a:hover {
 
 
 
+
+
+
+
+
+
 /*PAGE INTRO*/
 
 .page-intro {
@@ -288,6 +311,12 @@ a:hover {
 
 
 
+
+
+
+
+
+
 /*DESIGNERS*/
 
 .designers {
@@ -296,6 +325,7 @@ a:hover {
   align-items: flex-end;
   justify-content: center;
   font-family: 'Anonymous Pro', monospace;
+  color: white;
 }
 
 .designers h1 {
