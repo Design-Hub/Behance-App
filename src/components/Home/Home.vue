@@ -44,7 +44,11 @@ export default {
     }
   },
   methods: {
-  }
+  },
+created: function() {
+  
+    console.log('homne')
+  },
 
 }
 </script>
