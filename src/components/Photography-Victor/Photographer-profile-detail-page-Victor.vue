@@ -3,7 +3,7 @@
         <div class="main-container">
             <div class="top-nav">
                 <div class="top-nav--back-button">
-                    <img class="back-button" src="../../images/victor/Back-button.png">
+                    <router-link v-bind:to="toPhotographerList"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
                 </div>
             </div>
             <div class="user-details">
@@ -102,13 +102,32 @@
 <script>
 export default {
     name: 'photographer-profile-detail-page',
+    props:["individualPhotographerUsername"],
     data() {
         return {
+            toPhotographerList: "/photographer-list-page",
+            currentPhotographerProjects: {},
+            currentPhotographerUsername: ""
         }
     },
 
     methods: {
+        gettingTheCurrentPhotographerproject: function() {
+            this.$http
+                .jsonp(
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername +"/projects?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                )
+                .then(response => {
+                    this.currentPhotographerProjects = response.body.projects;
+                    console.log(response);
+                });
+        }
 
+    },
+    created: function() {
+        this.currentPhotographerUsername = this.individualPhotographerUsername;
+        console.log(this.currentPhotographerUsername);
+        this.gettingTheCurrentPhotographerproject();
     }
 }
 </script>
@@ -150,6 +169,10 @@ p {
     border-left: none;
     border-right: none;
     border-top: none;
+}
+
+.top-nav--back-button {
+    width: 5%;
 }
 
 .back-button {
@@ -295,12 +318,13 @@ p {
 }
 
 .user-projects {
-    width: 100%
+    width: 100%;
 }
 
 .user-projects--project {
     width: 18%;
     height: 400px;
+    cursor: pointer;
 }
 
 .project-image {
@@ -314,40 +338,46 @@ p {
     height: 35%;
     background-color: #579068;
 }
-.project-info--title{
+
+.project-info--title {
     font-weight: bold;
     font-size: 1.6vw;
-    padding-top:10px;
+    padding-top: 10px;
 }
-.project-info--user-name{
-    font-size:1vw;
-    margin-top:10px;
+
+.project-info--user-name {
+    font-size: 1vw;
+    margin-top: 10px;
 }
-.up-project-info--project-stats{
+
+.up-project-info--project-stats {
     display: flex;
     heigth: 100%;
     justify-content: center;
     align-items: center;
-    margin-top:17px;
+    margin-top: 17px;
 }
-.up-project-views-stats{
-    display: flex;
-    width:50%;
-    align-items: center;
-    justify-content: center;
 
+.up-project-views-stats {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
 }
-.up-project-appreciations{
-    width:50%;
+
+.up-project-appreciations {
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.up-icons{
-    margin-right:20px;
-    width:1.2vw;
+
+.up-icons {
+    margin-right: 20px;
+    width: 1.2vw;
 }
-.results{
+
+.results {
     font-weight: bold;
     font-size: 0.7vw;
 }
