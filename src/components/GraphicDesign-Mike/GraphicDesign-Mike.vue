@@ -6,11 +6,12 @@
       </div>
       <div class="gd-head">
         <h1>Graphic Design</h1>
+        <h2>This is a showcase of our amazing designers.<br>Click on a profile to view their work!</h2>
       </div>
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <router-link v-bind:to="theHome"><div class="contact">
+      <router-link v-bind:to="profilePage"><div class="contact">
         <a href="/contact">Profile</a>
       </div></router-link>
     </div>
@@ -21,6 +22,9 @@
         <img class="owner-image" v-bind:src="designer.images[276]">
         <h3 class="owner-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
         <p class="owner-location">{{ designer.occupation }}</p>
+        <p class="owner-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
+        <p class="owner-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
+        <p class="owner-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
       </div>
     </div>
   
@@ -39,22 +43,23 @@ export default {
   name: 'graphicDesign',
   data() {
     return {
-      theHome: "/profilePage",
+      profilePage: "/profilePage",
       designers: [],
       designer: ''
+
     }
   },
 
   methods: {
     userProfile: function() {
-     this.$http.jsonp('https://api.behance.net/v2/users/arnd?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/thinkingroominc?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-     this.$http.jsonp('https://api.behance.net/v2/users/tyodi?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/akatre?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
@@ -82,24 +87,22 @@ export default {
           console.log(this.designers)
         });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/adobedesignjimoto?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    this.$http.jsonp('https://api.behance.net/v2/users/soderhavet?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
-        
+
   },
- 
+  
 },
+
 created: function() {
 
     this.userProfile();
-  }
-// created: function() {
+  },
 
-//       this.userIds();
-//     }
 }
 
 
@@ -193,7 +196,7 @@ table {
 .header .contact {
   position: absolute;
   right: 0;
-  margin: -300px 80px 0 0;
+  margin: -290px 80px 0 0;
   font-size: 1.2vw;
   font-family: 'Anonymous Pro', monospace;
   letter-spacing: 1px;
@@ -202,9 +205,20 @@ table {
 .gd-head h1 {
   position: absolute;
   margin-left: 37%;
-  margin-top: 170px;
+  margin-top: 140px;
   font-family: 'Orbitron', sans-serif;
   font-size: 3vw;
+  text-align: center;
+  color: #fff;
+}
+
+.gd-head h2 {
+  position: absolute;
+  margin-left: 31%;
+  margin-top: 250px;
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 1.5vw;
+  text-align: center;
   color: #fff;
 }
 
@@ -223,7 +237,7 @@ a:hover {
 }
 
 .owner-container {
-  /* flex: 1 */
+   /*flex: 1 */
 }
 
 .project-cover {
@@ -248,8 +262,11 @@ a:hover {
     height: 250px;
 }
 .owner-name {
+    font-family: 'Patua One', cursive;
+    font-size: 1.2vw;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 10px;
     white-space: nowrap;
     color: #191919;
     display: inline-block;
@@ -261,8 +278,11 @@ a:hover {
 }
 
 .owner-location {
+    font-family: 'Anonymous Pro', monospace;
+    font-size: 0.7vw;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 10px;
     white-space: nowrap;
     color: #191919;
     display: inline-block;
@@ -270,6 +290,23 @@ a:hover {
     position: relative;
     top: -1px;
     vertical-align: middle;
+    margin-left: 10px;
     text-align: center;
+}
+
+.owner-stats {
+    font-family: 'Patua One', cursive;
+    font-size: 0.8vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    color: #191919;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    margin-left: 20px;
+    /*text-align: center;*/
 }
 </style>
