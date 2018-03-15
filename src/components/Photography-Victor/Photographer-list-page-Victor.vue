@@ -5,7 +5,7 @@
                 <router-link v-bind:to="'/'"><img class="design-hub-logo--logo" src="../../images/logoWhite.png"></router-link>
             </div>
             <div class="photographer-list">
-                <div class="photographer-list-info">
+                 <router-link v-bind:to="toPhotographerProfileDetailPage"><div class="photographer-list-info">
                     <div class="photographer-list-info--user-photo">
                         <div class="user-photo"></div>
                     </div>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div></router-link>
             </div>
         </div>
     </div>
@@ -52,10 +52,25 @@
 export default {
     name: "photographer-list-page",
     data() {
-        return {};
+        return {
+            toPhotographerProfileDetailPage: "/photographer-profile-detail-page"
+            // userDatasList: []
+        };
     },
-
-    methods: {}
+    methods: {
+        getUserDatasFromBehance: function(){
+            this.$http.jsonp('https://api.behance.net/v2/users/scott-council?api_key=B1xsiZdRJZOAivUcQgU0TZFrC9X2NlJC')
+            .then(response =>{
+                this.firstUser = response.body.user;
+                // this.userDatasList.push(this.firstUser);
+                console.log(this.firstUser.first_name);
+            })
+            
+        }
+    },
+    created: function(){
+        this.getUserDatasFromBehance();
+    }
 };
 </script>
 
@@ -67,7 +82,12 @@ export default {
     color: #e5e5e5;
     font-family: 'Open Sans', sans-serif;
 }
-
+a{
+    width:100%;
+}
+a:hover{
+    text-decoration: none;
+}
 .photographer-list-page {
     width: 100%;
     height: 100vh;
@@ -83,7 +103,7 @@ export default {
 
 .design-hub-logo {
     height: 40vh;
-    width: 100%;
+    width: 20%;
 }
 
 .design-hub-logo--logo {
@@ -94,15 +114,13 @@ export default {
 
 .photographer-list {
     display: flex;
-    width: 100%;
-    height: 80vh;
+    width: 25%;
 }
 
 .photographer-list-info {
     background-color: #579068;
-    width: 25%;
+    width: 100%;
     height: 150px;
-    margin-left: 20px;
     display: flex;
     cursor: pointer;
     user-select: none;

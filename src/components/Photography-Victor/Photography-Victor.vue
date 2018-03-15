@@ -57,7 +57,9 @@ export default {
   color: #e5e5e5;
   user-select: none;
 }
-
+a:hover{
+  text-decoration:none;
+}
 h1 {
   font-size: 4vw;
   margin-bottom: 20px;
@@ -92,7 +94,7 @@ p {
 
 .design-hub-logo {
   height: 40vh;
-  width: 100%;
+  width: 20%;
 }
 
 .design-hub-logo--logo {
