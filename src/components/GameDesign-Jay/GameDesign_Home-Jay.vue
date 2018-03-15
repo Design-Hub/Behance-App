@@ -19,14 +19,13 @@
     <!-- Designers -->
     <div class="designers">
       <div v-for="designer in designers">
-        <h1>
-          <a href="/gameDesignDesigner">{{ designer.firstName }}</a>
-        </h1>
-        <a href="/gameDesignDesigner">
-          <img v-bind:src="designer.characterImage">
-        </a>
+        <router-link v-bind:to="'/gameDesignDesigner/' + selectedDesignerprojects">
+          <h1 v-on:click="getDesignerProjects" v-bind:id="designer.id">{{ designer.fullName }}</h1>
+          <img v-bind:src="designer.characterImage" v-on:click="getDesignerProjects" v-bind:id="designer.id">
+        </router-link>
       </div>
     </div>
+  </div>
 
   </div>
 </template>
@@ -34,30 +33,57 @@
 <script>
 export default {
   name: 'gameDesignHome',
+  props: ['selectedDesignerprojects'],
+
   data() {
     return {
       designers: [
         {
-          id: "ducnguyenmai",
+          webID: "ducnguyenmai",
+          id: 14056285,
           characterImage: require('../../images/jay/jamesGordon.png'),
-          firstName: ''
+          fullName: 'Dustin Nguyen',
         },
         {
-          id: "Aleksey_Bazik",
-          characterImage: require('../../images/jay/lisaSmith.png')
+          webID: "atokaruk",
+          id: 3949737,
+          characterImage: require('../../images/jay/lisaSmith.png'),
+          fullName: 'Alexandra Tokaryuk'
         },
         {
-          id: "atokaruk",
-          characterImage: require('../../images/jay/derekShephard.png')
-        }],
+          webID: "Aleksey_Bazik",
+          id: 9876953,
+          characterImage: require('../../images/jay/derekShephard.png'),
+          fullName: 'Aleksey Bazik'
+        }
+      ],
+
+      behanceDesignerInfo: [],
+      selectedDesigner: '',
+      selectedDesignerprojects: [],
     }
   },
 
   created: function() {
     for (var i = 0; i < this.designers.length; i++) {
-      this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].id + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-        this.designers.firstName = response.body.designers.first_name;
+      this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].webID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+        this.behanceDesignerInfo.push(response.body);
       });
+    }
+  },
+
+  methods: {
+    getDesignerProjects: function(evt) {
+      for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
+        if (this.behanceDesignerInfo[i].user.id == evt.target.id) {
+          this.selectedDesigner = this.behanceDesignerInfo[i];
+          console.log("yes!");
+        }
+      }
+      this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesigner.user.username + '/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+        this.selectedDesignerprojects.push(response.body);
+      });
+      // this.$emit('getDesignerProjects', evt.target.id);
     }
   }
 }
@@ -206,13 +232,6 @@ table {
 
 
 
-
-
-
-
-
-
-
 /*CONTAINER*/
 
 .container {
@@ -222,12 +241,6 @@ table {
   background-size: 100%;
   background-color: black;
 }
-
-
-
-
-
-
 
 
 
@@ -280,14 +293,6 @@ a:hover {
 
 
 
-
-
-
-
-
-
-
-
 /*PAGE INTRO*/
 
 .page-intro {
@@ -315,8 +320,6 @@ a:hover {
 
 
 
-
-
 /*DESIGNERS*/
 
 .designers {
@@ -325,13 +328,13 @@ a:hover {
   align-items: flex-end;
   justify-content: center;
   font-family: 'Anonymous Pro', monospace;
-  color: white;
 }
 
 .designers h1 {
-  padding-left: 200px;
-  padding-bottom: 40px;
   font-size: 1.5vw;
+  color: white;
+  padding-left: 150px;
+  padding-bottom: 40px;
 }
 
 .designers h1:hover {
