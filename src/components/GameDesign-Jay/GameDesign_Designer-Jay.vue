@@ -1,6 +1,7 @@
 <template>
   <div class="container">
 
+    <!-- Header -->
     <div class="header">
       <div class="logo">
         <a href="/"><img src="../../images/logoWhite.png"></a>
@@ -31,7 +32,7 @@
     <!--Designer's list of projects-->
     <div class="designer-project-list">
       <div v-for="project in projects">
-        <a v-bind:href="project.url">
+        <a href="/gameDesignProjects">
           <h1>{{ project.name }}</h1>
           <img v-bind:src="project.covers[202]">
         </a>
@@ -42,19 +43,24 @@
 </template>
 
 <script>
+// import GameDesignHome from './gameDesignHome'
+
 export default {
   name: 'gameDesignDesigner',
+  props: ['selectedDesignerprojects'],
   data() {
     return {
       projects: [],
     }
   },
 
+  // components: {
+  //   GameDesignHome
+  // },
 
   created: function() {
-    this.$http.jsonp('https://api.behance.net/v2/users/ducnguyenmai/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-      this.projects = response.body.projects;
-    });
+    console.log("selected designer page");
+    alert(this.selectedDesignerprojects);
   }
 }
 </script>
@@ -207,6 +213,7 @@ table {
 
 
 
+
 /*CONTAINER*/
 
 .container {
@@ -216,6 +223,7 @@ table {
   background-size: 100%;
   background-color: black;
 }
+
 
 
 
@@ -268,6 +276,7 @@ a:hover {
 
 
 
+
 /*BACK button*/
 
 .back-button {
@@ -280,6 +289,7 @@ a:hover {
 .back-button a:hover {
   font-size: 1.5vw;
 }
+
 
 
 

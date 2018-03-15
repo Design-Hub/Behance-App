@@ -32,7 +32,7 @@ import VictorPhotographerProfileDetailPage from './components/Photography-Victor
 const routes = [
   { path: '/', component: Home },
   { path: '/gameDesignHome', component: GameDesignHome },
-  { path: '/gameDesignDesigner', component: GameDesignDesigner },
+  { path: '/gameDesignDesigner/:selectedDesignerprojects', component: GameDesignDesigner, props:true },
   { path: '/gameDesignProjects', component: GameDesignProjects },
   { path: '/graphicDesign', component: Mike },
   { path: '/photography', component: Victor},

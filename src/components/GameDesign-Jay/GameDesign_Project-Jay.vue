@@ -1,6 +1,7 @@
 <template>
   <div class="container">
 
+    <!-- Header -->
     <div class="header">
       <div class="logo">
         <img src="../../images/logoWhite.png">
@@ -10,17 +11,56 @@
       </div>
     </div>
 
+    <!--Back button-->
+    <div class="back-button">
+      <a href="/gameDesignDesigner">
+        <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+      </a>
+    </div>
+
+    <!--Designer details-->
+    <div class="selected-designer">
+      <div class="selected-designer-info">
+
+      </div>
+      <div class="selected-designer-character">
+        <img src="">
+      </div>
+    </div>
+
+    <!-- Selected Project details-->
+    <div v-for="data in selectedProject">
+      <h1> {{ data.name }} </h1>
+      <div class="projectStats">
+        <div> {{ data.stats.views}} </div>
+        <div> {{ data.stats.appreciations }} </div>
+        <div> {{ data.stats.comments}} </div>
+      </div>
+    <div> {{ data.description }} </div>
+    <div> {{ data.modules }} </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'gameDesign',
+  name: 'gameDesignProject',
   data() {
     return {
-
+      selectedProject:[],
+      projectID: '4889175'
     }
+  },
+
+  created: function() {
+    this.$http.jsonp('https://api.behance.net/v2/projects/' + this.projectID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+      this.selectedProject = response.body.selectedProject;
+      console.log(this.response);
+    });
   }
+
 }
 </script>
 
@@ -161,6 +201,9 @@ table {
 
 
 
+
+
+
 /*CONTAINER*/
 
 .container {
@@ -175,6 +218,9 @@ table {
   left: 0;
   transform: translate3d(0, 0, 0);
 }
+
+
+
 
 
 
@@ -209,5 +255,19 @@ a {
 
 a:hover {
   text-decoration: none;
+}
+
+
+/*BACK button*/
+
+.back-button {
+  position: absolute;
+  left: 12%;
+  margin-top: 17%;
+  font-size: 1vw;
+}
+
+.back-button a:hover {
+  font-size: 1.5vw;
 }
 </style>
