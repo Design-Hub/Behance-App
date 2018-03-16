@@ -19,16 +19,27 @@ Vue.use(VueResource)
 // Vue.use(VueFire)
 //import components
 import Home from './components/Home/Home'
-import Jay from './components/GameDesign-Jay/GameDesign-Jay'
+import GameDesignHome from './components/GameDesign-Jay/GameDesign_Home-Jay'
+import GameDesignDesigner from './components/GameDesign-Jay/GameDesign_Designer-Jay'
+import GameDesignProjects from './components/GameDesign-Jay/GameDesign_Project-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
+
 import Profile from './components/GraphicDesign-Mike/profile-page-mike'
+=======
+import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
+import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
+import VictorPhotographerProjectDetailPage from './components/Photography-Victor/Photographer-project-detail-page-Victor'
+
 
 const routes = [
-{ path: '/', component: Home },
-  { path: '/gameDesign', component: Jay },
+  { path: '/', component: Home },
+  { path: '/gameDesignHome', component: GameDesignHome },
+  { path: '/gameDesignDesigner/:selectedDesignerprojects', component: GameDesignDesigner, props:true },
+  { path: '/gameDesignProjects', component: GameDesignProjects },
   { path: '/graphicDesign', component: Mike },
+
   { path: '/photography', component: Victor },
   { path: '/contact', component: Contact },
   // { path: '/profilePage', component: Profile },
@@ -46,6 +57,14 @@ const routes = [
   //     }
   //   ]
   // }
+
+  { path: '/photography', component: Victor},
+  { path: '/photographer-list-page', component: VictorPhotographerListPage},
+  { path: '/photographer-profile-detail-page:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
+  { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
+  { path: '/contact', component: Contact }
+
+
 ];
 
 const router = new VueRouter({

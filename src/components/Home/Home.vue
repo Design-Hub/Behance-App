@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="logo">
-        <img src="../../images/logoWhite.png">
+        <a href="/"><img src="../../images/logoWhite.png"></a>
       </div>
       <div class="contact">
         <a href="/contact">CONTACT</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="gameDesign line-two line">
         <h1>
-          <a href="/gameDesign">Game Design</a>
+          <a href="/gameDesignHome">Game Design</a>
         </h1>
       </div>
       <div class="graphicDesign line-three line">
@@ -214,6 +214,10 @@ table {
   letter-spacing: 1px;
 }
 
+.contact:hover {
+  font-size: 1.1vw;
+}
+
 a {
   color: #fff;
 }
@@ -272,6 +276,26 @@ a:hover {
   letter-spacing: 2px;
 }
 
+.graphicDesign a:hover {
+  color: #ff0000;
+
+  font-size: 1.7vw;
+}
+
+.gameDesign a:hover {
+    color: #39b54a;
+  font-size: 1.7vw;
+}
+
+.photography a:hover {
+  color: #F15a24;
+  font-size: 1.7vw;
+}
+
+.line h1:hover {
+  font-size: 1.7vw;
+}
+
 .description {
   position: absolute;
   top: 30%;
@@ -288,6 +312,9 @@ a:hover {
 .description p {
   font-size: 1.2vw;
 }
+
+
+
 
 
 
@@ -318,6 +345,9 @@ a:hover {
 .line-three {
   animation-name: lineraisethree;
 }
+
+
+
 
 
 
@@ -411,6 +441,9 @@ a:hover {
 
 
 
+
+
+
 /*Responsive design start*/
 
 @media screen and (max-width:640px) {
@@ -427,6 +460,9 @@ a:hover {
 
   .header .contact {
     font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
   }
   .designCategories {
     width: 100%;
@@ -454,6 +490,9 @@ a:hover {
     font-size: 2.4vw;
     letter-spacing: 1px;
     padding-left: 0;
+  }
+  .line a:hover {
+    font-size: 2.6vw;
   }
 
   .line-one {
