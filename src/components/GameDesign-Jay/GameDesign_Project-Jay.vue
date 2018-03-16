@@ -13,32 +13,33 @@
 
     <!--Back button-->
     <div class="back-button">
-      <a href="/gameDesignDesigner">
+      <a href="/game-design-designer">
         <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
         <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
       </a>
     </div>
 
     <!--Designer details-->
-    <div class="selected-designer">
-      <div class="selected-designer-info">
+    <!--<div class="selected-designer">
+          <div class="selected-designer-info">
 
-      </div>
-      <div class="selected-designer-character">
-        <img src="">
-      </div>
-    </div>
+          </div>
+          <div class="selected-designer-character">
+            <img src="">
+          </div>
+        </div>-->
 
     <!-- Selected Project details-->
-    <div v-for="data in selectedProject">
-      <h1> {{ data.name }} </h1>
+    <div class="selected-project">
+      <h1> {{ selectedProject.name }} </h1>
+      <div> {{ selectedProject.description }} </div>
       <div class="projectStats">
-        <div> {{ data.stats.views}} </div>
-        <div> {{ data.stats.appreciations }} </div>
-        <div> {{ data.stats.comments}} </div>
+        <div><img src="../../images/jay/behanceViewsIcon.png"> {{ selectedProject.stats.views}} </div>
+        <div><img src="../../images/jay/behanceLikesIcon.png"> {{ selectedProject.stats.appreciations }} </div>
+        <div><img src="../../images/jay/behanceCommentsIcon.png"> {{ selectedProject.stats.comments}} </div>
       </div>
-    <div> {{ data.description }} </div>
-    <div> {{ data.modules }} </div>
+
+      <!--<div> {{ selectedProject.modules }} </div>-->
     </div>
 
   </div>
@@ -47,17 +48,18 @@
 <script>
 export default {
   name: 'gameDesignProject',
+  props: ['selectedProjectID'],
   data() {
     return {
-      selectedProject:[],
-      projectID: '4889175'
+      selectedProject: [],
     }
   },
 
   created: function() {
-    this.$http.jsonp('https://api.behance.net/v2/projects/' + this.projectID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-      this.selectedProject = response.body.selectedProject;
-      console.log(this.response);
+    console.log("Now on the selected project page");
+    console.log(this.selectedProjectID);
+    this.$http.jsonp('https://api.behance.net/v2/projects/' + this.selectedProjectID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+      this.selectedProject = response.body.project;
     });
   }
 
@@ -204,6 +206,8 @@ table {
 
 
 
+
+
 /*CONTAINER*/
 
 .container {
@@ -218,6 +222,8 @@ table {
   left: 0;
   transform: translate3d(0, 0, 0);
 }
+
+
 
 
 
@@ -258,6 +264,8 @@ a:hover {
 }
 
 
+
+
 /*BACK button*/
 
 .back-button {
@@ -269,5 +277,14 @@ a:hover {
 
 .back-button a:hover {
   font-size: 1.5vw;
+}
+
+
+/*PROJECT*/
+
+.selected-project {
+  font-family: 'Anonymous Pro', monospace;
+  color: white;
+  font-size: 20px;
 }
 </style>

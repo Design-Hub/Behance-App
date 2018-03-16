@@ -19,9 +19,9 @@
     <!-- Designers -->
     <div class="designers">
       <div v-for="designer in designers">
-        <router-link v-bind:to="'/gameDesignDesigner/' + selectedDesignerprojects">
-          <h1 v-on:click="getDesignerProjects" v-bind:id="designer.id">{{ designer.fullName }}</h1>
-          <img v-bind:src="designer.characterImage" v-on:click="getDesignerProjects" v-bind:id="designer.id">
+        <router-link v-bind:to="'/game-design-designer/' + designer.webID">
+          <h1 v-on:click="getDesigner" v-bind:id="designer.id">{{ designer.fullName }}</h1>
+          <img v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
         </router-link>
       </div>
     </div>
@@ -33,7 +33,6 @@
 <script>
 export default {
   name: 'gameDesignHome',
-  props: ['selectedDesignerprojects'],
 
   data() {
     return {
@@ -60,7 +59,7 @@ export default {
 
       behanceDesignerInfo: [],
       selectedDesigner: '',
-      selectedDesignerprojects: [],
+      selectedDesignerID:''
     }
   },
 
@@ -73,17 +72,15 @@ export default {
   },
 
   methods: {
-    getDesignerProjects: function(evt) {
+    getDesigner: function(evt) {
       for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
         if (this.behanceDesignerInfo[i].user.id == evt.target.id) {
           this.selectedDesigner = this.behanceDesignerInfo[i];
           console.log("yes!");
+          this.selectedDesignerID = this.selectedDesigner.user.username;
+          console.log(this.selectedDesignerID);
         }
       }
-      this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesigner.user.username + '/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-        this.selectedDesignerprojects.push(response.body);
-      });
-      // this.$emit('getDesignerProjects', evt.target.id);
     }
   }
 }

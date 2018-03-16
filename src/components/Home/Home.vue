@@ -22,7 +22,7 @@
       </div>
       <div class="gameDesign line-two line">
         <h1>
-          <a href="/gameDesignHome">Game Design</a>
+          <a href="/game-design-home">Game Design</a>
         </h1>
       </div>
       <div class="graphicDesign line-three line">

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <!-- Header -->
+    <!--Header -->
     <div class="header">
       <div class="logo">
         <a href="/"><img src="../../images/logoWhite.png"></a>
@@ -13,7 +13,7 @@
 
     <!--Back button-->
     <div class="back-button">
-      <a href="/gameDesignHome">
+      <a href="/game-design-home">
         <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
         <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
       </a>
@@ -22,20 +22,20 @@
     <!--Designer details-->
     <div class="selected-designer">
       <div class="selected-designer-info">
-
+        {{ featuredDesigner.fullName}}
       </div>
       <div class="selected-designer-character">
-        <img src="">
+        <img v-bind:src="featuredDesigner.characterImage">
       </div>
     </div>
 
     <!--Designer's list of projects-->
     <div class="designer-project-list">
       <div v-for="project in projects">
-        <a href="/gameDesignProjects">
-          <h1>{{ project.name }}</h1>
-          <img v-bind:src="project.covers[202]">
-        </a>
+        <router-link v-bind:to="'/game-design-projects/' + project.id">
+        <h1>{{ project.name }}</h1>
+        <img v-bind:src="project.covers[202]">
+               </router-link>
       </div>
     </div>
 
@@ -43,25 +43,57 @@
 </template>
 
 <script>
-// import GameDesignHome from './gameDesignHome'
-
 export default {
   name: 'gameDesignDesigner',
-  props: ['selectedDesignerprojects'],
+  props: ['selectedDesignerID'],
   data() {
     return {
+      designers: [
+        {
+          webID: "ducnguyenmai",
+          id: 14056285,
+          characterImage: require('../../images/jay/jamesGordon.png'),
+          fullName: 'Dustin Nguyen',
+        },
+        {
+          webID: "atokaruk",
+          id: 3949737,
+          characterImage: require('../../images/jay/lisaSmith.png'),
+          fullName: 'Alexandra Tokaryuk'
+        },
+        {
+          webID: "Aleksey_Bazik",
+          id: 9876953,
+          characterImage: require('../../images/jay/derekShephard.png'),
+          fullName: 'Aleksey Bazik'
+        }
+      ],
+
       projects: [],
+      featuredDesigner: ''
     }
   },
 
-  // components: {
-  //   GameDesignHome
-  // },
-
   created: function() {
-    console.log("selected designer page");
-    alert(this.selectedDesignerprojects);
+    console.log("Now on the selected designer page");
+    console.log(this.selectedDesignerID);
+
+    this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesignerID + '/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+      // this.projects.push(response.body);
+      this.projects = response.body.projects;
+    });
+
+    for (var i = 0; i < this.designers.length; i++) {
+      if (this.selectedDesignerID == this.designers[i].webID) {
+        this.featuredDesigner = this.designers[i];
+      }
+    }
+  },
+
+  methods: {
+
   }
+
 }
 </script>
 
@@ -203,17 +235,6 @@ table {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*CONTAINER*/
 
 .container {
@@ -223,12 +244,6 @@ table {
   background-size: 100%;
   background-color: black;
 }
-
-
-
-
-
-
 
 
 
@@ -271,12 +286,6 @@ a:hover {
 
 
 
-
-
-
-
-
-
 /*BACK button*/
 
 .back-button {
@@ -294,22 +303,42 @@ a:hover {
 
 
 
+/*DESIGNER*/
+
+.selected-designer-info {
+    margin-top: 300%;
+}
+
+.selected-designer {
+  position: absolute;
+  margin-left: 5%;
+  color: white;
+  font-size: 25px;
+  font-family: 'Anonymous Pro', monospace;
+}
+
+.selected-designer .selected-designer-character {
+  margin-top: 30%;
+}
+
+.selected-designer-character img {
+  height: 400px;
+}
+
 
 
 /*PROJECTS*/
 
 .designer-project-list {
   display: flex;
-  /*align-items: flex-end;*/
-  justify-content: center;
+  flex-flow: row wrap;
   font-family: 'Anonymous Pro', monospace;
   color: white;
-  font-size: 30px;
-  top: 40%;
+  font-size: 20px;
+  top: 20%;
   left: 40%;
   position: absolute;
   width: 60vw;
   height: 70vh;
-  padding: 0 30px 0 0;
 }
 </style>

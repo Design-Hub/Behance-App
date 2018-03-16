@@ -31,9 +31,9 @@ import VictorPhotographerProfileDetailPage from './components/Photography-Victor
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/gameDesignHome', component: GameDesignHome },
-  { path: '/gameDesignDesigner/:selectedDesignerprojects', component: GameDesignDesigner, props:true },
-  { path: '/gameDesignProjects', component: GameDesignProjects },
+  { path: '/game-design-home', component: GameDesignHome },
+  { path: '/game-design-designer/:selectedDesignerID', component: GameDesignDesigner, props:true },
+  { path: '/game-design-projects/:selectedProjectID', component: GameDesignProjects, props:true },
   { path: '/graphicDesign', component: Mike },
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
