@@ -31,7 +31,8 @@ const routes = [
   { path: '/graphicDesign', component: Mike },
   { path: '/photography', component: Victor },
   { path: '/contact', component: Contact },
-  { path: '/profilePage', component: Profile }
+  // { path: '/profilePage', component: Profile },
+  { path: '/graphic-designer/:username', component: Profile, props: true }
   // {
   //   path: '/admin', component: Admin,
   //   children: [

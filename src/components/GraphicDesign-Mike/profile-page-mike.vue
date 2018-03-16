@@ -17,10 +17,22 @@
     </div>
 
     <div class="profiles-container">
-      <div class="owner-container">
-        <div class="project-cover" v-for="masterpiece in masterpieces" v-bind:value="masterpiece.user">
-          <img class="owner-image" v-bind:src="masterpiece.covers[115]">
-        </div>
+      <div class="projects-masonry">
+
+      </div>
+
+      <div class="user-info" v-for="designer in designers" v-bind:value="designer.user">
+        <img class="user-image" v-bind:src="designer.images[276]">
+        <h3 class="user-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
+        <p class="user-features">{{ designer.location }}</p>
+        <p class="user-occupation">{{ designer.occupation }}</p>
+        <p class="user-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
+        <p class="user-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
+        <p class="user-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
+        <p class="user-website">{{ designer.website }}</p>
+      </div>
+    </div>
+
       </div>
     </div>
     </div>
@@ -31,82 +43,49 @@
 
 export default {
   name: 'profilePage',
+  props: ['username'],
   data() {
     return {
       theHome: "/GraphicDesign",
-      masterpieces: [],
-      masterpiece: ''
+      designers: [],
+      designer: ''
+      // works: [],
+      // work: ''
     }
   },
 
   methods: {
-     userProjects: function() {
-    this.$http.jsonp('https://api.behance.net/v2/users/adobedesignjimoto/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    userProfile: function(username) {
+     this.$http.jsonp('https://api.behance.net/v2/users/'+username+'?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
           console.log('ok')
-          this.masterpieces.push(response.body.project);
-          console.log(this.masterpieces)
+          this.designers.push(response.body.user);
+          console.log(this.designers)
         });
+    //  userProjects: function() {
+    // this.$http.jsonp('https://api.behance.net/v2/users/adobedesignjimoto/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    //     .then(response => {
+    //       console.log('ok')
+    //       this.works.push(response.body.user);
+    //       console.log(this.works)
+    //     });
   
 },
-  created: function() {
-
-  this.userProjects();
-    }
   },
+    created: function() {
+      // console.log(this.username)
+    this.userProfile(this.username);
+  },
+
+  // created: function() {
+
+  // this.userProjects();
+  //   }
+
 }
 </script>
 
 <style scoped>
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
 /*CUSTOM CSS FROM HERE*/
 
@@ -167,4 +146,113 @@ a:hover {
   text-decoration: none;
 }
 
+.owner-container {
+   /*flex: 1 */
+}
+
+.project-cover {
+    border-radius: 6px 6px 3px 3px;
+    box-sizing: border-box;
+    color: #191919;
+    float: left;
+    margin: 0px 20px 20px 60px;
+    min-height: 400px;
+    position: relative;
+    text-align: left;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(25,25,25,0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-image {
+    width: 100%;
+    height: 250px;
+}
+.user-name {
+    font-family: 'Patua One', cursive;
+    font-size: 1.2vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    color: #191919;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.user-location {
+    font-family: 'Anonymous Pro', monospace;
+    font-size: 0.7vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    color: #191919;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.user-stats {
+    font-family: 'Patua One', cursive;
+    font-size: 0.8vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    color: #191919;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    margin-left: 20px;
+    /*text-align: center;*/
+}
+
+.profilePage {
+  width: 100vw;
+  height: 100vh;
+  background-color: #252525;
+}
+
+.projects-container {
+  width: 20vw;
+  height: auto;
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: #000;
+}
+
+.projects-masonry {
+  width: 80vw;
+  height: auto;
+}
+
+.profiles-container {
+  width: 1600px;
+  margin: 0 auto;
+  background-color: #fff;
+  display: flex;
+}
+
+.user-info {
+  width: 20vw;
+  height: 100vh;
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: #000;
+  display: flex;
+  flex-direction: column;
+}
 </style>

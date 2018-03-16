@@ -11,20 +11,26 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <router-link v-bind:to="profilePage"><div class="contact">
+      <!--<router-link v-bind:to="'graphic-designer/' + "><div class="contact">
         <a href="/contact">Profile</a>
-      </div></router-link>
+      </div></router-link>-->
     </div>
   
   <div class="profiles-container">
     <div class="owner-container">
       <div class="project-cover" v-for="designer in designers" v-bind:value="designer.user">
+        <router-link v-bind:to="'graphic-designer/' + designer.username">
+        <div class="user-box">
         <img class="owner-image" v-bind:src="designer.images[276]">
         <h3 class="owner-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
-        <p class="owner-location">{{ designer.occupation }}</p>
+        <h3 class="owner-username">{{ designer.username }}</h3>
+        <p class="owner-occupation">{{ designer.occupation }}</p>
         <p class="owner-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
         <p class="owner-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
         <p class="owner-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
+        </div>
+        </router-link>
+      </div>
       </div>
     </div>
   
@@ -110,55 +116,6 @@ created: function() {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
 /*CUSTOM CSS FROM HERE*/
 
@@ -257,6 +214,21 @@ a:hover {
     flex-direction: column;
 }
 
+.user-box {
+  border-radius: 6px 6px 3px 3px;
+    box-sizing: border-box;
+    color: #191919;
+    float: left;
+    min-height: 400px;
+    position: relative;
+    text-align: left;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(25,25,25,0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
 .owner-image {
     width: 100%;
     height: 250px;
@@ -264,6 +236,22 @@ a:hover {
 .owner-name {
     font-family: 'Patua One', cursive;
     font-size: 1.2vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*margin-bottom: 10px;*/
+    white-space: nowrap;
+    color: #191919;
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.owner-username {
+    font-family: 'Patua One', cursive;
+    font-size: 0.8vw;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 10px;
@@ -277,7 +265,7 @@ a:hover {
     text-align: center;
 }
 
-.owner-location {
+.owner-occupation {
     font-family: 'Anonymous Pro', monospace;
     font-size: 0.7vw;
     overflow: hidden;
