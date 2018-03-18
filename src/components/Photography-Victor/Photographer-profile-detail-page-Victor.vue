@@ -1,6 +1,6 @@
 <template>
     <div class="photographer-profile-detail-page">
-        <div class="main-container">
+        <div class="main-container" v-if="checkCurrentPhotographerDatasAndProjects">
             <div class="top-nav">
                 <div class="top-nav--back-button">
                     <router-link v-bind:to="toPhotographerList"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
@@ -9,21 +9,23 @@
             <div class="user-details">
                 <div class="user-details--intro user-details--block">
                     <div class="top-intro">
-                        <div class="user-profile-image"></div>
+                        <div class="user-profile-image">
+                            <img class="user-image" v-bind:src="currentPhotographerDatasAndProjects.userDatas.images[276]">
+                        </div>
                         <div class="user-name-company">
-                            <h4>Joe Moore</h4>
-                            <p>Photographer,</p>
+                            <h4>{{currentPhotographerDatasAndProjects.userDatas.first_name}} {{currentPhotographerDatasAndProjects.userDatas.last_name}}</h4>
+                            <p>{{currentPhotographerDatasAndProjects.userDatas.occupation}},</p>
                             <p>Design hub</p>
                         </div>
                     </div>
                     <div class="bottom-intro">
-                        <div class="user-website">www.joemoore2018.com</div>
-                        <div class="user-focus">Photography, Digital Photography, Retouching</div>
+                        <div class="user-website">{{currentPhotographerDatasAndProjects.userDatas.website}}</div>
+                        <span class="user-focus" v-for="currentPhotographerFields in currentPhotographerDatasAndProjects.userDatas.fields">{{currentPhotographerFields}},</span>
                     </div>
                 </div>
                 <div class="user-details--about-me user-details--block">
                     <div class="about-me-title">About me</div>
-                    <div class="about-me-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.</div>
+                    <div class="about-me-paragraph">{{currentPhotographerDatasAndProjects.userDatas.sections["Mission Statement"]}}</div>
                 </div>
                 <div class="user-details--stats user-details--block">
                     <div class="user-stats--project-views user-stats">
@@ -31,40 +33,35 @@
                             <img class="project-views-icon--icon icons" src="../../images/victor/Project-views.png">
                         </div>
                         <div class="project-views-title titles">Project Views</div>
-                        <div class="project-views-stats stats">44207</div>
+                        <div class="project-views-stats stats">{{currentPhotographerDatasAndProjects.userDatas.stats.views}}</div>
                     </div>
                     <div class="user-stats--appreciations user-stats">
                         <div class="appreciations-icon">
                             <img class="appreciations--icon icons" src="../../images/victor/Appreciations.png">
                         </div>
-                        <div class="appreciations-title titles">Apprecidations</div>
-                        <div class="appreciations-stats stats">9206</div>
+                        <div class="appreciations-title titles">Appreciations</div>
+                        <div class="appreciations-stats stats">{{currentPhotographerDatasAndProjects.userDatas.stats.appreciations}}</div>
                     </div>
                     <div class="user-stats--followers user-stats">
                         <div class="followers-icon">
                             <img class="followers--icon icons" src="../../images/victor/Followers.png">
                         </div>
                         <div class="followers-title titles">Followers</div>
-                        <div class="followers-stats stats">2375</div>
+                        <div class="followers-stats stats">{{currentPhotographerDatasAndProjects.userDatas.stats.followers}}</div>
                     </div>
                     <div class="user-stats--following user-stats">
                         <div class="following-icon">
                             <img class="following--icon icons" src="../../images/victor/Following.png">
                         </div>
                         <div class="following-title titles">Following</div>
-                        <div class="following-stats stats">109</div>
+                        <div class="following-stats stats">{{currentPhotographerDatasAndProjects.userDatas.stats.following}}</div>
                     </div>
                 </div>
                 <div class="user-details-enternal-links user-details--block">
-                    <div class="social-media-links">
-                        <div class="social-media-links--facebook">
-                            <img class="facebook social-links" src="../../images/victor/facebook.png">
-                        </div>
-                        <div class="social-media-links--instagram">
-                            <img class="twitter social-links" src="../../images/victor/twitter.png">
-                        </div>
-                        <div class="social-media-links--twitter">
-                            <img class="instagram social-links" src="../../images/victor/instagram.png">
+                    <div class="social-media-links" v-if="gettingSpecificSocialMedias" >
+                        <div class="social-media-links--facebook" v-for="individualSocialMediaLinks in currentPhotographerSocailMediaLinks">
+                            <!--<img class="social-links" v-bind:src=require("'../../images/victor/'+ individualSocialMediaLinks.service_name +'.png'")>-->
+                            <img class="social-links" v-bind:src="require('../../images/victor/'+ individualSocialMediaLinks.service_name +'.png')">
                         </div>
                     </div>
                     <div class="link-to-user-behance">
@@ -102,32 +99,70 @@
 <script>
 export default {
     name: 'photographer-profile-detail-page',
-    props:["individualPhotographerUsername"],
+    props: ['individualPhotographerUsername'],
     data() {
         return {
             toPhotographerList: "/photographer-list-page",
-            currentPhotographerProjects: {},
-            currentPhotographerUsername: ""
+            currentPhotographerDatasAndProjects: {
+                userDatas: {},
+                userProjects: {}
+            },
+            currentPhotographerUsername: "",
+            currentPhotographerSocailMediaLinks:[]
         }
     },
 
     methods: {
+        gettingTheCurrentPhotographerdata: function() {
+            this.$http
+                .jsonp(
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                )
+                .then(response => {
+                    this.currentPhotographerDatasAndProjects.userDatas = response.body.user;
+                    console.log(this.currentPhotographerDatasAndProjects);
+                });
+        },
         gettingTheCurrentPhotographerproject: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername +"/projects?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
                 )
                 .then(response => {
-                    this.currentPhotographerProjects = response.body.projects;
-                    console.log(response);
+                    this.currentPhotographerDatasAndProjects.userProjects = response.body.projects;
                 });
-        }
+        },
 
+
+    },
+    computed: {
+        checkCurrentPhotographerDatasAndProjects: function() {
+            return this.currentPhotographerDatasAndProjects.userDatas.id && this.currentPhotographerDatasAndProjects.userProjects.length > -1;
+            this.gettingSpecificSocialMedias();
+        },
+        gettingSpecificSocialMedias: function() {
+            var allUserSocialMedias = this.currentPhotographerDatasAndProjects.userDatas.social_links;
+            var facebookSocialMedia = "Facebook";
+            var twitterSocialMedia = "Twitter";
+            var instagramSocialMedia = "Instagram";
+            for (var i = 0; i < allUserSocialMedias.length; i++) {
+                var eachSocialMedias = allUserSocialMedias[i];
+                console.log(eachSocialMedias.service_name);
+                if(eachSocialMedias.service_name === twitterSocialMedia || eachSocialMedias.service_name === facebookSocialMedia || eachSocialMedias.service_name === instagramSocialMedia){
+                    console.log(eachSocialMedias);
+                    this.currentPhotographerSocailMediaLinks.push(eachSocialMedias);
+                }
+            }
+            console.log(this.currentPhotographerSocailMediaLinks);
+            return this.currentPhotographerSocailMediaLinks;
+        }
     },
     created: function() {
         this.currentPhotographerUsername = this.individualPhotographerUsername;
         console.log(this.currentPhotographerUsername);
+        this.gettingTheCurrentPhotographerdata();
         this.gettingTheCurrentPhotographerproject();
+
     }
 }
 </script>
@@ -146,6 +181,7 @@ h4 {
     font-size: 1.5vw;
     font-weight: bold;
     margin-bottom: 15px;
+    text-transform: capitalize;
 }
 
 p {
@@ -206,16 +242,11 @@ p {
 
 .bottom-intro {
     height: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    text-align: left;
     margin-left: 8%;
 }
 
 .user-profile-image {
-    background-image: url("https://mir-s3-cdn-cf.behance.net/user/138/e24bca2575205.5581363aaf6e1.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
     width: 138px;
     height: 138px;
     margin-right: 65px;
@@ -285,7 +316,7 @@ p {
 }
 
 .appreciations-stats {
-    width: 54%;
+    width: 57%;
 }
 
 .followers-stats {
