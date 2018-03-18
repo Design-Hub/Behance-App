@@ -2,16 +2,16 @@
     <div class="profilePage">
       <p>This is the profile page</p>
       <div class="header">
-      <div class="gd-logo">
+      <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
-      </div>
+      </div></router-link>
       <div class="gd-head">
         <h1>Graphic Design</h1>
       </div>
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <router-link v-bind:to="theHome"><div class="contact">
+      <router-link v-bind:to="GDHome"><div class="contact">
         <a href="/">Back</a>
       </div></router-link>
     </div>
@@ -29,7 +29,9 @@
         <p class="user-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
         <p class="user-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
         <p class="user-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
-        <p class="user-website">{{ designer.website }}</p>
+        <a class="user-behance">{{ designer.url }}</a>
+        <a class="user-website">{{ designer.website }}</a>
+        <div class="user-sociallinks"></div>
       </div>
     </div>
 
@@ -46,7 +48,8 @@ export default {
   props: ['username'],
   data() {
     return {
-      theHome: "/GraphicDesign",
+      GDHome: "/GraphicDesign",
+      Home: "/",
       designers: [],
       designer: ''
       // works: [],
@@ -187,12 +190,12 @@ a:hover {
     text-align: center;
 }
 
-.user-location {
+.user-occupation {
     font-family: 'Anonymous Pro', monospace;
-    font-size: 0.7vw;
+    font-size: 0.8vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     white-space: nowrap;
     color: #191919;
     display: inline-block;
@@ -220,9 +223,19 @@ a:hover {
     /*text-align: center;*/
 }
 
+.user-behance {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.user-website {
+  cursor: pointer;
+}
+
 .profilePage {
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background-color: #252525;
 }
 
@@ -241,6 +254,7 @@ a:hover {
 
 .profiles-container {
   width: 1600px;
+  height: auto;
   margin: 0 auto;
   background-color: #fff;
   display: flex;

@@ -1,9 +1,9 @@
 <template>
   <div class="gd-main">
     <div class="header">
-      <div class="gd-logo">
+      <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
-      </div>
+      </div></router-link>
       <div class="gd-head">
         <h1>Graphic Design</h1>
         <h2>This is a showcase of our amazing designers.<br>Click on a profile to view their work!</h2>
@@ -49,6 +49,7 @@ export default {
   name: 'graphicDesign',
   data() {
     return {
+      Home: "/",
       profilePage: "/profilePage",
       designers: [],
       designer: ''

@@ -27,7 +27,6 @@ import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
 
 import Profile from './components/GraphicDesign-Mike/profile-page-mike'
-=======
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
 import VictorPhotographerProjectDetailPage from './components/Photography-Victor/Photographer-project-detail-page-Victor'
@@ -43,7 +42,7 @@ const routes = [
   { path: '/photography', component: Victor },
   { path: '/contact', component: Contact },
   // { path: '/profilePage', component: Profile },
-  { path: '/graphic-designer/:username', component: Profile, props: true }
+  { path: '/graphic-designer/:username', component: Profile, props: true },
   // {
   //   path: '/admin', component: Admin,
   //   children: [
