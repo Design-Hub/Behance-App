@@ -60,7 +60,7 @@ export default {
   name: "photographer-list-page",
   data() {
     return {
-      toPhotographerProfileDetailPage: "/photographer-profile-detail-page",
+      toPhotographerProfileDetailPage: "/photographer-profile-detail-page/",
       photographers: []
     };
   },
