@@ -17,10 +17,15 @@
     </div>
 
     <div class="profiles-container">
-      <div class="projects-masonry">
-
+      <div class="images-container">
+      <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
+      <!--<div class="projects-masonry">-->
+        <!--<router-link v-bind:to="'graphic-designer/' + designer.username">-->
+          <img class="project-covers" v-bind:src="work.covers[115]">
+          <!--</router-link>-->
+        </div>
       </div>
-
+      
       <div class="user-info" v-for="designer in designers" v-bind:value="designer.user">
         <img class="user-image" v-bind:src="designer.images[276]">
         <h3 class="user-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
@@ -51,11 +56,13 @@ export default {
       GDHome: "/GraphicDesign",
       Home: "/",
       designers: [],
-      designer: ''
-      // works: [],
-      // work: ''
+      designer: '',
+      works: [],
+      work: ''
     }
   },
+
+// FUNCTION TO GET USER INFO //
 
   methods: {
     userProfile: function(username) {
@@ -65,27 +72,33 @@ export default {
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
-    //  userProjects: function() {
-    // this.$http.jsonp('https://api.behance.net/v2/users/adobedesignjimoto/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-    //     .then(response => {
-    //       console.log('ok')
-    //       this.works.push(response.body.user);
-    //       console.log(this.works)
-    //     });
-  
+    },
+
+// FUNCTION TO GET USER PROFILE IMAGES //
+
+     userProjects: function(username) {
+    this.$http.jsonp('https://api.behance.net/v2/users/'+username+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('project')
+          this.works=response.body.projects;
+          console.log(this.works)
+        });
+     }
 },
-  },
-    created: function() {
+  // },
+    created: 
+    function() {
       // console.log(this.username)
     this.userProfile(this.username);
+    this.userProjects(this.username);
   },
-
-  // created: function() {
-
-  // this.userProjects();
+  //   function() {
+  //   console.log("work" + this.works);
+  // this.userProjects(this.username);
   //   }
 
 }
+
 </script>
 
 <style scoped>
@@ -239,17 +252,16 @@ a:hover {
   background-color: #252525;
 }
 
-.projects-container {
+/*.projects-container {
   width: 20vw;
   height: auto;
   border-left-style: solid;
   border-width: 1px;
   border-color: #000;
-}
+}*/
 
 .projects-masonry {
-  width: 80vw;
-  height: auto;
+  
 }
 
 .profiles-container {
@@ -258,6 +270,8 @@ a:hover {
   margin: 0 auto;
   background-color: #fff;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .user-info {
@@ -268,5 +282,18 @@ a:hover {
   border-color: #000;
   display: flex;
   flex-direction: column;
+}
+
+.project-covers {
+  /*padding: 0 4px;
+  flex-wrap: wrap;*/
+  /*max-width: 100%;*/
+}
+
+.images-container {
+  width: 60vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

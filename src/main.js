@@ -11,6 +11,11 @@ import VueResource from 'vue-resource'
 //import the App component
 import App from './App'
 
+//import Vue Masonry
+import VueMasonry from 'vue-masonry-css'
+
+Vue.use(VueMasonry);
+
 //tell Vue to use the router
 Vue.use(VueRouter)
 //tell Vue to use the resource
@@ -30,7 +35,6 @@ import Profile from './components/GraphicDesign-Mike/profile-page-mike'
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
 import VictorPhotographerProjectDetailPage from './components/Photography-Victor/Photographer-project-detail-page-Victor'
-
 
 const routes = [
   { path: '/', component: Home },
