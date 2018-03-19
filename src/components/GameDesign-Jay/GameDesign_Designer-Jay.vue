@@ -230,24 +230,19 @@ table {
   border-collapse: collapse;
   border-spacing: 0
 }
-
-
-
-
+*{
+  box-sizing:border-box;
+}
 
 /*CONTAINER*/
 
 .container {
   /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
   width: 100vw;
-  height: 100vh;
+  height: 100vw;
   background-size: 100%;
   background-color: black;
 }
-
-
-
-
 
 /*HEADER*/
 
@@ -282,10 +277,6 @@ a:hover {
   text-decoration: none;
 }
 
-
-
-
-
 /*BACK button*/
 
 .back-button {
@@ -299,14 +290,10 @@ a:hover {
   font-size: 1.5vw;
 }
 
-
-
-
-
 /*DESIGNER*/
 
 .selected-designer-info {
-    margin-top: 300%;
+    margin-top: 240%;
 }
 
 .selected-designer {
@@ -325,20 +312,18 @@ a:hover {
   height: 400px;
 }
 
-
-
 /*PROJECTS*/
 
 .designer-project-list {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
   font-family: 'Anonymous Pro', monospace;
   color: white;
   font-size: 20px;
-  top: 20%;
-  left: 40%;
+  top: 40%;
+  left: 30%;
   position: absolute;
-  width: 60vw;
-  height: 70vh;
+  height: 60vw;
 }
 </style>

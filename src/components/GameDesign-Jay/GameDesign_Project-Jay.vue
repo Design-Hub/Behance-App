@@ -20,26 +20,31 @@
     </div>
 
     <!--Designer details-->
-    <!--<div class="selected-designer">
-          <div class="selected-designer-info">
-
-          </div>
-          <div class="selected-designer-character">
-            <img src="">
-          </div>
-        </div>-->
+    <div class="selected-designer" v-for="info in selectedProject.owners">
+      <div class="selected-designer-info">
+        {{ info.display_name }}
+      </div>
+      <div class="selected-designer-character" v-bind="getCharacterImage(info)">
+        <img v-bind:src="featuredDesigner.characterImage">
+      </div>
+    </div>
 
     <!-- Selected Project details-->
     <div class="selected-project">
       <h1> {{ selectedProject.name }} </h1>
       <div> {{ selectedProject.description }} </div>
+      <br/>
       <div class="projectStats">
         <div><img src="../../images/jay/behanceViewsIcon.png"> {{ selectedProject.stats.views}} </div>
         <div><img src="../../images/jay/behanceLikesIcon.png"> {{ selectedProject.stats.appreciations }} </div>
         <div><img src="../../images/jay/behanceCommentsIcon.png"> {{ selectedProject.stats.comments}} </div>
       </div>
 
-      <!--<div> {{ selectedProject.modules }} </div>-->
+      <div v-for="module in selectedProject.modules">
+        <br/>
+        <h2>{{ module.text_plain }}</h2>
+        <img v-bind:src="module.src">
+      </div>
     </div>
 
   </div>
@@ -51,7 +56,29 @@ export default {
   props: ['selectedProjectID'],
   data() {
     return {
+      designers: [
+        {
+          webID: "ducnguyenmai",
+          id: 14056285,
+          characterImage: require('../../images/jay/jamesGordon.png'),
+          fullName: 'Dustin Nguyen',
+        },
+        {
+          webID: "atokaruk",
+          id: 3949737,
+          characterImage: require('../../images/jay/lisaSmith.png'),
+          fullName: 'Alexandra Tokaryuk'
+        },
+        {
+          webID: "Aleksey_Bazik",
+          id: 9876953,
+          characterImage: require('../../images/jay/derekShephard.png'),
+          fullName: 'Aleksey Bazik'
+        }
+      ],
+
       selectedProject: [],
+      featuredDesigner: ''
     }
   },
 
@@ -61,6 +88,16 @@ export default {
     this.$http.jsonp('https://api.behance.net/v2/projects/' + this.selectedProjectID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
       this.selectedProject = response.body.project;
     });
+  },
+
+  methods: {
+    getCharacterImage: function(info) {
+      for (var i = 0; i < this.designers.length; i++) {
+        if (info.display_name == this.designers[i].fullName) {
+          this.featuredDesigner = this.designers[i];
+        }
+      }
+    }
   }
 
 }
@@ -200,14 +237,6 @@ table {
   border-spacing: 0
 }
 
-
-
-
-
-
-
-
-
 /*CONTAINER*/
 
 .container {
@@ -215,6 +244,8 @@ table {
   width: 100vw;
   height: 100vh;
   background-size: 100%;
+  overflow-x: hidden;
+  /*overflow: scroll;*/
 
   background-color: black;
   position: fixed;
@@ -222,13 +253,6 @@ table {
   left: 0;
   transform: translate3d(0, 0, 0);
 }
-
-
-
-
-
-
-
 
 /*HEADER*/
 
@@ -263,9 +287,6 @@ a:hover {
   text-decoration: none;
 }
 
-
-
-
 /*BACK button*/
 
 .back-button {
@@ -279,12 +300,63 @@ a:hover {
   font-size: 1.5vw;
 }
 
+/*DESIGNER*/
+
+.selected-designer {
+  position: absolute;
+  margin-left: 5%;
+  color: white;
+  font-size: 25px;
+  font-family: 'Anonymous Pro', monospace;
+}
+
+.selected-designer .selected-designer-info {
+  margin-top: 250%;
+}
+
+.selected-designer .selected-designer-character {
+  margin-top: 30%;
+}
+
+.selected-designer-character img {
+  height: 400px;
+}
 
 /*PROJECT*/
 
 .selected-project {
+  position: absolute;
+  top: 40%;
+  left: 35%;
   font-family: 'Anonymous Pro', monospace;
   color: white;
   font-size: 20px;
+
+  overflow: auto;
+  overflow-x: hidden;
+  height: 670px;
+  width: 1000px;
+}
+
+.selected-project::-webkit-scrollbar{
+  display: none;
+}
+
+.selected-project h1 {
+  font-size: 40px;
+}
+
+.projectStats {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.projectStats div {
+  padding-right: 30px;
+}
+
+.projectStats img {
+  width: 50px;
 }
 </style>
