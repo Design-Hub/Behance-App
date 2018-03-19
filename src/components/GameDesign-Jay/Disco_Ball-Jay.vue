@@ -1,24 +1,24 @@
 <template>
     <div>
-        <div class="discoBallLight"></div>
-        <div class="discoBall">
-            <div class="discoBallMiddle"></div>
+        <!-- <div id="discoBallLight"></div> -->
+        <div class="gameDesignDiscoBall" :id="discoBall">
+            <div id="discoBallMiddle"></div>
         </div>
-        <div class="light"></div>
+        <!-- <div class="light"></div> -->
     </div>
 </template>
 
 <script>
 export default {
     name: 'gameDesignDiscoBall',
+    // props: ['name'],
 
     data() {
         return {
-            // discoBall: ''
-            discoBall:this.querySelector(".discoBall")
+            discoBall: this.name + "-ball",
         }
     },
-    created: function() {
+    mounted: function() {
         // discoball from https://codepen.io/msaetre/pen/fDuzC
         var t = 1;
         var radius = 50;
@@ -26,7 +26,7 @@ export default {
         var prec = 19.55;
         var fuzzy = 0.001;
         var inc = (Math.PI - fuzzy) / prec;
-        // var discoBall = document.querySelector(".discoBall");
+        const discoBallElement = document.getElementById(this.discoBall);
 
         for (var t = fuzzy; t < Math.PI; t += inc) {
             var z = radius * Math.cos(t);
@@ -59,7 +59,7 @@ export default {
                 var y = radius * Math.sin(i) * Math.sin(t);
                 square.style.webkitTransform = "translateX(" + Math.ceil(x) + "px) translateY(" + y + "px) translateZ(" + z + "px)";
                 square.style.transform = "translateX(" + x + "px) translateY(" + y + "px) translateZ(" + z + "px)";
-                this.discoBall.appendChild(square);
+                discoBallElement.appendChild(square);
             }
         }
     },
@@ -152,7 +152,7 @@ export default {
     }
 }
 
-.discoBall {
+#discoBall {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     width: 100px;
@@ -166,7 +166,7 @@ export default {
     color: #fff;
 }
 
-.discoBallLight {
+#discoBallLight {
     width: 100px;
     height: 100px;
     position: absolute;
@@ -191,7 +191,7 @@ export default {
     transform: rotateX(90deg) rotateY(0deg) translateZ(0px);
 }
 
-.discoBallMiddle {
+.gameDesignDiscoBall #discoBallMiddle {
     height: 100%;
     border-radius: 100%;
     background-color: #111;
@@ -203,7 +203,7 @@ export default {
     animation: rotateDiscoBallMiddle 18s linear infinite;
 }
 
-.light {
+/* .light {
     width: 10px;
     height: 10px;
     color: #ebf2dd;
@@ -211,5 +211,5 @@ export default {
     border-radius: 50%;
     box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor,
     0 0 25px currentColor, 0 0 35px currentColor, 0 0 65px currentColor;
-}
+} */
 </style>
