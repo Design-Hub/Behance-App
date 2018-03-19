@@ -6,7 +6,7 @@
       </div>
       <div class="photographer-list">
         <router-link v-if="checkPhotographersDatas" v-bind:to="toPhotographerProfileDetailPage + photographer.username" v-for="photographer in photographers" >
-          <div class="photographer-list-info" v-on:click="gettingTheClickedUserData(photographer)">
+          <div class="photographer-list-info">
             <div class="photographer-list-info--user-photo">
               <div class="user-photo">
                 <img class="photographer-user-photo" v-bind:src="photographer.images[138]">
@@ -66,25 +66,33 @@ export default {
   },
   methods: {
     getUserDatasFromBehance: function() {
+      // this.$http
+      //   .jsonp(
+      //   "https://api.behance.net/v2/users/almefer?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+      //   )
+      //   .then(response => {
+      //     this.photographers.push(response.body.user);
+      //   });
+
+      // this.$http
+      //   .jsonp(
+      //   "https://api.behance.net/v2/users/SkandaCreations?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+      //   )
+      //   .then(response => {
+      //     this.photographers.push(response.body.user);
+      //   });
+
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/scott-council?api_key=Z00hLm1QYtia92eXYAWZF1Zfy8yla1T2"
+        "https://api.behance.net/v2/users/sapolendario?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
         )
         .then(response => {
           this.photographers.push(response.body.user);
         });
 
-      this.$http
-        .jsonp(
-        "https://api.behance.net/v2/users/SkandaCreations?api_key=Z00hLm1QYtia92eXYAWZF1Zfy8yla1T2"
-        )
-        .then(response => {
-          this.photographers.push(response.body.user);
-        });
-
       // this.$http
       //   .jsonp(
-      //   "https://api.behance.net/v2/users/marekwurfl?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+      //   "https://api.behance.net/v2/users/CCLORd389?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
       //   )
       //   .then(response => {
       //     this.photographers.push(response.body.user);
@@ -92,29 +100,17 @@ export default {
 
       // this.$http
       //   .jsonp(
-      //   "https://api.behance.net/v2/users/CCLORd389?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+      //   "https://api.behance.net/v2/users/shivanetua?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
       //   )
       //   .then(response => {
       //     this.photographers.push(response.body.user);
       //   });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/kristinavaraksina?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
-      //   )
-      //   .then(response => {
-      //     this.photographers.push(response.body.user);
-      //   });
-
-    },
-    gettingTheClickedUserData: function(photographer) {
-      this.$parent.$emit("individualPhotographerDetails", photographer);
-      console.log(photographer);
     }
   },
   computed: {
     checkPhotographersDatas: function() {
-      return this.photographers.length === 2;
+      return this.photographers.length === 1;
     }
 
   },

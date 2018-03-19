@@ -1,6 +1,6 @@
 <template>
     <div class="photographer-project-detail-page">
-        <div class="main-container">
+        <div class="main-container" v-if="checkingProjectDetailsAreBack">
             <div class="top-nav">
                 <div class="top-nav--back-button">
                     <router-link v-bind:to="toPhotographerList"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
@@ -10,9 +10,11 @@
                 <div class="user-details--intro user-details--block">
                     <div class="top-intro">
                         <div class="user-name-company">
-                            <h4>Joe Moore</h4>
+                            <h4>{{photographerDetails.first_name}}{{photographerDetails.last_name}}</h4>
                         </div>
-                        <div class="user-profile-image"></div>
+                        <div class="user-profile-image">
+                            <img v-bind:src="photographerDetails.images[138]">
+                        </div>
                         <div class="user-company">
                             <p>Photographer,</p>
                             <p>Design hub</p>
@@ -22,9 +24,11 @@
                 </div>
                 <div class="user-details--project-details user-details--block">
                     <div class="project-details">
-                        <div class="project-name">The polaris Project</div>
-                        <div class="project-focus">Photography, Digital Photography, Retouching</div>
-                        <div class="project-published-date">March 12, 2018</div>
+                        <div class="project-name">{{photographerProjectDetails.name}}</div>
+                        <div class="project-focus">
+                            <span v-for="currentPhotographerFields in photographerProjectDetails.fields">{{currentPhotographerFields}}, </span>
+                        </div>
+                        <div class="project-published-date" data-timestamp="1510511685">{{photographerProjectDetails.published_on}}</div>
                         <div class="project-view-project-appreciations">
                             <div class="project-view">
                                 <div class="project-view-icons">
@@ -42,18 +46,18 @@
                     </div>
                 </div>
                 <div class="user-details--stats user-details--block">
-                    
+
                 </div>
                 <div class="user-details-enternal-links user-details--block">
                     <div class="social-media-links">
                         <div class="social-media-links--facebook">
-                            <img class="facebook social-links" src="../../images/victor/facebook.png">
+                            <img class="facebook social-links" src="../../images/victor/Facebook.png">
                         </div>
                         <div class="social-media-links--instagram">
-                            <img class="twitter social-links" src="../../images/victor/twitter.png">
+                            <img class="twitter social-links" src="../../images/victor/Twitter.png">
                         </div>
                         <div class="social-media-links--twitter">
-                            <img class="instagram social-links" src="../../images/victor/instagram.png">
+                            <img class="instagram social-links" src="../../images/victor/Instagram.png">
                         </div>
                     </div>
                     <div class="link-to-user-behance">
@@ -62,6 +66,11 @@
                 </div>
             </div>
             <div class="user-projects">
+                <div class="user-projects-main-container">
+                    <div class="user-projects--projects" v-for="individualProjectImages in photographerProjectDetails.modules">
+                        <img class="user-projects--projects-image" v-bind:src="individualProjectImages.src">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -70,13 +79,51 @@
 <script>
 export default {
   name: "photographer-project-detail-page",
+  props: ["individualPhotographerUserId", "individualPhotographerProject"],
   data() {
     return {
-      toPhotographerList: "/photographer-list-page"
+      toPhotographerList: "/photographer-list-page",
+      individualPhotographerProjectId: "",
+      photographerProjectDetails: {},
+      photographerIdUserName: "",
+      photographerDetails: {}
     };
   },
 
-  methods: {}
+  methods: {
+    gettingSpecificProjectAndUser: function() {
+      this.$http
+        .jsonp(
+          "http://www.behance.net/v2/projects/" +
+            this.individualPhotographerProjectId +
+            "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        )
+        .then(response => {
+          this.photographerProjectDetails = response.body.project;
+          console.log(this.photographerProjectDetails);
+        });
+      this.$http
+        .jsonp(
+          "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+        )
+        .then(response => {
+          this.photographerDetails = response.body.user;
+          console.log(this.photographerDetails);
+        });
+    }
+  },
+  computed: {
+    checkingProjectDetailsAreBack: function() {
+      return this.photographerProjectDetails.id;
+    }
+  },
+  created: function() {
+    this.individualPhotographerProjectId = this.individualPhotographerProject;
+    this.photographerIdUserName = this.individualPhotographerUserId;
+    this.gettingSpecificProjectAndUser();
+    console.log(this.individualPhotographerProjectId);
+    console.log(this.photographerIdUserName);
+  }
 };
 </script>
 
@@ -89,6 +136,7 @@ export default {
   user-select: none;
   font-family: "Open Sans", sans-serif;
 }
+
 h4 {
   font-size: 1.5vw;
   font-weight: bold;
@@ -117,9 +165,11 @@ p {
   border-right: none;
   border-top: none;
 }
+
 .top-nav--back-button {
   width: 5%;
 }
+
 .back-button {
   width: 3vw;
   display: flex;
@@ -163,63 +213,58 @@ p {
   display: flex;
 }
 
-.project-details{
-    width:80%;
-    height:100%;
-    text-align: left;
-    margin:auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.project-details {
+  width: 80%;
+  height: 100%;
+  text-align: left;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.project-name{
-    font-size:1.5vw;
-    font-weight: bold;
+.project-name {
+  font-size: 1.5vw;
+  font-weight: bold;
 }
 
-.project-focus{
-    font-size:0.8vw;
-    font-weight: bold;
-    margin:20px 0;
+.project-focus {
+  font-size: 0.8vw;
+  font-weight: bold;
+  margin: 20px 0;
 }
 
-.project-published-date{
-    font-size:0.7vw;
-    font-weight: bold;
+.project-published-date {
+  font-size: 0.7vw;
+  font-weight: bold;
 }
 
-.project-view-project-appreciations{
-    display: flex;
-    width:100%;
-    align-items: center;
-    margin-top:30px;
-
+.project-view-project-appreciations {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.icons{
-    width:1.7vw;
-    margin-right: 20px;
-}
-.project-view{
-    display: flex;
-    margin-right:100px;
-}
-.project-appreciations{
-    display:flex;
-    align-items: center;
-    
+.icons {
+  width: 1.7vw;
+  margin-right: 20px;
 }
 
-.results{
-    font-size: 0.9vw;
-    font-weight: bold;
+.project-view {
+  display: flex;
+  margin-right: 100px;
 }
 
+.project-appreciations {
+  display: flex;
+  align-items: center;
+}
 
-
-
-
+.results {
+  font-size: 0.9vw;
+  font-weight: bold;
+}
 
 .social-media-links {
   width: 100%;

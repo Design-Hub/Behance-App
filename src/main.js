@@ -35,7 +35,7 @@ const routes = [
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/photographer-profile-detail-page/:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
-  { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
+  { path: '/photographer-project-detail-page/:individualPhotographerUserId/:individualPhotographerProject', component: VictorPhotographerProjectDetailPage, props: true},
   { path: '/contact', component: Contact }
 
 ];
