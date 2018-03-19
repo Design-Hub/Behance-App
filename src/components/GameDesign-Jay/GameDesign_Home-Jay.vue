@@ -10,6 +10,9 @@
       </div>
     </div>
 
+    <!-- Disco Ball -->
+    <Disco-Ball></Disco-Ball>
+
     <!--Page intro-->
     <div class="page-intro">
       <h1>We are game if you are!</h1>
@@ -31,6 +34,7 @@
 </template>
 
 <script>
+import DiscoBall from './Disco_Ball-Jay'
 export default {
   name: 'gameDesignHome',
 
@@ -59,8 +63,12 @@ export default {
 
       behanceDesignerInfo: [],
       selectedDesigner: '',
-      selectedDesignerID:''
+      selectedDesignerID: ''
     }
+  },
+
+  components: {
+    DiscoBall
   },
 
   created: function() {
@@ -221,14 +229,6 @@ table {
 }
 
 
-
-
-
-
-
-
-
-
 /*CONTAINER*/
 
 .container {
@@ -238,13 +238,6 @@ table {
   background-size: 100%;
   background-color: black;
 }
-
-
-
-
-
-
-
 
 
 
@@ -283,13 +276,6 @@ a:hover {
 
 
 
-
-
-
-
-
-
-
 /*PAGE INTRO*/
 
 .page-intro {
@@ -307,13 +293,6 @@ a:hover {
 .page-intro p {
   font-size: 25px;
 }
-
-
-
-
-
-
-
 
 
 
