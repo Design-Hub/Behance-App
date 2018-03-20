@@ -1,41 +1,49 @@
 <template>
-  <div class="container">
+  <div>
 
-    <!--Header -->
-    <div class="header">
-      <div class="logo">
-        <a href="/"><img src="../../images/logoWhite.png"></a>
-      </div>
-      <div class="contact">
-        <a href="/contact">CONTACT</a>
-      </div>
-    </div>
+    <!-- Disco background-->
+    <iframe class="disco-background" v-bind:src="discoBackground_iframeURL"> </iframe>
 
-    <!--Back button-->
-    <div class="back-button">
-      <a href="/game-design-home">
-        <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
-      </a>
-    </div>
-
-    <!--Designer details-->
-    <div class="selected-designer">
-      <div class="selected-designer-info">
-        {{ featuredDesigner.fullName}}
+    <div class="container">
+      <!--Header -->
+      <div class="header">
+        <div class="logo">
+          <a href="/"><img src="../../images/logoWhite.png"></a>
+        </div>
+        <div class="contact">
+          <a href="/contact">CONTACT</a>
+        </div>
       </div>
-      <div class="selected-designer-character">
-        <img v-bind:src="featuredDesigner.characterImage">
-      </div>
-    </div>
 
-    <!--Designer's list of projects-->
-    <div class="designer-project-list">
-      <div v-for="project in projects">
-        <router-link v-bind:to="'/game-design-projects/' + project.id">
-        <h1>{{ project.name }}</h1>
-        <img v-bind:src="project.covers[202]">
-               </router-link>
+      <!-- Disco Ball-->
+      <iframe v-bind:src="discoBall_iframeURL"></iframe>
+
+      <!--Back button-->
+      <div class="back-button">
+        <a href="/game-design-home">
+          <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+        </a>
+      </div>
+
+      <!--Designer details-->
+      <div class="selected-designer">
+        <div class="selected-designer-info">
+          {{ featuredDesigner.fullName}}
+        </div>
+        <div class="selected-designer-character">
+          <img v-bind:src="featuredDesigner.characterImage">
+        </div>
+      </div>
+
+      <!--Designer's list of projects-->
+      <div class="designer-project-list">
+        <div v-for="project in projects">
+          <router-link v-bind:to="'/game-design-projects/' + project.id">
+            <h1>{{ project.name }}</h1>
+            <img v-bind:src="project.covers[202]">
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -48,6 +56,8 @@ export default {
   props: ['selectedDesignerID'],
   data() {
     return {
+      discoBall_iframeURL: 'https://jayabey.github.io/projects/DiscoBall/index.html',
+      discoBackground_iframeURL: 'https://jayabey.github.io/projects/DiscoBackground/',
       designers: [
         {
           webID: "ducnguyenmai",
@@ -230,19 +240,34 @@ table {
   border-collapse: collapse;
   border-spacing: 0
 }
-*{
-  box-sizing:border-box;
+
+* {
+  box-sizing: border-box;
 }
+
+
+/*DISCO BACKGROUND*/
+
+.disco-background {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 
 /*CONTAINER*/
 
 .container {
-  /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
+  /*overflow: scroll;*/
+  z-index: 999;
+  position: absolute;
   width: 100vw;
-  height: 100vw;
-  background-size: 100%;
-  background-color: black;
+  height: 100vh;
 }
+
+
 
 /*HEADER*/
 
@@ -270,19 +295,21 @@ table {
 }
 
 a {
-  color: #fff;
+  color: white;
 }
 
 a:hover {
   text-decoration: none;
 }
 
+
+
 /*BACK button*/
 
 .back-button {
   position: absolute;
-  left: 12%;
-  margin-top: 17%;
+  left: 20%;
+  margin-top: 6%;
   font-size: 1vw;
 }
 
@@ -290,10 +317,12 @@ a:hover {
   font-size: 1.5vw;
 }
 
+
+
 /*DESIGNER*/
 
 .selected-designer-info {
-    margin-top: 240%;
+  margin-top: 90%;
 }
 
 .selected-designer {
@@ -312,6 +341,8 @@ a:hover {
   height: 400px;
 }
 
+
+
 /*PROJECTS*/
 
 .designer-project-list {
@@ -321,9 +352,9 @@ a:hover {
   font-family: 'Anonymous Pro', monospace;
   color: white;
   font-size: 20px;
-  top: 40%;
-  left: 30%;
+  top: 35%;
+  left: 25%;
   position: absolute;
-  height: 60vw;
+  height: 40vw;
 }
 </style>
