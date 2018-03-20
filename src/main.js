@@ -30,7 +30,7 @@ import GameDesignProjects from './components/GameDesign-Jay/GameDesign_Project-J
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
-import Project from './components/profile-page-mike/project-page-mike'
+import Project from './components/GraphicDesign-Mike/project-page-mike'
 import Profile from './components/GraphicDesign-Mike/profile-page-mike'
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
@@ -45,7 +45,7 @@ const routes = [
 
   { path: '/photography', component: Victor },
   { path: '/contact', component: Contact },
-  { path: '/project-details/userproject', component: Project, props: true },
+  { path: '/project-details/:id', component: Project, props: true },
   { path: '/graphic-designer/:username', component: Profile, props: true },
   // {
   //   path: '/admin', component: Admin,

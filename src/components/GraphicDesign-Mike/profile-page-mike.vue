@@ -23,9 +23,9 @@
           :gutter="{default: '15px', 700: '15px'}"
           >
           <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
-
+            <router-link v-bind:to="'project-details/' + work.id">
             <img class="project-covers" v-bind:src="work.covers[404]">
-          
+            </router-link>
           </div>
           
         </masonry>
