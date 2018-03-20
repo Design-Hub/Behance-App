@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="logo">
-        <img src="../../images/logoWhite.png">
+        <a href="/"><img src="../../images/logoWhite.png"></a>
       </div>
       <div class="contact">
         <a href="/contact">CONTACT</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="gameDesign line-two line">
         <h1>
-          <a href="/gameDesign">Game Design</a>
+          <a href="/game-design-home">Game Design</a>
         </h1>
       </div>
       <div class="graphicDesign line-three line">
@@ -44,7 +44,11 @@ export default {
     }
   },
   methods: {
-  }
+  },
+created: function() {
+  
+    console.log('homne')
+  },
 
 }
 </script>

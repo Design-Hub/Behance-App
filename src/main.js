@@ -7,7 +7,7 @@ import VueRouter from 'vue-router'
 //import the vue resorce
 import VueResource from 'vue-resource'
 //import the vuefire
-import VueFire from 'vuefire'
+// import VueFire from 'vuefire'
 //import the App component
 import App from './App'
 // import the moment plugin
@@ -17,30 +17,55 @@ import moment from 'moment'
 Vue.use(VueRouter)
 //tell Vue to use the resource
 Vue.use(VueResource)
-//tell vue to use the vuefire
-Vue.use(VueFire)
 //tell vue to use the moment
 Vue.use(moment)
 
 //import components
 import Home from './components/Home/Home'
-import Jay from './components/GameDesign-Jay/GameDesign-Jay'
+import GameDesignHome from './components/GameDesign-Jay/GameDesign_Home-Jay'
+import GameDesignDesigner from './components/GameDesign-Jay/GameDesign_Designer-Jay'
+import GameDesignProjects from './components/GameDesign-Jay/GameDesign_Project-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
 import Victor from './components/Photography-Victor/Photography-Victor'
 import Contact from './components/Contact/Contact'
+
+import Profile from './components/GraphicDesign-Mike/profile-page-mike'
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
 import VictorPhotographerProjectDetailPage from './components/Photography-Victor/Photographer-project-detail-page-Victor'
 
+
 const routes = [
   { path: '/', component: Home },
-  { path: '/gameDesign', component: Jay },
+  { path: '/game-design-home', component: GameDesignHome },
+  { path: '/game-design-designer/:selectedDesignerID', component: GameDesignDesigner, props:true },
+  { path: '/game-design-projects/:selectedProjectID', component: GameDesignProjects, props:true },
   { path: '/graphicDesign', component: Mike },
+
+  { path: '/photography', component: Victor },
+  { path: '/contact', component: Contact },
+  // { path: '/profilePage', component: Profile },
+  { path: '/graphic-designer/:username', component: Profile, props: true },
+  // {
+  //   path: '/admin', component: Admin,
+  //   children: [
+  //     {
+  //       path: '/',
+  //       component: Posts
+  //     },
+  //     {
+  //       path: 'comments',
+  //       component: Comments
+  //     }
+  //   ]
+  // }
+
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/photographer-profile-detail-page/:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
   { path: '/photographer-project-detail-page/:individualPhotographerUserId/:individualPhotographerProject', component: VictorPhotographerProjectDetailPage, props: true},
   { path: '/contact', component: Contact }
+
 
 ];
 
