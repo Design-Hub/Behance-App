@@ -10,7 +10,7 @@
                 <div class="user-details--intro user-details--block">
                     <div class="top-intro">
                         <div class="user-profile-image">
-                            <img class="user-image" v-bind:src="currentPhotographerDatasAndProjects.userDatas.images[276]">
+                            <img class="user-image" v-bind:src="currentPhotographerDatasAndProjects.userDatas.images[138]">
                         </div>
                         <div class="user-name-company">
                             <h4>{{currentPhotographerDatasAndProjects.userDatas.first_name}} {{currentPhotographerDatasAndProjects.userDatas.last_name}}</h4>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="user-details--about-me user-details--block">
                     <div class="about-me-title">About me</div>
-                    <div class="about-me-paragraph">{{currentPhotographerDatasAndProjects.userDatas.sections["Mission Statement"]}}</div>
+                    <div class="about-me-paragraph">{{currentPhotographerDatasAndProjects.userDatas.sections["About Me"]}}</div>
                 </div>
                 <div class="user-details--stats user-details--block">
                     <div class="user-stats--project-views user-stats">
@@ -58,38 +58,43 @@
                     </div>
                 </div>
                 <div class="user-details-enternal-links user-details--block">
-                    <div class="social-media-links" v-if="gettingSpecificSocialMedias" >
-                        <div class="social-media-links--facebook" v-for="individualSocialMediaLinks in currentPhotographerSocailMediaLinks">
-                            <!--<img class="social-links" v-bind:src=require("'../../images/victor/'+ individualSocialMediaLinks.service_name +'.png'")>-->
-                            <img class="social-links" v-bind:src="require('../../images/victor/'+ individualSocialMediaLinks.service_name +'.png')">
+                    <div class="social-media-links" v-if="gettingSpecificSocialMedias">
+                        <div class="social-media-links--links" v-for="individualSocialMediaLinks in currentPhotographerSocailMediaLinks">
+                            <a v-bind:href="individualSocialMediaLinks.url"><img class="social-links" v-bind:src="require('../../images/victor/'+ individualSocialMediaLinks.service_name +'.png')"></a>
                         </div>
                     </div>
                     <div class="link-to-user-behance">
-                        <h5>Link to my Behance!</h5>
+                        <a v-bind:href="currentPhotographerDatasAndProjects.userDatas.url">
+                            <h5>Link to my Behance!</h5>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="user-projects">
-                <div class="user-projects--project">
-                    <div class="project-image"></div>
-                    <div class="project-info">
-                        <div class="project-info--title">Star Wars</div>
-                        <div class="project-info--user-name">Joe Moore</div>
-                        <div class="up-project-info--project-stats">
-                            <div class="up-project-views-stats">
-                                <div class="project-views-stats--icon">
-                                    <img class="project-views-stats--icon up-icons" src="../../images/victor/Project-views.png">
+                <div class="user-projects--project" v-for="individualUserProject in currentPhotographerDatasAndProjects.userProjects">
+                    <router-link v-bind:to="toPhotographerProjectDetailPage + currentPhotographerDatasAndProjects.userDatas.username + '/' + individualUserProject.id">
+                        <div class="project-image">
+                            <img class="user-project-image" v-bind:src="individualUserProject.covers[404]">
+                        </div>
+                        <div class="project-info">
+                            <div class="project-info--title">{{individualUserProject.name}}</div>
+                            <div class="project-info--user-name">{{currentPhotographerDatasAndProjects.userDatas.first_name}} {{currentPhotographerDatasAndProjects.userDatas.last_name}}</div>
+                            <div class="up-project-info--project-stats">
+                                <div class="up-project-views-stats">
+                                    <div class="project-views-stats--icon">
+                                        <img class="project-views-stats--icon up-icons" src="../../images/victor/Project-views.png">
+                                    </div>
+                                    <div class="project-views-stats--results results">{{individualUserProject.stats.views}}</div>
                                 </div>
-                                <div class="project-views-stats--results results">3695</div>
-                            </div>
-                            <div class="up-project-appreciations">
-                                <div class="project-appreciations--icon">
-                                    <img class="appreciations--stats up-icons" src="../../images/victor/Appreciations.png">
+                                <div class="up-project-appreciations">
+                                    <div class="project-appreciations--icon">
+                                        <img class="appreciations--stats up-icons" src="../../images/victor/Appreciations.png">
+                                    </div>
+                                    <div class="project-appreciations--results results">{{individualUserProject.stats.appreciations}}</div>
                                 </div>
-                                <div class="project-appreciations--results results">539</div>
                             </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -103,12 +108,13 @@ export default {
     data() {
         return {
             toPhotographerList: "/photographer-list-page",
+            toPhotographerProjectDetailPage: "/photographer-project-detail-page/",
             currentPhotographerDatasAndProjects: {
                 userDatas: {},
                 userProjects: {}
             },
             currentPhotographerUsername: "",
-            currentPhotographerSocailMediaLinks:[]
+            currentPhotographerSocailMediaLinks: []
         }
     },
 
@@ -116,17 +122,16 @@ export default {
         gettingTheCurrentPhotographerdata: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
                 )
                 .then(response => {
                     this.currentPhotographerDatasAndProjects.userDatas = response.body.user;
-                    console.log(this.currentPhotographerDatasAndProjects);
                 });
         },
         gettingTheCurrentPhotographerproject: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
                 )
                 .then(response => {
                     this.currentPhotographerDatasAndProjects.userProjects = response.body.projects;
@@ -147,21 +152,18 @@ export default {
             var instagramSocialMedia = "Instagram";
             for (var i = 0; i < allUserSocialMedias.length; i++) {
                 var eachSocialMedias = allUserSocialMedias[i];
-                console.log(eachSocialMedias.service_name);
-                if(eachSocialMedias.service_name === twitterSocialMedia || eachSocialMedias.service_name === facebookSocialMedia || eachSocialMedias.service_name === instagramSocialMedia){
-                    console.log(eachSocialMedias);
+                if (eachSocialMedias.service_name === twitterSocialMedia || eachSocialMedias.service_name === facebookSocialMedia || eachSocialMedias.service_name === instagramSocialMedia) {
                     this.currentPhotographerSocailMediaLinks.push(eachSocialMedias);
                 }
             }
-            console.log(this.currentPhotographerSocailMediaLinks);
             return this.currentPhotographerSocailMediaLinks;
         }
     },
     created: function() {
         this.currentPhotographerUsername = this.individualPhotographerUsername;
-        console.log(this.currentPhotographerUsername);
         this.gettingTheCurrentPhotographerdata();
         this.gettingTheCurrentPhotographerproject();
+        console.log(this.currentPhotographerDatasAndProjects)
 
     }
 }
@@ -169,12 +171,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+::-webkit-scrollbar {
+    display: none;
+}
+
 * {
     margin: 0;
     padding: 0;
     color: #e5e5e5;
     user-select: none;
     font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
 }
 
 h4 {
@@ -240,6 +250,10 @@ p {
     align-items: center;
 }
 
+.user-image{
+    margin-left:38px;
+}
+
 .bottom-intro {
     height: 25%;
     text-align: left;
@@ -274,7 +288,9 @@ p {
     border: 2px solid #63A476;
     height: 31%;
 }
-
+.user-details--about-me{
+    overflow: auto;
+}
 .about-me-title {
     font-size: 1.3vw;
     font-weight: bold;
@@ -329,6 +345,8 @@ p {
 
 .social-links {
     width: 4.5vw;
+    cursor: pointer;
+    user-select: none;
 }
 
 .social-media-links {
@@ -349,20 +367,26 @@ p {
 }
 
 .user-projects {
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .user-projects--project {
-    width: 18%;
+    width: 17%;
     height: 400px;
     cursor: pointer;
+    margin: 20px 0;
 }
 
 .project-image {
     height: 65%;
     width: 100%;
-    background: url("http://www.fubiz.net/wp-content/uploads/2016/05/starwarstoy-0-900x599.jpg");
-    background-size: cover;
+}
+
+.user-project-image {
+    height: 100%;
+    width: 100%;
 }
 
 .project-info {
@@ -372,7 +396,7 @@ p {
 
 .project-info--title {
     font-weight: bold;
-    font-size: 1.6vw;
+    font-size: 1vw;
     padding-top: 10px;
 }
 

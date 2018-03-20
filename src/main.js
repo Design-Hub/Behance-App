@@ -10,13 +10,16 @@ import VueResource from 'vue-resource'
 // import VueFire from 'vuefire'
 //import the App component
 import App from './App'
+// import the moment plugin
+import moment from 'moment'
 
 //tell Vue to use the router
 Vue.use(VueRouter)
 //tell Vue to use the resource
 Vue.use(VueResource)
-//tel vue to use the vuefire
-// Vue.use(VueFire)
+//tell vue to use the moment
+Vue.use(moment)
+
 //import components
 import Home from './components/Home/Home'
 import GameDesignHome from './components/GameDesign-Jay/GameDesign_Home-Jay'
@@ -60,7 +63,7 @@ const routes = [
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/photographer-profile-detail-page/:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
-  { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
+  { path: '/photographer-project-detail-page/:individualPhotographerUserId/:individualPhotographerProject', component: VictorPhotographerProjectDetailPage, props: true},
   { path: '/contact', component: Contact }
 
 
