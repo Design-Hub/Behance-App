@@ -1,6 +1,5 @@
 <template>
     <div class="profilePage">
-      <p>This is the profile page</p>
       <div class="header">
       <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
@@ -18,12 +17,19 @@
 
     <div class="profiles-container">
       <div class="images-container">
-      <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
-      <!--<div class="projects-masonry">-->
-        <!--<router-link v-bind:to="'graphic-designer/' + designer.username">-->
-          <img class="project-covers" v-bind:src="work.covers[115]">
-          <!--</router-link>-->
-        </div>
+     
+        <masonry
+          :cols="{default: 3, 1600: 2, 1000: 1, 700: 1}"
+          :gutter="{default: '15px', 700: '15px'}"
+          >
+          <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
+
+            <img class="project-covers" v-bind:src="work.covers[404]">
+          
+          </div>
+          
+        </masonry>
+
       </div>
       
       <div class="user-info" v-for="designer in designers" v-bind:value="designer.user">
@@ -68,7 +74,7 @@ export default {
     userProfile: function(username) {
      this.$http.jsonp('https://api.behance.net/v2/users/'+username+'?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
-          console.log('ok')
+          console.log('info')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
@@ -205,7 +211,7 @@ a:hover {
 
 .user-occupation {
     font-family: 'Anonymous Pro', monospace;
-    font-size: 0.8vw;
+    font-size: 0.7vw;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 20px;
@@ -261,7 +267,7 @@ a:hover {
 }*/
 
 .projects-masonry {
-  
+ 
 }
 
 .profiles-container {
@@ -275,11 +281,12 @@ a:hover {
 }
 
 .user-info {
-  width: 20vw;
-  height: 100vh;
+  width: 350px;
+  height: auto;
   border-left-style: solid;
   border-width: 1px;
   border-color: #000;
+  margin-left: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -291,8 +298,8 @@ a:hover {
 }
 
 .images-container {
-  width: 60vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
 }
