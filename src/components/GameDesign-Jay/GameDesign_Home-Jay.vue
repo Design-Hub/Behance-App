@@ -1,45 +1,51 @@
 <template>
-  <div class="container">
+  <div>
+        <!-- Disco background-->
+    <iframe class="disco-background" v-bind:src="discoBackground_iframeURL">    </iframe>
+      <div class="container">
+            <!-- Header -->
+        <div class="header">
+          <div class="logo">
+            <a href="/"><img src="../../images/logoWhite.png"></a>
+          </div>
+          <div class="contact">
+            <a href="/contact">CONTACT</a>
+          </div>
+        </div>
 
-    <div class="header">
-      <div class="logo">
-        <a href="/"><img src="../../images/logoWhite.png"></a>
+        <!-- Disco Ball-->
+        <iframe v-bind:src="discoBall_iframeURL"></iframe>
+
+        <!--Page intro-->
+        <div class="page-intro">
+          <h1>We are game if you are!</h1>
+          <p>a fun loving creative team filled with a variety of skills</p>
+        </div>
+
+        <!-- Designers -->
+        <div class="designers">
+          <div v-for="designer in designers">
+            <router-link v-bind:to="'/game-design-designer/' + designer.webID">
+              <h1 v-on:click="getDesigner" v-bind:id="designer.id">{{ designer.fullName }}</h1>
+              <img v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
+            </router-link>
+          </div>
+        </div>
       </div>
-      <div class="contact">
-        <a href="/contact">CONTACT</a>
-      </div>
-    </div>
 
-    <!-- Disco Ball -->
-    <Disco-Ball></Disco-Ball>
 
-    <!--Page intro-->
-    <div class="page-intro">
-      <h1>We are game if you are!</h1>
-      <p>a fun loving creative team filled with a variety of skills</p>
-    </div>
-
-    <!-- Designers -->
-    <div class="designers">
-      <div v-for="designer in designers">
-        <router-link v-bind:to="'/game-design-designer/' + designer.webID">
-          <h1 v-on:click="getDesigner" v-bind:id="designer.id">{{ designer.fullName }}</h1>
-          <img v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
-        </router-link>
-      </div>
-    </div>
-  </div>
 
   </div>
 </template>
 
 <script>
-import DiscoBall from './Disco_Ball-Jay'
 export default {
   name: 'gameDesignHome',
 
   data() {
     return {
+      discoBall_iframeURL: 'https://jayabey.github.io/projects/DiscoBall/index.html',
+      discoBackground_iframeURL: 'https://jayabey.github.io/projects/DiscoBackground/',
       designers: [
         {
           webID: "ducnguyenmai",
@@ -65,10 +71,6 @@ export default {
       selectedDesigner: '',
       selectedDesignerID: ''
     }
-  },
-
-  components: {
-    DiscoBall
   },
 
   created: function() {
@@ -229,15 +231,33 @@ table {
 }
 
 
+
+
+/*DISCO BACKGROUND*/
+
+.disco-background {
+  z-index: -1;
+  position: absolute;
+  left:0;
+  width:100vw;
+  height:100vh;
+}
+
+
+
 /*CONTAINER*/
 
 .container {
-  /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
-  width: 100vw;
-  height: 100vh;
-  background-size: 100%;
-  background-color: black;
+  /*overflow: scroll;*/
+  z-index: 999;
+  position: absolute;
+  width:100vw;
+  height:100vh;
 }
+
+
+
+
 
 
 
@@ -276,10 +296,14 @@ a:hover {
 
 
 
+
+
+
+
 /*PAGE INTRO*/
 
 .page-intro {
-  margin-top: 15%;
+  margin-top: 7%;
   color: white;
   text-align: left;
   padding-left: 50px;
@@ -293,6 +317,10 @@ a:hover {
 .page-intro p {
   font-size: 25px;
 }
+
+
+
+
 
 
 

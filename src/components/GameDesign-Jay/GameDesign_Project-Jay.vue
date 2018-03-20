@@ -1,49 +1,57 @@
 <template>
-  <div class="container">
+  <div>
 
-    <!-- Header -->
-    <div class="header">
-      <div class="logo">
-        <img src="../../images/logoWhite.png">
-      </div>
-      <div class="contact">
-        <a href="/contact">CONTACT</a>
-      </div>
-    </div>
+    <!-- Disco background-->
+    <iframe class="disco-background" v-bind:src="discoBackground_iframeURL"> </iframe>
 
-    <!--Back button-->
-    <div class="back-button">
-      <a href="/game-design-designer">
-        <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
-      </a>
-    </div>
-
-    <!--Designer details-->
-    <div class="selected-designer" v-for="info in selectedProject.owners">
-      <div class="selected-designer-info">
-        {{ info.display_name }}
-      </div>
-      <div class="selected-designer-character" v-bind="getCharacterImage(info)">
-        <img v-bind:src="featuredDesigner.characterImage">
-      </div>
-    </div>
-
-    <!-- Selected Project details-->
-    <div class="selected-project">
-      <h1> {{ selectedProject.name }} </h1>
-      <div> {{ selectedProject.description }} </div>
-      <br/>
-      <div class="projectStats">
-        <div><img src="../../images/jay/behanceViewsIcon.png"> {{ selectedProject.stats.views}} </div>
-        <div><img src="../../images/jay/behanceLikesIcon.png"> {{ selectedProject.stats.appreciations }} </div>
-        <div><img src="../../images/jay/behanceCommentsIcon.png"> {{ selectedProject.stats.comments}} </div>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="../../images/logoWhite.png">
+        </div>
+        <div class="contact">
+          <a href="/contact">CONTACT</a>
+        </div>
       </div>
 
-      <div v-for="module in selectedProject.modules">
+      <!-- Disco Ball-->
+      <iframe v-bind:src="discoBall_iframeURL"></iframe>
+
+      <!--Back button-->
+      <div class="back-button">
+        <a href="/game-design-designer">
+          <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+        </a>
+      </div>
+
+      <!--Designer details-->
+      <div class="selected-designer" v-for="info in selectedProject.owners">
+        <div class="selected-designer-info">
+          {{ info.display_name }}
+        </div>
+        <div class="selected-designer-character" v-bind="getCharacterImage(info)">
+          <img v-bind:src="featuredDesigner.characterImage">
+        </div>
+      </div>
+
+      <!-- Selected Project details-->
+      <div class="selected-project">
+        <h1> {{ selectedProject.name }} </h1>
+        <div> {{ selectedProject.description }} </div>
         <br/>
-        <h2>{{ module.text_plain }}</h2>
-        <img v-bind:src="module.src">
+        <div class="projectStats">
+          <div><img src="../../images/jay/behanceViewsIcon.png"> {{ selectedProject.stats.views}} </div>
+          <div><img src="../../images/jay/behanceLikesIcon.png"> {{ selectedProject.stats.appreciations }} </div>
+          <div><img src="../../images/jay/behanceCommentsIcon.png"> {{ selectedProject.stats.comments}} </div>
+        </div>
+
+        <div v-for="module in selectedProject.modules">
+          <br/>
+          <h2>{{ module.text_plain }}</h2>
+          <img v-bind:src="module.src">
+        </div>
       </div>
     </div>
 
@@ -56,6 +64,8 @@ export default {
   props: ['selectedProjectID'],
   data() {
     return {
+      discoBall_iframeURL: 'https://jayabey.github.io/projects/DiscoBall/index.html',
+      discoBackground_iframeURL: 'https://jayabey.github.io/projects/DiscoBackground/',
       designers: [
         {
           webID: "ducnguyenmai",
@@ -237,22 +247,31 @@ table {
   border-spacing: 0
 }
 
+
+
+/*DISCO BACKGROUND*/
+
+.disco-background {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+
 /*CONTAINER*/
 
 .container {
-  /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
+  /*overflow: scroll;*/
+  z-index: 999;
+  position: absolute;
   width: 100vw;
   height: 100vh;
-  background-size: 100%;
-  overflow-x: hidden;
-  /*overflow: scroll;*/
-
-  background-color: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate3d(0, 0, 0);
 }
+
+
 
 /*HEADER*/
 
@@ -280,25 +299,29 @@ table {
 }
 
 a {
-  color: #fff;
+  color: white;
 }
 
 a:hover {
   text-decoration: none;
 }
 
+
+
 /*BACK button*/
 
 .back-button {
   position: absolute;
-  left: 12%;
-  margin-top: 17%;
+  left: 20%;
+  margin-top: 6%;
   font-size: 1vw;
 }
 
 .back-button a:hover {
   font-size: 1.5vw;
 }
+
+
 
 /*DESIGNER*/
 
@@ -311,7 +334,7 @@ a:hover {
 }
 
 .selected-designer .selected-designer-info {
-  margin-top: 250%;
+  margin-top: 90%;
 }
 
 .selected-designer .selected-designer-character {
@@ -322,12 +345,14 @@ a:hover {
   height: 400px;
 }
 
+
+
 /*PROJECT*/
 
 .selected-project {
   position: absolute;
-  top: 40%;
-  left: 35%;
+  top: 30%;
+  left: 30%;
   font-family: 'Anonymous Pro', monospace;
   color: white;
   font-size: 20px;
@@ -338,7 +363,7 @@ a:hover {
   width: 1000px;
 }
 
-.selected-project::-webkit-scrollbar{
+.selected-project::-webkit-scrollbar {
   display: none;
 }
 
