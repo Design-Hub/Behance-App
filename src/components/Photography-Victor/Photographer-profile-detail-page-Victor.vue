@@ -59,7 +59,7 @@
                 </div>
                 <div class="user-details-enternal-links user-details--block">
                     <div class="social-media-links" v-if="gettingSpecificSocialMedias">
-                        <div class="social-media-links--facebook" v-for="individualSocialMediaLinks in currentPhotographerSocailMediaLinks">
+                        <div class="social-media-links--links" v-for="individualSocialMediaLinks in currentPhotographerSocailMediaLinks">
                             <a v-bind:href="individualSocialMediaLinks.url"><img class="social-links" v-bind:src="require('../../images/victor/'+ individualSocialMediaLinks.service_name +'.png')"></a>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="user-projects" >
+            <div class="user-projects">
                 <div class="user-projects--project" v-for="individualUserProject in currentPhotographerDatasAndProjects.userProjects">
                     <router-link v-bind:to="toPhotographerProjectDetailPage + currentPhotographerDatasAndProjects.userDatas.username + '/' + individualUserProject.id">
                         <div class="project-image">
@@ -122,7 +122,7 @@ export default {
         gettingTheCurrentPhotographerdata: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
                 )
                 .then(response => {
                     this.currentPhotographerDatasAndProjects.userDatas = response.body.user;
@@ -131,7 +131,7 @@ export default {
         gettingTheCurrentPhotographerproject: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
                 )
                 .then(response => {
                     this.currentPhotographerDatasAndProjects.userProjects = response.body.projects;
@@ -171,6 +171,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+::-webkit-scrollbar {
+    display: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -236,7 +240,6 @@ p {
 .user-details--block {
     width: 25%;
     border: 1px solid #3D3D3F;
-    overflow: hidden;
 }
 
 .top-intro {
@@ -245,6 +248,10 @@ p {
     width: 90%;
     justify-content: center;
     align-items: center;
+}
+
+.user-image{
+    margin-left:38px;
 }
 
 .bottom-intro {
@@ -281,7 +288,9 @@ p {
     border: 2px solid #63A476;
     height: 31%;
 }
-
+.user-details--about-me{
+    overflow: auto;
+}
 .about-me-title {
     font-size: 1.3vw;
     font-weight: bold;
@@ -359,7 +368,7 @@ p {
 
 .user-projects {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
@@ -367,16 +376,17 @@ p {
     width: 17%;
     height: 400px;
     cursor: pointer;
-    margin:20px 0;
+    margin: 20px 0;
 }
 
 .project-image {
     height: 65%;
     width: 100%;
 }
-.user-project-image{
-    height:100%;
-    width:100%;
+
+.user-project-image {
+    height: 100%;
+    width: 100%;
 }
 
 .project-info {

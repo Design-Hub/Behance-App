@@ -10,13 +10,17 @@ import VueResource from 'vue-resource'
 import VueFire from 'vuefire'
 //import the App component
 import App from './App'
+// import the moment plugin
+import moment from 'moment'
 
 //tell Vue to use the router
 Vue.use(VueRouter)
 //tell Vue to use the resource
 Vue.use(VueResource)
-//tel vue to use the vuefire
+//tell vue to use the vuefire
 Vue.use(VueFire)
+//tell vue to use the moment
+Vue.use(moment)
 
 //import components
 import Home from './components/Home/Home'

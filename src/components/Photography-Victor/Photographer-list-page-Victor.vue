@@ -74,29 +74,29 @@ export default {
       //     this.photographers.push(response.body.user);
       //   });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/SkandaCreations?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     this.photographers.push(response.body.user);
-      //   });
-
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/sapolendario?api_key=GBlbye0aN2yqIDb3g6MJbYpeL6mHOxN9"
+        "https://api.behance.net/v2/users/SkandaCreations?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
         )
         .then(response => {
           this.photographers.push(response.body.user);
         });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/CCLORd389?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     this.photographers.push(response.body.user);
-      //   });
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/sapolendario?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        )
+        .then(response => {
+          this.photographers.push(response.body.user);
+        });
+
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/CCLORd389?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        )
+        .then(response => {
+          this.photographers.push(response.body.user);
+        });
 
       // this.$http
       //   .jsonp(
@@ -110,7 +110,7 @@ export default {
   },
   computed: {
     checkPhotographersDatas: function() {
-      return this.photographers.length === 1;
+      return this.photographers.length === 3;
     }
 
   },
