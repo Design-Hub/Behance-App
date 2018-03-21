@@ -3,14 +3,14 @@
     <div class="main-container" v-if="checkingProjectDetailsAreBack">
       <div class="top-nav">
         <div class="top-nav--back-button">
-          <router-link v-bind:to="toPhotographerList"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
+          <router-link v-bind:to="toPhotographerProfileDetailPage + '/' + photographerIdUserName"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
         </div>
       </div>
       <div class="user-details">
         <div class="user-details--intro user-details--block">
           <div class="top-intro">
             <div class="user-name-company">
-              <h4>{{photographerDetails.first_name}}{{photographerDetails.last_name}}</h4>
+              <h4>{{photographerDetails.first_name}} {{photographerDetails.last_name}}</h4>
             </div>
             <div class="user-profile-image">
               <img v-bind:src="photographerDetails.images[138]">
@@ -49,8 +49,11 @@
           <div class="comments-block">
             <div class="comments-heading">Comments</div>
             <div class="comments-body" v-for="individualComment in currentProjectComments">
-              <div class="comments-body--user-name">Jamie Willis - 06/03/2018</div>
-              <div class="comments-body--user-comments">You are the best</div>
+              <div class="comments-body--user-name">
+                <div class="comments-name">{{individualComment.user.display_name}} - </div>
+                <div class="comments-date">{{individualComment.created_on | gettingCommentDate}} </div>
+              </div>
+              <div class="comments-body--user-comments">{{individualComment.comment}}</div>
             </div>
           </div>
         </div>
@@ -85,7 +88,7 @@ export default {
   props: ["individualPhotographerUserId", "individualPhotographerProject"],
   data() {
     return {
-      toPhotographerList: "/photographer-list-page",
+      toPhotographerProfileDetailPage: "/photographer-profile-detail-page",
       individualPhotographerProjectId: "",
       photographerProjectDetails: {},
       photographerIdUserName: "",
@@ -123,14 +126,19 @@ export default {
         )
         .then(response => {
           this.currentProjectComments = response.body.comments;
-          // console.log(this.currentProjectComments);
+          console.log(this.currentProjectComments);
         });
     }
   },
   filters: {
     gettingPublishDate: function(value) {
       if (value) {
-        return moment.unix(1517775315).format("LL");
+        return moment.unix(value).format("LL");
+      }
+    },
+    gettingCommentDate: function(value) {
+      if (value) {
+        return moment.unix(value).fromNow();
       }
     }
   },
@@ -363,7 +371,7 @@ p {
 
 .user-projects--projects {
   width: 45%;
-  margin: 20px auto;
+  margin: 50px auto 20px auto;
 }
 
 .user-details--comments {
@@ -382,15 +390,21 @@ p {
 .comments-heading {
   font-weight: bold;
   font-size: 1.5vw;
+  margin-bottom: 20px;
 }
 
 .comments-body--user-name {
-  font-weight: bold;
   font-size: 0.9vw;
   margin-bottom: 5px;
+  display:flex;
 }
 
 .comments-body--user-comments {
   margin-bottom: 20px;
+}
+.comments-name{
+  font-weight: bold;
+  text-transform: capitalize;
+  padding-right:2px;
 }
 </style>
