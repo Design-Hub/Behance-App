@@ -1,4 +1,5 @@
 <template>
+  <!--This is the page after the photographer detail page, after clicked any of the photographer project, you will come to this page-->
   <div class="photographer-project-detail-page">
     <div class="main-container" v-if="checkingProjectDetailsAreBack">
       <div class="top-nav">
@@ -82,25 +83,34 @@
 </template>
 
 <script>
+// This is a javascript plugin, moment.js "https://momentjs.com/", importing moment.js into this components
 import moment from 'moment'
 export default {
   name: "photographer-project-detail-page",
+  // This is receiving two datas from the previous page, which is from "photographer profile detail page"
   props: ["individualPhotographerUserId", "individualPhotographerProject"],
   data() {
     return {
       toPhotographerProfileDetailPage: "/photographer-profile-detail-page",
       individualPhotographerProjectId: "",
+      // Specific photographers project details datas is in this object
       photographerProjectDetails: {},
       photographerIdUserName: "",
+      // Specific photographers details datas is in this object
       photographerDetails: {},
+      // Specific photographer's social medias data are in here(after filtering, only facebook, twitter and instagram social medias)
       currentPhotographerSocailMediaLinks: [],
+      // A specific project's user comments are all in this object
       currentProjectComments: {},
+      // Some project images has src properties, some don't, this array only has the project images with src property in it
       filteredProjectImages: []
     };
   },
 
   methods: {
+    // This function is getting all the api data's that I need on this page(user details, user projects details and project user comments)
     gettingSpecificProjectAndUser: function() {
+      // User project details
       this.$http
         .jsonp(
         "http://www.behance.net/v2/projects/" +
@@ -108,44 +118,50 @@ export default {
         "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
         )
         .then(response => {
+          // After getting all the datas from the behance api, put the data into the "photographerProjectDetails" object
           this.photographerProjectDetails = response.body.project;
-          // console.log(this.photographerProjectDetails);
-          console.log(this.photographerProjectDetails);
         });
+      // User details
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
+          // After getting all the datas from the behance api, put the data into the "photographerDetails" object
           this.photographerDetails = response.body.user;
-          // console.log(this.photographerDetails);
         });
+      // Project user comments
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
+          // After getting all the datas from the behance api, put the data into the "currentProjectComments" object
           this.currentProjectComments = response.body.comments;
-          console.log(this.currentProjectComments);
         });
     }
   },
   filters: {
+    // Both function is changing time stamp to human readable dates, first one is going to get the time stamp and show the data "March 15, 2018" and the secon one is going to show the data "8 hour ago"
     gettingPublishDate: function(value) {
       if (value) {
+        // Show data like this (March 15, 2018)
         return moment.unix(value).format("LL");
       }
     },
     gettingCommentDate: function(value) {
       if (value) {
+        // Show data like this (8 hour ago)
         return moment.unix(value).fromNow();
       }
     }
   },
   computed: {
+    // Check to see if "photographerProjectDetails" object has data in it 
     checkingProjectDetailsAreBack: function() {
       return this.photographerProjectDetails.id;
     },
+    // This is filtering the photographer's social medias links, make sure only facebook, twitter and instagram are pushed in to the "currentPhotographerSocailMediaLinks" array
     gettingTheUserSocialMedias: function() {
       var allUserSocialMedias = this.photographerDetails.social_links;
       var facebookSocialMedia = "Facebook";
@@ -159,6 +175,7 @@ export default {
       }
       return this.currentPhotographerSocailMediaLinks;
     },
+    // Some project images has src properties, some don't, this function is doing the filtering, only push the image with src property in the object
     gettingImageThatHasSrc: function() {
       var allProjectImage = this.photographerProjectDetails.modules;
       var filteringProjectImages = [];
@@ -168,13 +185,15 @@ export default {
         }
       }
       this.filteredProjectImages = filteringProjectImages;
-      console.log(this.filteredProjectImages);
       return this.filteredProjectImages;
     }
   },
   created: function() {
+    // After receiving the project id from the previous page, put it in to the "individualPhotographerProjectId" property
     this.individualPhotographerProjectId = this.individualPhotographerProject;
+    // After receiving the photographer user id from the previous page, put it in to the "photographerIdUserName" property
     this.photographerIdUserName = this.individualPhotographerUserId;
+    // Imediately run this function to get data from the behance api when this page is loaded
     this.gettingSpecificProjectAndUser();
   }
 };
@@ -194,8 +213,8 @@ export default {
   font-family: "Open Sans", sans-serif;
 }
 
-a {
-  text-decoration: none;
+.link-to-user-behance a {
+  text-decoration: none!important;
 }
 
 h4 {
@@ -216,6 +235,9 @@ p {
 .main-container {
   width: 100%;
 }
+
+
+/*Top nav and the back button styles starts here*/
 
 .top-nav {
   background-color: #4c4c4d;
@@ -239,6 +261,9 @@ p {
   cursor: pointer;
 }
 
+
+/*Styles of the top section where the photographer details and project details are starts here*/
+
 .user-details {
   width: 100%;
   height: 300px;
@@ -261,6 +286,9 @@ p {
   align-items: center;
 }
 
+
+/*First block*/
+
 .user-profile-image {
   background-image: url("https://mir-s3-cdn-cf.behance.net/user/138/e24bca2575205.5581363aaf6e1.jpg");
   background-size: cover;
@@ -273,6 +301,9 @@ p {
 .user-name-company {
   display: flex;
 }
+
+
+/*Second block*/
 
 .project-details {
   width: 80%;
@@ -327,6 +358,48 @@ p {
   font-weight: bold;
 }
 
+
+
+/*Third block*/
+
+.user-details--comments {
+  text-align: left;
+  overflow: auto;
+}
+
+.comments-block {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 54px auto;
+}
+
+.comments-heading {
+  font-weight: bold;
+  font-size: 1.5vw;
+  margin-bottom: 20px;
+}
+
+.comments-body--user-name {
+  font-size: 0.9vw;
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.comments-body--user-comments {
+  margin-bottom: 20px;
+}
+
+.comments-name {
+  font-weight: bold;
+  text-transform: capitalize;
+  padding-right: 2px;
+}
+
+
+/*Fourth block*/
+
 .social-media-links {
   width: 100%;
   height: 70%;
@@ -359,6 +432,9 @@ p {
   cursor: pointer;
 }
 
+
+/*This is where the project(image) style starts*/
+
 .user-projects {
   width: 100%;
 }
@@ -372,39 +448,5 @@ p {
 .user-projects--projects {
   width: 45%;
   margin: 50px auto 20px auto;
-}
-
-.user-details--comments {
-  text-align: left;
-  overflow: auto;
-}
-
-.comments-block {
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 54px auto;
-}
-
-.comments-heading {
-  font-weight: bold;
-  font-size: 1.5vw;
-  margin-bottom: 20px;
-}
-
-.comments-body--user-name {
-  font-size: 0.9vw;
-  margin-bottom: 5px;
-  display:flex;
-}
-
-.comments-body--user-comments {
-  margin-bottom: 20px;
-}
-.comments-name{
-  font-weight: bold;
-  text-transform: capitalize;
-  padding-right:2px;
 }
 </style>

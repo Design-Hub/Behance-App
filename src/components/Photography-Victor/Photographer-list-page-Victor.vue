@@ -1,11 +1,14 @@
 <template>
+  <!--This is the page that is after the photographer home page, this page shows all the photographer we have(a list)-->
   <div class="photographer-list-page">
     <div class="main-container">
       <div class="design-hub-logo">
+        <!--This router link when clicked, it will go back to the home page-->
         <router-link v-bind:to="'/'"><img class="design-hub-logo--logo" src="../../images/logoWhite.png"></router-link>
       </div>
       <div class="photographer-list">
-        <router-link v-if="checkPhotographersDatas" v-bind:to="toPhotographerProfileDetailPage + photographer.username" v-for="photographer in photographers" >
+        <!--To check if the photographers data are back from the behance api and loop the datas that I got to get individual photographers datas-->
+        <router-link v-if="checkPhotographersDatas" v-bind:to="toPhotographerProfileDetailPage + photographer.username" v-for="photographer in photographers">
           <div class="photographer-list-info">
             <div class="photographer-list-info--user-photo">
               <div class="user-photo">
@@ -20,17 +23,14 @@
               <div class="user-stats">
                 <div class="user-stats--project-views">
                   <div class="project-views-icon">
-                    <img class="project-views-icon--icon icons" src="../../images/victor/Project-views.png">
+                    <img class="project-views-icon--icon icons fas fa-eye">
                   </div>
                   <div class="project-views-title">Project Views</div>
                   <div class="project-views-stats stats">{{photographer.stats.views}}</div>
                 </div>
                 <div class="user-stats--appreciations">
                   <div class="appreciations-icon">
-                    <i class="appreciations--icon icons fas fa-eye"></i>
-
-
-                    <!--<img class="appreciations--icon icons fas fa-thumbs-up" >-->
+                    <img class="appreciations--icon icons fas fa-thumbs-up">
                   </div>
                   <div class="appreciations-title">Apprecidations</div>
                   <div class="appreciations-stats stats">{{photographer.stats.appreciations}}</div>
@@ -64,60 +64,70 @@ export default {
   data() {
     return {
       toPhotographerProfileDetailPage: "/photographer-profile-detail-page/",
+      // All five photographers data are all in this array
       photographers: []
     };
   },
   methods: {
+    // This is getting all the photographer's datas from the behance api, including all their stats
     getUserDatasFromBehance: function() {
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/almefer?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+        )
+        .then(response => {
+          // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+          this.photographers.push(response.body.user);
+        });
+
       // this.$http
       //   .jsonp(
-      //   "https://api.behance.net/v2/users/almefer?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+      //   "https://api.behance.net/v2/users/SkandaCreations?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
       //   )
       //   .then(response => {
+      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
       //     this.photographers.push(response.body.user);
       //   });
 
-      this.$http
-        .jsonp(
-        "https://api.behance.net/v2/users/SkandaCreations?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
-        )
-        .then(response => {
-          this.photographers.push(response.body.user);
-        });
+      // this.$http
+      //   .jsonp(
+      //   "https://api.behance.net/v2/users/sapolendario?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+      //   )
+      //   .then(response => {
+      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+      //     this.photographers.push(response.body.user);
+      //   });
 
-      this.$http
-        .jsonp(
-        "https://api.behance.net/v2/users/sapolendario?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
-        )
-        .then(response => {
-          this.photographers.push(response.body.user);
-        });
-
-      this.$http
-        .jsonp(
-        "https://api.behance.net/v2/users/CCLORd389?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
-        )
-        .then(response => {
-          this.photographers.push(response.body.user);
-        });
+      // this.$http
+      //   .jsonp(
+      //   "https://api.behance.net/v2/users/CCLORd389?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+      //   )
+      //   .then(response => {
+      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+      //     this.photographers.push(response.body.user);
+      //   });
 
       // this.$http
       //   .jsonp(
       //   "https://api.behance.net/v2/users/shivanetua?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
       //   )
       //   .then(response => {
+      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
       //     this.photographers.push(response.body.user);
       //   });
 
     }
   },
   computed: {
+    // Checking if the data I got back from the api is 5 people(datas) or not 
     checkPhotographersDatas: function() {
-      return this.photographers.length === 3;
+      var fivePhotographers = 1;
+      return this.photographers.length === fivePhotographers;
     }
 
   },
   created: function() {
+    // Calling the getting data from the api, start the function immediately when the page is loaded
     this.getUserDatasFromBehance();
   }
 };
@@ -141,6 +151,9 @@ a:hover {
   text-decoration: none;
 }
 
+
+/*Web page background image*/
+
 .photographer-list-page {
   width: 100%;
   height: 100vh;
@@ -154,6 +167,9 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+
+/*Logo styles starts here*/
+
 .design-hub-logo {
   height: 40vh;
   width: 20%;
@@ -164,6 +180,9 @@ a:hover {
   display: block;
   padding: 20px 20px;
 }
+
+
+/*All the photograhers list block styles starts here*/
 
 .photographer-list {
   display: flex;
@@ -223,6 +242,9 @@ a:hover {
   text-transform: capitalize;
 }
 
+
+/*All the photographer stats and also icons style starts here*/
+
 .user-stats--project-views,
 .user-stats--appreciations,
 .user-stats--followers,
@@ -238,7 +260,7 @@ a:hover {
 
 .icons {
   width: 0.9vw;
-  margin: 3px 10px 10px 23px;
+  margin: 3px 10px 5px 23px;
 }
 
 .project-views-icon--icon {
@@ -255,18 +277,18 @@ a:hover {
 }
 
 .project-views-stats {
-  width: 50%;
+  width: 47%;
 }
 
 .appreciations-stats {
-  width: 48%;
+  width: 44%;
 }
 
 .followers-stats {
-  width: 58%;
+  width: 55%;
 }
 
 .following-stats {
-  width: 58%;
+  width: 55%;
 }
 </style>
