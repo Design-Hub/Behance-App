@@ -18,14 +18,6 @@
       <!-- Disco Ball-->
       <iframe v-bind:src="discoBall_iframeURL"></iframe>
 
-      <!--Back button-->
-      <div class="back-button">
-        <a href="/game-design-home">
-          <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
-        </a>
-      </div>
-
       <!--Designer details-->
       <div class="selected-designer">
         <div class="selected-designer-info">
@@ -34,6 +26,16 @@
         <div class="selected-designer-character">
           <img v-bind:src="featuredDesigner.characterImage">
         </div>
+      </div>
+
+      <!-- Grey project display placeholder -->
+      <div class="project-display">
+      <!--Back button-->
+      <div class="back-button">
+        <a href="/game-design-home">
+          <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+        </a>
       </div>
 
       <!--Designer's list of projects-->
@@ -45,6 +47,9 @@
           </router-link>
         </div>
       </div>
+
+    </div>
+
     </div>
 
   </div>
@@ -88,7 +93,7 @@ export default {
     console.log("Now on the selected designer page");
     console.log(this.selectedDesignerID);
 
-    this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesignerID + '/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+    this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesignerID + '/projects?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
       // this.projects.push(response.body);
       this.projects = response.body.projects;
     });
@@ -254,6 +259,7 @@ table {
   left: 0;
   width: 100vw;
   height: 100vh;
+  background-size: 100%;
 }
 
 
@@ -265,6 +271,7 @@ table {
   position: absolute;
   width: 100vw;
   height: 100vh;
+  background-size: 100%;
 }
 
 
@@ -294,35 +301,18 @@ table {
   font-size: 1.1vw;
 }
 
-a {
+.contact a {
   color: white;
 }
 
-a:hover {
+hover {
   text-decoration: none;
 }
-
-
-
-/*BACK button*/
-
-.back-button {
-  position: absolute;
-  left: 20%;
-  margin-top: 6%;
-  font-size: 1vw;
-}
-
-.back-button a:hover {
-  font-size: 1.5vw;
-}
-
-
 
 /*DESIGNER*/
 
 .selected-designer-info {
-  margin-top: 90%;
+  margin-top: 160%;
 }
 
 .selected-designer {
@@ -341,7 +331,33 @@ a:hover {
   height: 400px;
 }
 
+/* PROJECT DISPLAY */
+.project-display {
+  left: 21%;
+  margin-top: 5%;
+  position: relative;
+  height: 780px;
+  width: 1440px;
+  background-color: white;
+  overflow: scroll;
+  overflow-x: scroll;
+  box-shadow: inset 0px 10px 10px 0px rgb(166, 166, 166), inset 0px 4px 20px 0 rgb(166, 166, 166);
+}
+/*.project-display::-webkit-scrollbar {
+  display: none;
+}*/
 
+/*BACK button*/
+.back-button {
+  margin-top: 3%;
+  font-size: 1vw;
+}
+.back-button a{
+  color: #9E9E9E;
+}
+.back-button a:hover {
+  font-size: 1.5vw;
+}
 
 /*PROJECTS*/
 
@@ -350,11 +366,20 @@ a:hover {
   flex-direction: column;
   flex-wrap: wrap;
   font-family: 'Anonymous Pro', monospace;
-  color: white;
+  color: #9E9E9E;
   font-size: 20px;
-  top: 35%;
-  left: 25%;
+  top: 15%;
+  left: 3%;
   position: absolute;
   height: 40vw;
+}
+.designer-project-list a{
+  color: #9E9E9E;
+}
+.designer-project-list div{
+  padding: 20px 80px 10px 10px;
+}
+.designer-project-list img{
+  padding: 20px 80px 10px 70px;
 }
 </style>
