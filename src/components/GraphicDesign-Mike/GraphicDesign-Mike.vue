@@ -11,6 +11,9 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
+      <router-link v-bind:to="Admin"><div class="contact">
+        <a href="/">Admin</a>
+      </div></router-link>
       <!--<router-link v-bind:to="'graphic-designer/' + "><div class="contact">
         <a href="/contact">Profile</a>
       </div></router-link>-->
@@ -35,7 +38,7 @@
     </div>
   
   </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -44,6 +47,7 @@ export default {
   name: 'graphicDesign',
   data() {
     return {
+      Admin: "/admin",
       Home: "/",
       profilePage: "/profilePage",
       designers: [],
@@ -54,47 +58,47 @@ export default {
 
   methods: {
     userProfile: function() {
-     this.$http.jsonp('https://api.behance.net/v2/users/thinkingroominc?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/thinkingroominc?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-     this.$http.jsonp('https://api.behance.net/v2/users/akatre?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/akatre?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/alexandrepietra?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    this.$http.jsonp('https://api.behance.net/v2/users/alexandrepietra?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/craniodsgn?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('ok')
-          this.designers.push(response.body.user);
-          console.log(this.designers)
-        });
+    // this.$http.jsonp('https://api.behance.net/v2/users/craniodsgn?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    //     .then(response => {
+    //       console.log('ok')
+    //       this.designers.push(response.body.user);
+    //       console.log(this.designers)
+    //     });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/oberhaeuser?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('ok')
-          this.designers.push(response.body.user);
-          console.log(this.designers)
-        });
+    // this.$http.jsonp('https://api.behance.net/v2/users/oberhaeuser?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    //     .then(response => {
+    //       console.log('ok')
+    //       this.designers.push(response.body.user);
+    //       console.log(this.designers)
+    //     });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/soderhavet?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('ok')
-          this.designers.push(response.body.user);
-          console.log(this.designers)
-        });
+    // this.$http.jsonp('https://api.behance.net/v2/users/soderhavet?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    //     .then(response => {
+    //       console.log('ok')
+    //       this.designers.push(response.body.user);
+    //       console.log(this.designers)
+    //     });
 
   },
   

@@ -1,111 +1,29 @@
 <template>
-    <div class="profilePage">
-      <div class="header">
-        <h5>profile page</h5>
-      <router-link v-bind:to="Home"><div class="gd-logo">
-        <img src="../../images/logoWhite.png">
-      </div></router-link>
-      <div class="gd-head">
-        <h1>Graphic Design</h1>
-      </div>
-      <div class="gd-bg">
-        <img src="../../images/gd-example4.png">
-      </div>
-      <router-link v-bind:to="GDHome"><div class="contact">
-        <a href="/">Back</a>
-      </div></router-link>
+  <div class="admin">
+    <div>
+      <h3>Admin</h3>
     </div>
-
-    <div class="profiles-container">
-      <div class="images-container">
-     
-        <masonry
-          :cols="{default: 3, 1600: 2, 1000: 1, 700: 1}"
-          :gutter="{default: '15px', 700: '15px'}"
-          >
-          <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
-            <router-link v-bind:to="'project-details/' + work.id">
-            <img class="project-covers" v-bind:src="work.covers[404]">
-            </router-link>
-          </div>
-          
-        </masonry>
-
-      </div>
-      
-      <div class="user-info" v-for="designer in designers" v-bind:value="designer.user">
-        <img class="user-image" v-bind:src="designer.images[276]">
-        <h3 class="user-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
-        <p class="user-features">{{ designer.location }}</p>
-        <p class="user-occupation">{{ designer.occupation }}</p>
-        <p class="user-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
-        <p class="user-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
-        <p class="user-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
-        <a class="user-behance">{{ designer.url }}</a>
-        <a class="user-website">{{ designer.website }}</a>
-        <div class="user-sociallinks"></div>
-      </div>
-    </div>
-
-      </div>
-
+    <router-link v-bind:to="'/admin'">Graphic Design</router-link>
+    <router-link v-bind:to="'/admin/profiles'">Profiles</router-link>
+    <router-link v-bind:to="'/admin/projects'">Project</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 
+
 export default {
-  name: 'profilePage',
-  props: ['username'],
+  name: 'admin',
   data() {
     return {
-      GDHome: "/GraphicDesign",
-      Home: "/",
-      designers: [],
-      designer: '',
-      works: [],
-      work: ''
+     
     }
-  },
-
-// FUNCTION TO GET USER INFO //
-
-  methods: {
-    userProfile: function(username) {
-     this.$http.jsonp('https://api.behance.net/v2/users/'+username+'?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('info')
-          this.designers.push(response.body.user);
-          console.log(this.designers)
-        });
-    },
-
-// FUNCTION TO GET USER PROFILE IMAGES //
-
-     userProjects: function(username) {
-    this.$http.jsonp('https://api.behance.net/v2/users/'+username+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('project')
-          this.works=response.body.projects;
-          console.log(this.works)
-        });
-     }
-},
-  // },
-    created: 
-    function() {
-      // console.log(this.username)
-    this.userProfile(this.username);
-    this.userProjects(this.username);
-  },
-  //   function() {
-  //   console.log("work" + this.works);
-  // this.userProjects(this.username);
-  //   }
-
+  }
 }
-
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 /*CUSTOM CSS FROM HERE*/
@@ -303,3 +221,4 @@ a:hover {
   flex-wrap: wrap;
 }
 </style>
+

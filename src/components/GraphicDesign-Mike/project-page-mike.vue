@@ -1,6 +1,7 @@
 <template>
     <div class="projectPage">
       <div class="header">
+        <h5>project page</h5>
       <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
       </div></router-link>
@@ -17,7 +18,7 @@
     
     <div class="project-container">
         <div class="project-viewer">
-                <img class="" v-bind:src="work.covers.original">
+                <!-- <img class="project-covers" v-bind:src="work.covers[404]"> -->
         </div>
     </div>
 
@@ -39,6 +40,40 @@ export default {
       work: ''
     }
   },
+  // FUNCTION TO GET USER INFO //
+
+  methods: {
+    userProfile: function(username) {
+     this.$http.jsonp('https://api.behance.net/v2/users/'+username+'?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('info')
+          this.designers.push(response.body.user);
+          console.log(this.designers)
+        });
+    },
+
+// FUNCTION TO GET USER PROFILE IMAGES //
+
+     userProjects: function(username) {
+    this.$http.jsonp('https://api.behance.net/v2/users/'+username+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('project')
+          this.works=response.body.projects;
+          console.log(this.works)
+        });
+     }
+},
+  // },
+    created: 
+    function() {
+      // console.log(this.username)
+    this.userProfile(this.username);
+    this.userProjects(this.username);
+  },
+  //   function() {
+  //   console.log("work" + this.works);
+  // this.userProjects(this.username);
+  //   }
 }
 
   </script>
@@ -113,6 +148,12 @@ export default {
 
 a:hover {
   text-decoration: none;
+}
+
+.projectPage {
+  width: 100vw;
+  height: auto;
+  background-color: #252525;
 }
 
 .project-container {

@@ -24,14 +24,15 @@ Vue.use(VueResource)
 // Vue.use(VueFire)
 //import components
 import Home from './components/Home/Home'
+import Contact from './components/Contact/Contact'
 import GameDesignHome from './components/GameDesign-Jay/GameDesign_Home-Jay'
 import GameDesignDesigner from './components/GameDesign-Jay/GameDesign_Designer-Jay'
 import GameDesignProjects from './components/GameDesign-Jay/GameDesign_Project-Jay'
 import Mike from './components/GraphicDesign-Mike/GraphicDesign-Mike'
-import Victor from './components/Photography-Victor/Photography-Victor'
-import Contact from './components/Contact/Contact'
+import Admin from './components/GraphicDesign-Mike/Admin'
 import Project from './components/GraphicDesign-Mike/project-page-mike'
 import Profile from './components/GraphicDesign-Mike/profile-page-mike'
+import Victor from './components/Photography-Victor/Photography-Victor'
 import VictorPhotographerListPage from './components/Photography-Victor/Photographer-list-page-Victor'
 import VictorPhotographerProfileDetailPage from './components/Photography-Victor/Photographer-profile-detail-page-Victor'
 import VictorPhotographerProjectDetailPage from './components/Photography-Victor/Photographer-project-detail-page-Victor'
@@ -47,19 +48,23 @@ const routes = [
   { path: '/contact', component: Contact },
   { path: '/project-details/:id', component: Project, props: true },
   { path: '/graphic-designer/:username', component: Profile, props: true },
-  // {
-  //   path: '/admin', component: Admin,
-  //   children: [
-  //     {
-  //       path: '/',
-  //       component: Posts
-  //     },
-  //     {
-  //       path: 'comments',
-  //       component: Comments
-  //     }
-  //   ]
-  // }
+  {
+    path: '/admin', component: Admin,
+    children: [
+      {
+        path: '/',
+        component: Mike
+      },
+      {
+        path: 'profiles',
+        component: Profile
+      },
+      {
+        path: 'projects',
+        component: Project
+      }
+    ]
+  },
 
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
