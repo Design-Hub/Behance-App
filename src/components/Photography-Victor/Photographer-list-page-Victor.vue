@@ -27,7 +27,10 @@
                 </div>
                 <div class="user-stats--appreciations">
                   <div class="appreciations-icon">
-                    <img class="appreciations--icon icons" src="../../images/victor/Appreciations.png">
+                    <i class="appreciations--icon icons fas fa-eye"></i>
+
+
+                    <!--<img class="appreciations--icon icons fas fa-thumbs-up" >-->
                   </div>
                   <div class="appreciations-title">Apprecidations</div>
                   <div class="appreciations-stats stats">{{photographer.stats.appreciations}}</div>
