@@ -8,7 +8,7 @@
       <!-- Header -->
       <div class="header">
         <div class="logo">
-          <img src="../../images/logoWhite.png">
+          <a href="/"><img src="../../images/logoWhite.png"></a>
         </div>
         <div class="contact">
           <a href="/contact">CONTACT</a>
@@ -16,7 +16,7 @@
       </div>
 
       <!-- Disco Ball-->
-      <iframe v-bind:src="discoBall_iframeURL"></iframe>
+      <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
 
       <!--Designer details-->
       <div class="selected-designer" v-for="info in selectedProject.owners">
@@ -55,6 +55,7 @@
             <img v-bind:src="module.src">
           </div>
         </div>
+
       </div>
 
     </div>
@@ -97,8 +98,7 @@ export default {
   },
 
   created: function() {
-    console.log("Now on the selected project page");
-    console.log(this.selectedProjectID);
+    //Alternative API key: fBD5wQDeHCclck9MRpwifajnEDIz4KzA
     this.$http.jsonp('https://api.behance.net/v2/projects/' + this.selectedProjectID + '?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
       this.selectedProject = response.body.project;
     });
@@ -252,9 +252,6 @@ table {
 }
 
 
-
-
-
 /*DISCO BACKGROUND*/
 
 .disco-background {
@@ -264,9 +261,6 @@ table {
   width: 100vw;
   height: 100vh;
 }
-
-
-
 
 
 /*CONTAINER*/
@@ -337,7 +331,9 @@ a:hover {
 }
 
 
+
 /* PROJECT DISPLAY */
+
 .project-display {
   left: 25%;
   margin-top: 8%;
@@ -349,9 +345,7 @@ a:hover {
   overflow-x: hidden;
   box-shadow: inset 0px 10px 10px 0px rgb(166, 166, 166), inset 0px 4px 20px 0 rgb(166, 166, 166);
 }
-.project-display::-webkit-scrollbar {
-  display: none;
-}
+
 
 /*BACK button*/
 
@@ -359,12 +353,15 @@ a:hover {
   margin-top: 3%;
   font-size: 1vw;
 }
-.back-button a{
+
+.back-button a {
   color: #9E9E9E;
 }
+
 .back-button a:hover {
   font-size: 1.5vw;
 }
+
 
 
 /*PROJECT*/
@@ -375,6 +372,7 @@ a:hover {
 }
 
 .selected-project h1 {
+  margin-top: 3%;
   font-size: 40px;
   color: #9E9E9E;
 }
@@ -392,5 +390,71 @@ a:hover {
 
 .projectStats img {
   width: 50px;
+}
+
+
+/*REPONSIVE DESIGN */
+
+@media screen and (max-width:640px) {
+
+  /*header*/
+  .logo img {
+    width: 50vw;
+  }
+  .header .contact {
+    font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
+  }
+  /*container*/
+  .container {
+    overflow-x: hidden;
+  }
+  /*disco ball*/
+  .container .disco-ball {
+    margin-top: 20%;
+    margin-left: 4%;
+  }
+  /*designer*/
+  .selected-designer .selected-designer-info {
+    margin-top: 30%;
+  }
+  .selected-designer .selected-designer-character {
+    margin-top: 10%;
+  }
+  .selected-designer-character img {
+    height: 300px;
+  }
+  .selected-designer {
+    margin-left: 41%;
+    font-size: 20px;
+  }
+  /*projects*/
+  .project-display {
+    left: 10%;
+    margin-top: 70%;
+    height: 1000px;
+    width: 500px;
+    overflow-x: hidden;
+  }
+  .back-button {
+    margin-top: 5%;
+    font-size: 2.5vw;
+  }
+  .back-button a:hover {
+    font-size: 3vw;
+  }
+  .selected-project {
+    font-size: 17px;
+    overflow-x: scroll;
+  }
+  .selected-project h1 {
+    margin-top: 5%;
+    font-size: 25px;
+  }
+  .projectStats img {
+    width: 30px;
+  }
 }
 </style>

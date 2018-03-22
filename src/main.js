@@ -41,29 +41,12 @@ const routes = [
 
   { path: '/photography', component: Victor },
   { path: '/contact', component: Contact },
-  // { path: '/profilePage', component: Profile },
   { path: '/graphic-designer/:username', component: Profile, props: true },
-  // {
-  //   path: '/admin', component: Admin,
-  //   children: [
-  //     {
-  //       path: '/',
-  //       component: Posts
-  //     },
-  //     {
-  //       path: 'comments',
-  //       component: Comments
-  //     }
-  //   ]
-  // }
-
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/photographer-profile-detail-page/:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
   { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
   { path: '/contact', component: Contact }
-
-
 ];
 
 const router = new VueRouter({
