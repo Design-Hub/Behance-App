@@ -16,3 +16,7 @@
 6. Click on "< back" button on each page to go back to the previous page.
 
 7. Use the horizontal and vertical scroll bars to view the full list of projects on the selected designer page or to see all details of a project on the selected project page.
+
+8. This web project is a responsive design, there's a breakpoint at 640 pixels of maximum width.
+
+9. The "CONTACT" button leads to a blank page. It was purely placed as a design element not for development purposes.
