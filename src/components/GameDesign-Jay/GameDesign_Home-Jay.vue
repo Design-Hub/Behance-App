@@ -1,31 +1,38 @@
 <template>
-  <div class="container">
-
-    <div class="header">
-      <div class="logo">
-        <a href="/"><img src="../../images/logoWhite.png"></a>
+  <div>
+    <!-- Disco background-->
+    <iframe class="disco-background" v-bind:src="discoBackground_iframeURL"> </iframe>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <a href="/"><img src="../../images/logoWhite.png"></a>
+        </div>
+        <div class="contact">
+          <a href="/contact">CONTACT</a>
+        </div>
       </div>
-      <div class="contact">
-        <a href="/contact">CONTACT</a>
-      </div>
-    </div>
 
-    <!--Page intro-->
-    <div class="page-intro">
-      <h1>We are game if you are!</h1>
-      <p>a fun loving creative team filled with a variety of skills</p>
-    </div>
+      <!-- Disco Ball-->
+      <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
 
-    <!-- Designers -->
-    <div class="designers">
-      <div v-for="designer in designers">
-        <router-link v-bind:to="'/gameDesignDesigner/' + selectedDesignerprojects">
-          <h1 v-on:click="getDesignerProjects" v-bind:id="designer.id">{{ designer.fullName }}</h1>
-          <img v-bind:src="designer.characterImage" v-on:click="getDesignerProjects" v-bind:id="designer.id">
-        </router-link>
+      <!--Page intro-->
+      <div class="page-intro">
+        <h1>We are game if you are!</h1>
+        <p>a fun loving creative team filled with a variety of skills</p>
       </div>
+
+      <!-- Designers -->
+      <div class="designers">
+        <div v-for="designer in designers">
+          <router-link v-bind:to="'/game-design-designer/' + designer.webID">
+            <h1 v-on:mouseover="getDesignerProfilePicture" v-on:click="getDesigner" v-bind:id="designer.id">{{ designer.fullName }}</h1>
+            <img v-on:mouseover="getDesignerProfilePicture" v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
+          </router-link>
+        </div>
+      </div>
+
     </div>
-  </div>
 
   </div>
 </template>
@@ -33,10 +40,11 @@
 <script>
 export default {
   name: 'gameDesignHome',
-  props: ['selectedDesignerprojects'],
 
   data() {
     return {
+      discoBall_iframeURL: 'https://jayabey.github.io/projects/DiscoBall/index.html',
+      discoBackground_iframeURL: 'https://jayabey.github.io/projects/DiscoBackground/',
       designers: [
         {
           webID: "ducnguyenmai",
@@ -60,31 +68,30 @@ export default {
 
       behanceDesignerInfo: [],
       selectedDesigner: '',
-      selectedDesignerprojects: [],
+      selectedDesignerID: '',
+      hoveredDesigner: ''
     }
   },
 
   created: function() {
     for (var i = 0; i < this.designers.length; i++) {
-      this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].webID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
+      //Alternative API key: fBD5wQDeHCclck9MRpwifajnEDIz4KzA
+      this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].webID + '?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
         this.behanceDesignerInfo.push(response.body);
       });
     }
   },
 
   methods: {
-    getDesignerProjects: function(evt) {
+    getDesigner: function(evt) {
       for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
         if (this.behanceDesignerInfo[i].user.id == evt.target.id) {
           this.selectedDesigner = this.behanceDesignerInfo[i];
-          console.log("yes!");
+          this.selectedDesignerID = this.selectedDesigner.user.username;
         }
       }
-      this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesigner.user.username + '/projects?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-        this.selectedDesignerprojects.push(response.body);
-      });
-      // this.$emit('getDesignerProjects', evt.target.id);
-    }
+    },
+
   }
 }
 </script>
@@ -224,31 +231,26 @@ table {
 }
 
 
+/*DISCO BACKGROUND*/
 
-
-
-
-
-
+.disco-background {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
 
 
 /*CONTAINER*/
 
 .container {
-  /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
+  /*overflow: scroll;*/
+  z-index: 999;
+  position: absolute;
   width: 100vw;
   height: 100vh;
-  background-size: 100%;
-  background-color: black;
 }
-
-
-
-
-
-
-
-
 
 
 /*HEADER*/
@@ -276,7 +278,7 @@ table {
   font-size: 1.1vw;
 }
 
-a {
+.contact a {
   color: #fff;
 }
 
@@ -285,18 +287,10 @@ a:hover {
 }
 
 
-
-
-
-
-
-
-
-
 /*PAGE INTRO*/
 
 .page-intro {
-  margin-top: 15%;
+  margin-top: 7%;
   color: white;
   text-align: left;
   padding-left: 50px;
@@ -312,36 +306,72 @@ a:hover {
 }
 
 
-
-
-
-
-
-
-
-
 /*DESIGNERS*/
 
 .designers {
-  margin-top: 8%;
+  margin-top: 3%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   font-family: 'Anonymous Pro', monospace;
 }
 
+.designers div {
+  padding: 0px 100px 0px 100px;
+}
+
 .designers h1 {
   font-size: 1.5vw;
   color: white;
-  padding-left: 150px;
-  padding-bottom: 40px;
 }
-
-.designers h1:hover {
-  font-size: 2vw;
-}
-
 .designers img {
-  height: 400px;
+  height: 500px;
+  padding-top: 50px;
+}
+
+
+/*REPONSIVE DESIGN */
+
+@media screen and (max-width:640px) {
+  /*header*/
+  .logo img {
+    width: 50vw;
+  }
+
+  .header .contact {
+    font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
+  }
+  /*disco ball*/
+  .container .disco-ball {
+    margin-top: 20%;
+    margin-left: 4%;
+  }
+  /*page intro*/
+  .page-intro {
+    padding-left: 0px;
+  }
+  .page-intro h1 {
+    font-size: 43px;
+    text-align: center;
+  }
+  .page-intro p {
+    font-size: 17px;
+    text-align: center;
+  }
+
+  /*designers*/
+  .designers div {
+    padding: 40px 30px 0px 30px;
+  }
+  .designers img {
+    height: 350px;
+    padding-top: 30px;
+  }
+  .designers h1 {
+    font-size: 3.5vw;
+  }
 }
 </style>
