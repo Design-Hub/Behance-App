@@ -73,55 +73,55 @@ export default {
     getUserDatasFromBehance: function() {
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/almefer?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+        "https://api.behance.net/v2/users/almefer?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
           this.photographers.push(response.body.user);
         });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/SkandaCreations?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
-      //     this.photographers.push(response.body.user);
-      //   });
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/SkandaCreations?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        )
+        .then(response => {
+          // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+          this.photographers.push(response.body.user);
+        });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/sapolendario?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
-      //     this.photographers.push(response.body.user);
-      //   });
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/sapolendario?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        )
+        .then(response => {
+          // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+          this.photographers.push(response.body.user);
+        });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/CCLORd389?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
-      //     this.photographers.push(response.body.user);
-      //   });
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/CCLORd389?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        )
+        .then(response => {
+          // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+          this.photographers.push(response.body.user);
+        });
 
-      // this.$http
-      //   .jsonp(
-      //   "https://api.behance.net/v2/users/shivanetua?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
-      //   )
-      //   .then(response => {
-      //     // After getting all the datas from the behance api, push all the datas in to the "photographers" array
-      //     this.photographers.push(response.body.user);
-      //   });
+      this.$http
+        .jsonp(
+        "https://api.behance.net/v2/users/shivanetua?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        )
+        .then(response => {
+          // After getting all the datas from the behance api, push all the datas in to the "photographers" array
+          this.photographers.push(response.body.user);
+        });
 
     }
   },
   computed: {
     // Checking if the data I got back from the api is 5 people(datas) or not 
     checkPhotographersDatas: function() {
-      var fivePhotographers = 1;
+      var fivePhotographers = 5;
       return this.photographers.length === fivePhotographers;
     }
 

@@ -6,7 +6,7 @@
             <div class="top-nav">
                 <div class="top-nav--back-button">
                     <!--This router link goes back to the photographer list page when clicked-->
-                    <router-link v-bind:to="toPhotographerList"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
+                    <router-link v-bind:to="toPhotographerList"><img class="back-button fas fa-chevron-circle-left fa-5x"></router-link>
                 </div>
             </div>
             <div class="user-details">
@@ -22,7 +22,9 @@
                         </div>
                     </div>
                     <div class="bottom-intro">
-                        <div class="user-website">{{currentPhotographerDatasAndProjects.userDatas.website}}</div>
+                        <div class="user-website">
+                            <a v-bind:href="currentPhotographerDatasAndProjects.userDatas.website">{{currentPhotographerDatasAndProjects.userDatas.website}}</a>
+                        </div>
                         <!--Loop through the specific photographers specialty field and display them-->
                         <span class="user-focus" v-for="currentPhotographerFields in currentPhotographerDatasAndProjects.userDatas.fields">{{currentPhotographerFields}},</span>
                     </div>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="user-stats--appreciations user-stats">
                         <div class="appreciations-icon">
-                            <img class="appreciations--icon icons fas fa-thumbs-up fa-lg" src="../../images/victor/Appreciations.png">
+                            <img class="appreciations--icon icons fas fa-thumbs-up fa-lg">
                         </div>
                         <div class="appreciations-title titles">Appreciations</div>
                         <div class="appreciations-stats stats">{{currentPhotographerDatasAndProjects.userDatas.stats.appreciations}}</div>
@@ -138,7 +140,7 @@ export default {
         gettingTheCurrentPhotographerdata: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
                 )
                 .then(response => {
                     // After getting all the datas from the behance api, put the data into the "currentPhotographerDatasAndProjects.userDatas" object
@@ -149,7 +151,7 @@ export default {
         gettingTheCurrentPhotographerproject: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
                 )
                 .then(response => {
                     // After getting all the datas from the behance api, put the data into the "currentPhotographerDatasAndProjects.userProjects" object
@@ -204,9 +206,7 @@ export default {
     font-family: 'Open Sans', sans-serif;
 }
 
-.link-to-user-behance a {
-    text-decoration: none;
-}
+
 
 h4 {
     font-size: 1.5vw;
@@ -227,6 +227,7 @@ p {
 .main-container {
     width: 100%;
 }
+
 
 
 
@@ -254,6 +255,10 @@ p {
     cursor: pointer;
 }
 
+.fa-chevron-circle-left {
+    color: #579068;
+}
+
 
 
 /*Styles of the top section where the photographer details are starts here*/
@@ -278,6 +283,7 @@ p {
     justify-content: center;
     align-items: center;
 }
+
 
 
 
@@ -310,6 +316,15 @@ p {
     margin-bottom: 10px;
 }
 
+.user-website a {
+    text-decoration: none;
+}
+
+.user-website a:hover {
+    color: #579068;
+}
+
+
 
 
 /*Second block*/
@@ -335,6 +350,7 @@ p {
     width: 100%;
     height: 70%;
 }
+
 
 
 
@@ -382,6 +398,7 @@ p {
 }
 
 
+
 /*Fourth block*/
 
 .social-links {
@@ -413,6 +430,10 @@ p {
     cursor: pointer;
 }
 
+.link-to-user-behance a {
+    text-decoration: none;
+}
+
 
 /*This is where the bottom section which all the photographer's projects styles are*/
 
@@ -427,6 +448,10 @@ p {
     height: 400px;
     cursor: pointer;
     margin: 40px 0 20px 0;
+}
+
+.user-projects--project a {
+    text-decoration: none;
 }
 
 .project-image {
