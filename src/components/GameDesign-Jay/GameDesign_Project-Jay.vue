@@ -17,15 +17,17 @@
 
       <!-- Disco Ball-->
       <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
-
+      
       <!--Designer details-->
       <div class="selected-designer" v-for="info in selectedProject.owners">
+      <router-link v-bind:to="'/game-design-designer/' + featuredDesigner.webID">
         <div class="selected-designer-info">
           {{ info.display_name }}
         </div>
         <div class="selected-designer-character" v-bind="getCharacterImage(info)">
           <img v-bind:src="featuredDesigner.characterImage">
         </div>
+        </router-link>
       </div>
 
       <!-- Grey project display placeholder -->
@@ -316,6 +318,10 @@ a:hover {
   color: white;
   font-size: 25px;
   font-family: 'Anonymous Pro', monospace;
+}
+
+.selected-designer div{
+  color: white;
 }
 
 .selected-designer .selected-designer-info {
