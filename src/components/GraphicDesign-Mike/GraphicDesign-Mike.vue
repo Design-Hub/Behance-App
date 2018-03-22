@@ -11,12 +11,6 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <router-link v-bind:to="Admin"><div class="contact">
-        <a href="/">Admin</a>
-      </div></router-link>
-      <!--<router-link v-bind:to="'graphic-designer/' + "><div class="contact">
-        <a href="/contact">Profile</a>
-      </div></router-link>-->
     </div>
   
   <div class="profiles-container">
@@ -38,7 +32,6 @@
     </div>
   
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
@@ -79,26 +72,26 @@ export default {
           console.log(this.designers)
         });
 
-    // this.$http.jsonp('https://api.behance.net/v2/users/craniodsgn?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-    //     .then(response => {
-    //       console.log('ok')
-    //       this.designers.push(response.body.user);
-    //       console.log(this.designers)
-    //     });
+    this.$http.jsonp('https://api.behance.net/v2/users/craniodsgn?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('ok')
+          this.designers.push(response.body.user);
+          console.log(this.designers)
+        });
 
-    // this.$http.jsonp('https://api.behance.net/v2/users/oberhaeuser?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-    //     .then(response => {
-    //       console.log('ok')
-    //       this.designers.push(response.body.user);
-    //       console.log(this.designers)
-    //     });
+    this.$http.jsonp('https://api.behance.net/v2/users/oberhaeuser?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('ok')
+          this.designers.push(response.body.user);
+          console.log(this.designers)
+        });
 
-    // this.$http.jsonp('https://api.behance.net/v2/users/soderhavet?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-    //     .then(response => {
-    //       console.log('ok')
-    //       this.designers.push(response.body.user);
-    //       console.log(this.designers)
-    //     });
+    this.$http.jsonp('https://api.behance.net/v2/users/soderhavet?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
+          console.log('ok')
+          this.designers.push(response.body.user);
+          console.log(this.designers)
+        });
 
   },
   
@@ -114,7 +107,6 @@ created: function() {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 /*CUSTOM CSS FROM HERE*/
@@ -193,10 +185,6 @@ a:hover {
   display: flex;
 }
 
-.owner-container {
-   /*flex: 1 */
-}
-
 .project-cover {
     border-radius: 6px 6px 3px 3px;
     box-sizing: border-box;
@@ -238,7 +226,6 @@ a:hover {
     font-size: 1.2vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*margin-bottom: 10px;*/
     white-space: nowrap;
     color: #191919;
     display: inline-block;
@@ -295,6 +282,5 @@ a:hover {
     top: -1px;
     vertical-align: middle;
     margin-left: 20px;
-    /*text-align: center;*/
 }
 </style>

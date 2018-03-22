@@ -1,7 +1,6 @@
 <template>
     <div class="profilePage">
       <div class="header">
-        <h5>profile page</h5>
       <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
       </div></router-link>
@@ -11,10 +10,10 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <router-link v-bind:to="GDHome"><div class="contact">
-        <a href="/">Back</a>
-      </div></router-link>
     </div>
+     <router-link v-bind:to="GDHome"><div class="contact">
+        <a href="/"><i class="fas fa-arrow-left"></i> Back</a>
+      </div></router-link>
 
     <div class="profiles-container">
       <div class="images-container">
@@ -41,8 +40,8 @@
         <p class="user-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
         <p class="user-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
         <p class="user-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
-        <a class="user-behance">{{ designer.url }}</a>
-        <a class="user-website">{{ designer.website }}</a>
+        <a v-bind:href="'' + designer.url" class="user-behance" target="_blank">{{ designer.url }}</a>
+        <a v-bind:href="'http://' + designer.website" class="user-website" target="_blank">{{ designer.website }}</a>
         <div class="user-sociallinks"></div>
       </div>
     </div>
@@ -84,6 +83,17 @@ export default {
      userProjects: function(username) {
     this.$http.jsonp('https://api.behance.net/v2/users/'+username+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
         .then(response => {
+          console.log('profile')
+          this.works=response.body.projects;
+          console.log(this.works)
+        });
+     },
+
+     // FUNCTION TO GET USER PROJECT //
+
+     userProjects: function(id) {
+    this.$http.jsonp('https://api.behance.net/v2/users/'+id+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+        .then(response => {
           console.log('project')
           this.works=response.body.projects;
           console.log(this.works)
@@ -93,15 +103,9 @@ export default {
   // },
     created: 
     function() {
-      // console.log(this.username)
     this.userProfile(this.username);
     this.userProjects(this.username);
   },
-  //   function() {
-  //   console.log("work" + this.works);
-  // this.userProjects(this.username);
-  //   }
-
 }
 
 </script>
@@ -160,15 +164,14 @@ export default {
 }
 
 .contact a {
+  float: right;
+  margin-right: 50px;
+  margin-bottom: 20px;
   color: #FFF;
 }
 
 a:hover {
   text-decoration: none;
-}
-
-.owner-container {
-   /*flex: 1 */
 }
 
 .project-cover {
@@ -238,7 +241,6 @@ a:hover {
     top: -1px;
     vertical-align: middle;
     margin-left: 20px;
-    /*text-align: center;*/
 }
 
 .user-behance {
@@ -256,14 +258,6 @@ a:hover {
   height: auto;
   background-color: #252525;
 }
-
-/*.projects-container {
-  width: 20vw;
-  height: auto;
-  border-left-style: solid;
-  border-width: 1px;
-  border-color: #000;
-}*/
 
 .projects-masonry {
  
@@ -290,16 +284,14 @@ a:hover {
   flex-direction: column;
 }
 
-.project-covers {
-  /*padding: 0 4px;
-  flex-wrap: wrap;*/
-  /*max-width: 100%;*/
-}
-
 .images-container {
   width: auto;
   height: auto;
   display: flex;
   flex-wrap: wrap;
+}
+
+.link {
+  color: black;
 }
 </style>
