@@ -12,8 +12,8 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "moment": "^2.21.0",
     "bricks.js": "^1.8.0",
+    "moment": "^2.21.0",
     "vue": "^2.1.0",
     "vue-masonry": "^0.10.16",
     "vue-masonry-css": "^1.0.1",
