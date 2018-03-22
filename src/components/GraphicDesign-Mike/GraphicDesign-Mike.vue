@@ -11,9 +11,6 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-      <!--<router-link v-bind:to="'graphic-designer/' + "><div class="contact">
-        <a href="/contact">Profile</a>
-      </div></router-link>-->
     </div>
   
   <div class="profiles-container">
@@ -35,20 +32,15 @@
     </div>
   
   </div>
-  </div>
 </template>
 
 <script>
-// import VueMasonry
-// import Vue from 'vue'
-// import VueMasonry from 'vue-masonry-css'
-
-// Vue.use(VueMasonry);
 
 export default {
   name: 'graphicDesign',
   data() {
     return {
+      Admin: "/admin",
       Home: "/",
       profilePage: "/profilePage",
       designers: [],
@@ -59,21 +51,21 @@ export default {
 
   methods: {
     userProfile: function() {
-     this.$http.jsonp('https://api.behance.net/v2/users/thinkingroominc?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/thinkingroominc?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-     this.$http.jsonp('https://api.behance.net/v2/users/akatre?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+     this.$http.jsonp('https://api.behance.net/v2/users/akatre?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
           console.log(this.designers)
         });
 
-    this.$http.jsonp('https://api.behance.net/v2/users/alexandrepietra?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
+    this.$http.jsonp('https://api.behance.net/v2/users/alexandrepietra?api_key=QBnDGTduo620bRGYwfvTC4ErNLmUjIMM')
         .then(response => {
           console.log('ok')
           this.designers.push(response.body.user);
@@ -115,7 +107,6 @@ created: function() {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 /*CUSTOM CSS FROM HERE*/
@@ -194,10 +185,6 @@ a:hover {
   display: flex;
 }
 
-.owner-container {
-   /*flex: 1 */
-}
-
 .project-cover {
     border-radius: 6px 6px 3px 3px;
     box-sizing: border-box;
@@ -239,7 +226,6 @@ a:hover {
     font-size: 1.2vw;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*margin-bottom: 10px;*/
     white-space: nowrap;
     color: #191919;
     display: inline-block;
@@ -296,6 +282,5 @@ a:hover {
     top: -1px;
     vertical-align: middle;
     margin-left: 20px;
-    /*text-align: center;*/
 }
 </style>

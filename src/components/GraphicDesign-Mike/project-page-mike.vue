@@ -1,5 +1,5 @@
 <template>
-    <div class="profilePage">
+    <div class="projectPage">
       <div class="header">
       <router-link v-bind:to="Home"><div class="gd-logo">
         <img src="../../images/logoWhite.png">
@@ -10,51 +10,29 @@
       <div class="gd-bg">
         <img src="../../images/gd-example4.png">
       </div>
-    </div>
-     <router-link v-bind:to="GDHome"><div class="contact">
-        <a href="/"><i class="fas fa-arrow-left"></i> Back</a>
+      <router-link v-bind:to="GDHome"><div class="contact">
+        <a href="/">Back</a>
       </div></router-link>
-
-    <div class="profiles-container">
-      <div class="images-container">
-     
-        <masonry
-          :cols="{default: 3, 1600: 2, 1000: 1, 700: 1}"
-          :gutter="{default: '15px', 700: '15px'}"
-          >
-          <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
+    </div>
+    
+    <div class="project-container">
+        <div class="project-viewer">
+           <div class="projects-masonry" v-for="work in works" v-bind:value="work.projects">
             <router-link v-bind:to="'project-details/' + work.id">
             <img class="project-covers" v-bind:src="work.covers[404]">
             </router-link>
           </div>
-          
-        </masonry>
-
-      </div>
-      
-      <div class="user-info" v-for="designer in designers" v-bind:value="designer.user">
-        <img class="user-image" v-bind:src="designer.images[276]">
-        <h3 class="user-name">{{ designer.first_name }} {{ designer.last_name }}</h3>
-        <p class="user-features">{{ designer.location }}</p>
-        <p class="user-occupation">{{ designer.occupation }}</p>
-        <p class="user-stats"><i class="fas fa-thumbs-up"></i> Likes {{ designer.stats.appreciations }}</p>
-        <p class="user-stats"><i class="fas fa-star"></i> Followers {{ designer.stats.followers }}</p>
-        <p class="user-stats"><i class="fas fa-eye"></i> Views {{ designer.stats.views }}</p>
-        <a v-bind:href="'' + designer.url" class="user-behance" target="_blank">{{ designer.url }}</a>
-        <a v-bind:href="'http://' + designer.website" class="user-website" target="_blank">{{ designer.website }}</a>
-        <div class="user-sociallinks"></div>
-      </div>
+        </div>
     </div>
 
-      </div>
+    </div>
+    </template>
 
-</template>
-
-<script>
+    <script>
 
 export default {
-  name: 'profilePage',
-  props: ['username'],
+  name: 'projectPage',
+  props: ['id'],
   data() {
     return {
       GDHome: "/GraphicDesign",
@@ -65,8 +43,7 @@ export default {
       work: ''
     }
   },
-
-// FUNCTION TO GET USER INFO //
+  // FUNCTION TO GET USER INFO //
 
   methods: {
     userProfile: function(username) {
@@ -78,18 +55,7 @@ export default {
         });
     },
 
-// FUNCTION TO GET USER PROFILE IMAGES //
-
-     userProjects: function(username) {
-    this.$http.jsonp('https://api.behance.net/v2/users/'+username+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
-        .then(response => {
-          console.log('profile')
-          this.works=response.body.projects;
-          console.log(this.works)
-        });
-     },
-
-     // FUNCTION TO GET USER PROJECT //
+// FUNCTION TO GET USER PROJECT //
 
      userProjects: function(id) {
     this.$http.jsonp('https://api.behance.net/v2/users/'+id+'/projects?api_key=htgPbzokEp6xie3Vjz3K0n4dttFREcq0')
@@ -100,17 +66,16 @@ export default {
         });
      }
 },
-  // },
     created: 
     function() {
     this.userProfile(this.username);
-    this.userProjects(this.username);
+    this.userProjects(this.id);
   },
 }
 
-</script>
+  </script>
 
-<style scoped>
+  <style scoped>
 
 /*CUSTOM CSS FROM HERE*/
 
@@ -164,9 +129,6 @@ export default {
 }
 
 .contact a {
-  float: right;
-  margin-right: 50px;
-  margin-bottom: 20px;
   color: #FFF;
 }
 
@@ -259,20 +221,6 @@ a:hover {
   background-color: #252525;
 }
 
-.projects-masonry {
- 
-}
-
-.profiles-container {
-  width: 1600px;
-  height: auto;
-  margin: 0 auto;
-  background-color: #fff;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
 .user-info {
   width: 350px;
   height: auto;
@@ -291,7 +239,26 @@ a:hover {
   flex-wrap: wrap;
 }
 
-.link {
-  color: black;
+.projectPage {
+  width: 100vw;
+  height: auto;
+  background-color: #252525;
 }
-</style>
+
+.project-container {
+  width: 1600px;
+  height: auto;
+  margin: 0 auto;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.project-viewer {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+  </style>
