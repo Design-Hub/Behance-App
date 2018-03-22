@@ -16,7 +16,7 @@
       </div>
 
       <!-- Disco Ball-->
-      <iframe v-bind:src="discoBall_iframeURL"></iframe>
+      <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
 
       <!--Designer details-->
       <div class="selected-designer">
@@ -30,25 +30,25 @@
 
       <!-- Grey project display placeholder -->
       <div class="project-display">
-      <!--Back button-->
-      <div class="back-button">
-        <a href="/game-design-home">
-          <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
-        </a>
-      </div>
-
-      <!--Designer's list of projects-->
-      <div class="designer-project-list">
-        <div v-for="project in projects">
-          <router-link v-bind:to="'/game-design-projects/' + project.id">
-            <h1>{{ project.name }}</h1>
-            <img v-bind:src="project.covers[202]">
-          </router-link>
+        <!--Back button-->
+        <div class="back-button">
+          <a href="/game-design-home">
+            <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+          </a>
         </div>
-      </div>
 
-    </div>
+        <!--Designer's list of projects-->
+        <div class="designer-project-list">
+          <div v-for="project in projects">
+            <router-link v-bind:to="'/game-design-projects/' + project.id">
+              <h1>{{ project.name }}</h1>
+              <img v-bind:src="project.covers[202]">
+            </router-link>
+          </div>
+        </div>
+
+      </div>
 
     </div>
 
@@ -90,11 +90,8 @@ export default {
   },
 
   created: function() {
-    console.log("Now on the selected designer page");
-    console.log(this.selectedDesignerID);
-
+    //Alternative API key: fBD5wQDeHCclck9MRpwifajnEDIz4KzA
     this.$http.jsonp('https://api.behance.net/v2/users/' + this.selectedDesignerID + '/projects?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
-      // this.projects.push(response.body);
       this.projects = response.body.projects;
     });
 
@@ -251,6 +248,7 @@ table {
 }
 
 
+
 /*DISCO BACKGROUND*/
 
 .disco-background {
@@ -261,6 +259,7 @@ table {
   height: 100vh;
   background-size: 100%;
 }
+
 
 
 /*CONTAINER*/
@@ -305,9 +304,11 @@ table {
   color: white;
 }
 
-hover {
+a:hover {
   text-decoration: none;
 }
+
+
 
 /*DESIGNER*/
 
@@ -331,7 +332,10 @@ hover {
   height: 400px;
 }
 
+
+
 /* PROJECT DISPLAY */
+
 .project-display {
   left: 21%;
   margin-top: 5%;
@@ -343,21 +347,30 @@ hover {
   overflow-x: scroll;
   box-shadow: inset 0px 10px 10px 0px rgb(166, 166, 166), inset 0px 4px 20px 0 rgb(166, 166, 166);
 }
+
+
+
 /*.project-display::-webkit-scrollbar {
   display: none;
 }*/
 
+
 /*BACK button*/
+
 .back-button {
   margin-top: 3%;
   font-size: 1vw;
 }
-.back-button a{
+
+.back-button a {
   color: #9E9E9E;
 }
+
 .back-button a:hover {
   font-size: 1.5vw;
 }
+
+
 
 /*PROJECTS*/
 
@@ -373,13 +386,86 @@ hover {
   position: absolute;
   height: 40vw;
 }
-.designer-project-list a{
+
+.designer-project-list a {
   color: #9E9E9E;
 }
-.designer-project-list div{
+
+.designer-project-list div {
   padding: 20px 80px 10px 10px;
 }
-.designer-project-list img{
+
+.designer-project-list img {
   padding: 20px 80px 10px 70px;
+}
+
+
+
+/*REPONSIVE DESIGN */
+
+@media screen and (max-width:640px) {
+
+  /*header*/
+  .logo img {
+    width: 50vw;
+  }
+
+  .header .contact {
+    font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
+  }
+  /*container*/
+  .container {
+    overflow-x: hidden;
+  }
+  /*disco ball*/
+  .container .disco-ball {
+    margin-top: 20%;
+    margin-left: 4%;
+  }
+  /*designer*/
+  .selected-designer-info {
+    margin-top: 40%;
+  }
+  .selected-designer .selected-designer-character {
+    margin-top: 10%;
+  }
+  .selected-designer-character img {
+    height: 300px;
+  }
+  .selected-designer {
+    margin-left: 41%;
+    font-size: 20px;
+  }
+  /*projects*/
+  .project-display {
+    left: 10%;
+    margin-top: 70%;
+    height: 1000px;
+    width: 500px;
+    overflow-x: hidden;
+  }
+  .back-button {
+    margin-top: 5%;
+    font-size: 2.5vw;
+  }
+  .back-button a:hover {
+    font-size: 3vw;
+  }
+  .designer-project-list {
+    flex-direction: row;
+    top: 6%;
+    left: 15%;
+    position: absolute;
+    height: 40vw;
+  }
+  .designer-project-list div {
+    padding: 20px 80px 10px 10px;
+  }
+  .designer-project-list img {
+    padding: 20px 80px 10px 70px;
+  }
 }
 </style>

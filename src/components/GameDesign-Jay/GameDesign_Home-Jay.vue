@@ -14,7 +14,7 @@
       </div>
 
       <!-- Disco Ball-->
-      <iframe v-bind:src="discoBall_iframeURL"></iframe>
+      <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
 
       <!--Page intro-->
       <div class="page-intro">
@@ -76,6 +76,7 @@ export default {
 
   created: function() {
     for (var i = 0; i < this.designers.length; i++) {
+      //Alternative API key: fBD5wQDeHCclck9MRpwifajnEDIz4KzA
       this.$http.jsonp('https://api.behance.net/v2/users/' + this.designers[i].webID + '?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
         this.behanceDesignerInfo.push(response.body);
       });
@@ -87,14 +88,12 @@ export default {
       for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
         if (this.behanceDesignerInfo[i].user.id == evt.target.id) {
           this.selectedDesigner = this.behanceDesignerInfo[i];
-          console.log("yes!");
           this.selectedDesignerID = this.selectedDesigner.user.username;
-          console.log(this.selectedDesignerID);
         }
       }
     },
 
-    getDesignerProfilePicture: function(e){
+    getDesignerProfilePicture: function(e) {
       for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
         if (this.behanceDesignerInfo[i].user.id == e.target.id) {
           this.hoveredDesigner = this.behanceDesignerInfo[i].user;
@@ -241,13 +240,6 @@ table {
   border-spacing: 0
 }
 
-
-
-
-
-
-
-
 /*DISCO BACKGROUND*/
 
 .disco-background {
@@ -258,12 +250,6 @@ table {
   height: 100vh;
 }
 
-
-
-
-
-
-
 /*CONTAINER*/
 
 .container {
@@ -273,16 +259,6 @@ table {
   width: 100vw;
   height: 100vh;
 }
-
-
-
-
-
-
-
-
-
-
 
 /*HEADER*/
 
@@ -309,23 +285,13 @@ table {
   font-size: 1.1vw;
 }
 
-a {
+.contact a {
   color: #fff;
 }
 
 a:hover {
   text-decoration: none;
 }
-
-
-
-
-
-
-
-
-
-
 
 /*PAGE INTRO*/
 
@@ -344,10 +310,6 @@ a:hover {
 .page-intro p {
   font-size: 25px;
 }
-
-
-
-
 
 /*DESIGNERS*/
 
@@ -373,7 +335,7 @@ a:hover {
   position: absolute;
   top: 20%;
   left: 40%;
-  width:50px;
+  width: 50px;
   width: 50px;
 }
 
@@ -384,5 +346,53 @@ a:hover {
 .designers img {
   height: 500px;
   padding-top: 50px;
+}
+
+/*REPONSIVE DESIGN */
+
+@media screen and (max-width:640px){
+  /*header*/
+  .logo img {
+    width: 50vw;
+  }
+
+  .header .contact {
+    font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
+  }
+
+/*disco ball*/
+.container .disco-ball{
+margin-top: 20%;
+margin-left: 4%;
+}
+
+/*page intro*/
+.page-intro {
+  padding-left: 0px;
+}
+.page-intro h1 {
+  font-size: 43px;
+  text-align: center;
+}
+.page-intro p {
+  font-size: 17px;
+  text-align: center;
+}
+
+  /*designers*/
+  .designers div{
+  padding: 40px 30px 0px 30px;
+  }
+  .designers img {
+  height: 350px;
+    padding-top: 30px;
+}
+.designers h1 {
+  font-size: 3.5vw;
+}
+
 }
 </style>
