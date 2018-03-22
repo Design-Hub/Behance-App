@@ -30,8 +30,6 @@
             <img v-on:mouseover="getDesignerProfilePicture" v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
           </router-link>
         </div>
-
-        <img v-bind:id="hoveredDesigner.username" v-bind:src="hoveredDesigner.images[50]">
       </div>
 
     </div>
@@ -93,15 +91,6 @@ export default {
         }
       }
     },
-
-    getDesignerProfilePicture: function(e) {
-      for (var i = 0; i < this.behanceDesignerInfo.length; i++) {
-        if (this.behanceDesignerInfo[i].user.id == e.target.id) {
-          this.hoveredDesigner = this.behanceDesignerInfo[i].user;
-          console.log("hovered designer = " + this.hoveredDesigner.display_name);
-        }
-      }
-    }
 
   }
 }
@@ -334,20 +323,6 @@ a:hover {
 .designers h1 {
   font-size: 1.5vw;
   color: white;
-}
-
-/*designer profile picture*/
-#ducnguyenmai {
-  position: absolute;
-  left: 15%;
-}
-#atokaruk{
-  position: absolute;
-  left:37%;
-}
-#Aleksey_Bazik{
-  position: absolute;
-  left:61%;
 }
 .designers img {
   height: 500px;
