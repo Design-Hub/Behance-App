@@ -49,6 +49,7 @@
         <div class="user-details--comments user-details--block">
           <div class="comments-block">
             <div class="comments-heading">Comments</div>
+            <div class="comments-scroll-down" v-if="currentProjectComments.length > 3">(Scroll down to see more comments)</div>
             <div class="comments-body" v-for="individualComment in currentProjectComments">
               <div class="comments-body--user-name">
                 <div class="comments-name">{{individualComment.user.display_name}} - </div>
@@ -115,7 +116,7 @@ export default {
         .jsonp(
         "http://www.behance.net/v2/projects/" +
         this.individualPhotographerProjectId +
-        "?api_key=NVXh1zQue7FflIi24PrdKeTsqT2BWpJI"
+        "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, put the data into the "photographerProjectDetails" object
@@ -124,7 +125,7 @@ export default {
       // User details
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, put the data into the "photographerDetails" object
@@ -133,7 +134,7 @@ export default {
       // Project user comments
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, put the data into the "currentProjectComments" object
@@ -238,6 +239,8 @@ p {
 
 
 
+
+
 /*Top nav and the back button styles starts here*/
 
 .top-nav {
@@ -268,6 +271,8 @@ p {
 
 
 
+
+
 /*Styles of the top section where the photographer details and project details are starts here*/
 
 .user-details {
@@ -294,6 +299,8 @@ p {
 
 
 
+
+
 /*First block*/
 
 .user-profile-image {
@@ -308,6 +315,8 @@ p {
 .user-name-company {
   display: flex;
 }
+
+
 
 
 
@@ -369,6 +378,8 @@ p {
 
 
 
+
+
 /*Third block*/
 
 .user-details--comments {
@@ -387,6 +398,9 @@ p {
 .comments-heading {
   font-weight: bold;
   font-size: 1.5vw;
+}
+
+.comments-scroll-down {
   margin-bottom: 20px;
 }
 
@@ -405,6 +419,8 @@ p {
   text-transform: capitalize;
   padding-right: 2px;
 }
+
+
 
 
 
@@ -444,6 +460,8 @@ p {
 
 
 
+
+
 /*This is where the project(image) style starts*/
 
 .user-projects {
@@ -459,5 +477,8 @@ p {
 .user-projects--projects {
   width: 45%;
   margin: 50px auto 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

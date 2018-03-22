@@ -140,7 +140,7 @@ export default {
         gettingTheCurrentPhotographerdata: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
                 )
                 .then(response => {
                     // After getting all the datas from the behance api, put the data into the "currentPhotographerDatasAndProjects.userDatas" object
@@ -151,7 +151,7 @@ export default {
         gettingTheCurrentPhotographerproject: function() {
             this.$http
                 .jsonp(
-                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+                "https://api.behance.net/v2/users/" + this.currentPhotographerUsername + "/projects?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
                 )
                 .then(response => {
                     // After getting all the datas from the behance api, put the data into the "currentPhotographerDatasAndProjects.userProjects" object
