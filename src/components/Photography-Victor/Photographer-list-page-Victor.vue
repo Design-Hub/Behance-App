@@ -73,7 +73,7 @@ export default {
     getUserDatasFromBehance: function() {
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/almefer?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/almefer?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
@@ -82,7 +82,7 @@ export default {
 
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/SkandaCreations?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/SkandaCreations?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
@@ -91,7 +91,7 @@ export default {
 
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/sapolendario?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/sapolendario?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
@@ -100,7 +100,7 @@ export default {
 
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/CCLORd389?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/CCLORd389?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
@@ -109,7 +109,7 @@ export default {
 
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/shivanetua?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
+        "https://api.behance.net/v2/users/shivanetua?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
         )
         .then(response => {
           // After getting all the datas from the behance api, push all the datas in to the "photographers" array
