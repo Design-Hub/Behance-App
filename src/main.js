@@ -39,40 +39,20 @@ import VictorPhotographerProjectDetailPage from './components/Photography-Victor
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/contact', component: Contact },
+
   { path: '/gameDesignHome', component: GameDesignHome },
   { path: '/gameDesignDesigner/:selectedDesignerprojects', component: GameDesignDesigner, props:true },
   { path: '/gameDesignProjects', component: GameDesignProjects },
-  { path: '/graphicDesign', component: Mike },
 
-  { path: '/photography', component: Victor },
-  { path: '/contact', component: Contact },
+  { path: '/graphicDesign', component: Mike },
   { path: '/project-details/:id', component: Project, props: true },
   { path: '/graphic-designer/:username', component: Profile, props: true },
-  {
-    path: '/admin', component: Admin,
-    children: [
-      {
-        path: '/',
-        component: Mike
-      },
-      {
-        path: 'profiles',
-        component: Profile
-      },
-      {
-        path: 'projects',
-        component: Project
-      }
-    ]
-  },
 
   { path: '/photography', component: Victor},
   { path: '/photographer-list-page', component: VictorPhotographerListPage},
   { path: '/photographer-profile-detail-page:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
   { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
-  { path: '/contact', component: Contact }
-
-
 ];
 
 const router = new VueRouter({
