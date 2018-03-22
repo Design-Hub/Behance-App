@@ -30,7 +30,8 @@
             <img v-on:mouseover="getDesignerProfilePicture" v-bind:src="designer.characterImage" v-on:click="getDesigner" v-bind:id="designer.id">
           </router-link>
         </div>
-        <!--<img class="designer-profile-picture" v-bind:src="hoveredDesigner.images[50]">-->
+
+        <img v-bind:id="hoveredDesigner.username" v-bind:src="hoveredDesigner.images[50]">
       </div>
 
     </div>
@@ -240,6 +241,7 @@ table {
   border-spacing: 0
 }
 
+
 /*DISCO BACKGROUND*/
 
 .disco-background {
@@ -250,6 +252,7 @@ table {
   height: 100vh;
 }
 
+
 /*CONTAINER*/
 
 .container {
@@ -259,6 +262,7 @@ table {
   width: 100vw;
   height: 100vh;
 }
+
 
 /*HEADER*/
 
@@ -293,6 +297,7 @@ a:hover {
   text-decoration: none;
 }
 
+
 /*PAGE INTRO*/
 
 .page-intro {
@@ -310,6 +315,7 @@ a:hover {
 .page-intro p {
   font-size: 25px;
 }
+
 
 /*DESIGNERS*/
 
@@ -330,27 +336,28 @@ a:hover {
   color: white;
 }
 
-.designers .designer-profile-picture {
-  /*display: none;*/
+/*designer profile picture*/
+#ducnguyenmai {
   position: absolute;
-  top: 20%;
-  left: 40%;
-  width: 50px;
-  width: 50px;
+  left: 15%;
 }
-
-.designers h1:hover .designer-profile-picture {
-  display: block;
+#atokaruk{
+  position: absolute;
+  left:37%;
 }
-
+#Aleksey_Bazik{
+  position: absolute;
+  left:61%;
+}
 .designers img {
   height: 500px;
   padding-top: 50px;
 }
 
+
 /*REPONSIVE DESIGN */
 
-@media screen and (max-width:640px){
+@media screen and (max-width:640px) {
   /*header*/
   .logo img {
     width: 50vw;
@@ -362,37 +369,34 @@ a:hover {
   .contact:hover {
     font-size: 2.2vw;
   }
-
-/*disco ball*/
-.container .disco-ball{
-margin-top: 20%;
-margin-left: 4%;
-}
-
-/*page intro*/
-.page-intro {
-  padding-left: 0px;
-}
-.page-intro h1 {
-  font-size: 43px;
-  text-align: center;
-}
-.page-intro p {
-  font-size: 17px;
-  text-align: center;
-}
+  /*disco ball*/
+  .container .disco-ball {
+    margin-top: 20%;
+    margin-left: 4%;
+  }
+  /*page intro*/
+  .page-intro {
+    padding-left: 0px;
+  }
+  .page-intro h1 {
+    font-size: 43px;
+    text-align: center;
+  }
+  .page-intro p {
+    font-size: 17px;
+    text-align: center;
+  }
 
   /*designers*/
-  .designers div{
-  padding: 40px 30px 0px 30px;
+  .designers div {
+    padding: 40px 30px 0px 30px;
   }
   .designers img {
-  height: 350px;
+    height: 350px;
     padding-top: 30px;
-}
-.designers h1 {
-  font-size: 3.5vw;
-}
-
+  }
+  .designers h1 {
+    font-size: 3.5vw;
+  }
 }
 </style>
