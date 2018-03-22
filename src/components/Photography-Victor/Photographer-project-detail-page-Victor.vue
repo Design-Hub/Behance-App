@@ -4,7 +4,7 @@
     <div class="main-container" v-if="checkingProjectDetailsAreBack">
       <div class="top-nav">
         <div class="top-nav--back-button">
-          <router-link v-bind:to="toPhotographerProfileDetailPage + '/' + photographerIdUserName"><img class="back-button" src="../../images/victor/Back-button.png"></router-link>
+          <router-link v-bind:to="toPhotographerProfileDetailPage + '/' + photographerIdUserName"><img class="back-button fas fa-chevron-circle-left fa-5x"></router-link>
         </div>
       </div>
       <div class="user-details">
@@ -14,7 +14,7 @@
               <h4>{{photographerDetails.first_name}} {{photographerDetails.last_name}}</h4>
             </div>
             <div class="user-profile-image">
-              <img v-bind:src="photographerDetails.images[138]">
+              <img v-bind:src="photographerDetails.images[276]">
             </div>
             <div class="user-company">
               <p>Photographer,</p>
@@ -33,13 +33,13 @@
             <div class="project-view-project-appreciations">
               <div class="project-view">
                 <div class="project-view-icons">
-                  <img class="project-views-icon--icon icons" src="../../images/victor/Project-views.png">
+                  <img class="project-views-icon--icon icons icons fas fa-eye fa-lg">
                 </div>
                 <div class="project-view-results results">{{photographerProjectDetails.stats.views}}</div>
               </div>
               <div class="project-appreciations">
                 <div class="project-appreciations-icons">
-                  <img class="appreciations--icon icons" src="../../images/victor/Appreciations.png">
+                  <img class="appreciations--icon icons fas fa-thumbs-up fa-lg">
                 </div>
                 <div class="project-appreciations-results results">{{photographerProjectDetails.stats.appreciations}}</div>
               </div>
@@ -124,7 +124,7 @@ export default {
       // User details
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+        "https://api.behance.net/v2/users/" + this.photographerIdUserName + "?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
         )
         .then(response => {
           // After getting all the datas from the behance api, put the data into the "photographerDetails" object
@@ -133,7 +133,7 @@ export default {
       // Project user comments
       this.$http
         .jsonp(
-        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=b5aUoJqgiuImchymiGRWij8hqs23ewMM"
+        "https://api.behance.net/v2/projects/" + this.individualPhotographerProjectId + "/comments?api_key=sWH9umXVn0ezHr5yzz8pXUUFNi2u2bmN"
         )
         .then(response => {
           // After getting all the datas from the behance api, put the data into the "currentProjectComments" object
@@ -237,6 +237,7 @@ p {
 }
 
 
+
 /*Top nav and the back button styles starts here*/
 
 .top-nav {
@@ -260,6 +261,11 @@ p {
   padding-top: 10px;
   cursor: pointer;
 }
+
+.fa-chevron-circle-left {
+  color: #579068;
+}
+
 
 
 /*Styles of the top section where the photographer details and project details are starts here*/
@@ -287,20 +293,22 @@ p {
 }
 
 
+
 /*First block*/
 
 .user-profile-image {
-  background-image: url("https://mir-s3-cdn-cf.behance.net/user/138/e24bca2575205.5581363aaf6e1.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  margin: 15px 0;
+}
+
+.user-profile-image img {
   width: 138px;
   height: 138px;
-  margin: 15px 0;
 }
 
 .user-name-company {
   display: flex;
 }
+
 
 
 /*Second block*/
@@ -360,6 +368,7 @@ p {
 
 
 
+
 /*Third block*/
 
 .user-details--comments {
@@ -398,6 +407,7 @@ p {
 }
 
 
+
 /*Fourth block*/
 
 .social-media-links {
@@ -431,6 +441,7 @@ p {
   user-select: none;
   cursor: pointer;
 }
+
 
 
 /*This is where the project(image) style starts*/
