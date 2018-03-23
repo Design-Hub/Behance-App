@@ -8,7 +8,7 @@
         <h1>Graphic Design</h1>
       </div>
       <div class="gd-bg">
-        <img src="../../images/gd-example4.png">
+        <img src="../../images/mike/gd-example4.png">
       </div>
     </div>
      <router-link v-bind:to="GDHome"><div class="contact">
