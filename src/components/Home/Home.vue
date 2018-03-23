@@ -22,7 +22,7 @@
       </div>
       <div class="gameDesign line-two line">
         <h1>
-          <a href="/gameDesignHome">Game Design</a>
+          <a href="/game-design-home">Game Design</a>
         </h1>
       </div>
       <div class="graphicDesign line-three line">
@@ -45,11 +45,6 @@ export default {
   },
   methods: {
   },
-created: function() {
-  
-    console.log('homne')
-  },
-
 }
 </script>
 
@@ -283,7 +278,7 @@ a:hover {
 }
 
 .gameDesign a:hover {
-    color: #39b54a;
+  color: #39b54a;
   font-size: 1.7vw;
 }
 
@@ -325,6 +320,7 @@ a:hover {
 
 
 
+
 /*This is the line part*/
 
 .line {
@@ -345,6 +341,7 @@ a:hover {
 .line-three {
   animation-name: lineraisethree;
 }
+
 
 
 
@@ -434,6 +431,7 @@ a:hover {
     opacity: 1;
   }
 }
+
 
 
 
