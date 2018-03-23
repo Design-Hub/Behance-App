@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <!--<router-link v-bind:to="'/'">Home</router-link>
-	<router-link v-bind:to="'/gameDesign'">Game Design</router-link>
-    <router-link v-bind:to="'/graphicDesign'">Graphic Design</router-link>
-    <router-link v-bind:to="'/photography'">Photography</router-link>
-	    <router-link v-bind:to="'/contact'">Contact</router-link>-->
     <router-view></router-view>
   </div>
 </template>
