@@ -1,38 +1,18 @@
-# Behance-App
+###Welcome to our Module 3 Assignment at YOOBEE.
 
-# GRAPHIC DESIGN SECTION
+##Project: This is a Behance portfolio of the designers working for a design firm called DesignHub.
 
-Behance API keys
+#Instructions
 
-Key 1
+1. Go to Github and fork this repository using this link: "https://github.com/Design-Hub/Behance-App"
+2. Install NPM modules to your computer.
+3. Open your command prompt and run the command "npm run dev"
+4. Click on each design category to view designers working for DesignHub.
+5. Follow readme files for each component.
+6. The "contact" button will lead you to a blank page, it is purely used as a design element and was not required as part of the client proposal.
+7. The DesignHub logo will lead you back to the home page.
 
-htgPbzokEp6xie3Vjz3K0n4dttFREcq0
+# Contributors: Mike Hopping, Jay Abey, Victor Yang.
 
-Key 2
 
-QBnDGTduo620bRGYwfvTC4ErNLmUjIMM
 
-# INSTRUCTIONS TO RUN
-
-NPM is required to run this app. After installing the node modules, run the app with: npm run dev
-in the command line.
-
-# Scenerio 1
-
-As a visitor to the site, you are interested in viewing the graphic designers for DesignHub and some of their work and statistics and information, such as views, likes and links to other websites.
-
-Step 1 
-
-from the DesignHub home page click on the Graphic Design link.
-
-Step 2 
-
-On the Graphic Design home page you will see a list of graphic designers. Choose a designer and click anywhere on their profile to go to their profile details page.
-
-Step 3
-
-On the profile details page you will see a gallery of the designers projects and information about the designer in the sidebar on the right. Clicking on a project image would then take you to that project's detail page.
-
-# Additional Dependencies
-
-This site uses vue-masonry-css and font awesome icons. These are included in the main.js and the index.html files, so there are no futher steps required to install these.
