@@ -49,19 +49,19 @@ export default {
         {
           webID: "ducnguyenmai",
           id: 14056285,
-          characterImage: require('../../images/jay/jamesGordon.png'),
+          characterImage: require('../../images/jay/dustinNguyen.png'),
           fullName: 'Dustin Nguyen',
         },
         {
           webID: "atokaruk",
           id: 3949737,
-          characterImage: require('../../images/jay/lisaSmith.png'),
+          characterImage: require('../../images/jay/alexandraTokaryuk.png'),
           fullName: 'Alexandra Tokaryuk'
         },
         {
           webID: "Aleksey_Bazik",
           id: 9876953,
-          characterImage: require('../../images/jay/derekShephard.png'),
+          characterImage: require('../../images/jay/alekseyBazik.png'),
           fullName: 'Aleksey Bazik'
         }
       ],
