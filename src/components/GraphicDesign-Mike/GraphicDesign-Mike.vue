@@ -9,7 +9,7 @@
         <h2>This is a showcase of our amazing designers.<br>Click on a profile to view their work!</h2>
       </div>
       <div class="gd-bg">
-        <img src="../../images/gd-example4.png">
+        <img src="../../images/mike/gd-example4.png">
       </div>
     </div>
   
