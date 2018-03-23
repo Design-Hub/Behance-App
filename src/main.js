@@ -44,18 +44,18 @@ const routes = [
   { path: '/', component: Home },
   { path: '/contact', component: Contact },
 
-  { path: '/gameDesignHome', component: GameDesignHome },
-  { path: '/gameDesignDesigner/:selectedDesignerprojects', component: GameDesignDesigner, props:true },
-  { path: '/gameDesignProjects', component: GameDesignProjects },
+  { path: '/game-design-home', component: GameDesignHome },
+  { path: '/game-design-designer/:selectedDesignerID', component: GameDesignDesigner, props: true },
+  { path: '/game-design-projects/:selectedProjectID', component: GameDesignProjects, props: true },
 
   { path: '/graphicDesign', component: Mike },
   { path: '/project-details/:id', component: Project, props: true },
   { path: '/graphic-designer/:username', component: Profile, props: true },
 
-  { path: '/photography', component: Victor},
-  { path: '/photographer-list-page', component: VictorPhotographerListPage},
-  { path: '/photographer-profile-detail-page:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true},
-  { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage},
+  { path: '/photography', component: Victor },
+  { path: '/photographer-list-page', component: VictorPhotographerListPage },
+  { path: '/photographer-profile-detail-page:individualPhotographerUsername', component: VictorPhotographerProfileDetailPage, props: true },
+  { path: '/photographer-project-detail-page', component: VictorPhotographerProjectDetailPage },
 ];
 
 const router = new VueRouter({
