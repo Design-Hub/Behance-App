@@ -13,6 +13,3 @@
 7. The DesignHub logo will lead you back to the home page.
 
 # Contributors: Mike Hopping, Jay Abey, Victor Yang.
-
-
-
