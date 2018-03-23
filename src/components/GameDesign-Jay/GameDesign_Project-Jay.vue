@@ -1,44 +1,65 @@
 <template>
-  <div class="container">
+  <div>
 
-    <!-- Header -->
-    <div class="header">
-      <div class="logo">
-        <img src="../../images/logoWhite.png">
-      </div>
-      <div class="contact">
-        <a href="/contact">CONTACT</a>
-      </div>
-    </div>
+    <!-- Disco background-->
+    <iframe class="disco-background" v-bind:src="discoBackground_iframeURL"> </iframe>
 
-    <!--Back button-->
-    <div class="back-button">
-      <a href="/gameDesignDesigner">
-        <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
-      </a>
-    </div>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <a href="/"><img src="../../images/logoWhite.png"></a>
+        </div>
+        <div class="contact">
+          <a href="/contact">CONTACT</a>
+        </div>
+      </div>
 
-    <!--Designer details-->
-    <div class="selected-designer">
-      <div class="selected-designer-info">
+      <!-- Disco Ball-->
+      <iframe class="disco-ball" v-bind:src="discoBall_iframeURL"></iframe>
+      
+      <!--Designer details-->
+      <div class="selected-designer" v-for="info in selectedProject.owners">
+      <router-link v-bind:to="'/game-design-designer/' + featuredDesigner.webID">
+        <div class="selected-designer-info">
+          {{ info.display_name }}
+        </div>
+        <div class="selected-designer-character" v-bind="getCharacterImage(info)">
+          <img v-bind:src="featuredDesigner.characterImage">
+        </div>
+        </router-link>
+      </div>
+
+      <!-- Grey project display placeholder -->
+      <div class="project-display">
+        <!--Back button-->
+        <div class="back-button">
+          <router-link v-bind:to="'/game-design-designer/' + featuredDesigner.webID">
+            <!--fontawsome back button icon - copyright to "http://fontawesome.io/icon/chevron-left/"-->
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp; back
+          </router-link>
+        </div>
+
+        <!-- Selected Project details-->
+        <div class="selected-project">
+          <h1> {{ selectedProject.name }} </h1>
+          <div> {{ selectedProject.description }} </div>
+          <br/>
+          <div class="projectStats">
+            <div><img src="../../images/jay/behanceViewsIcon.png"> {{ selectedProject.stats.views}} </div>
+            <div><img src="../../images/jay/behanceLikesIcon.png"> {{ selectedProject.stats.appreciations }} </div>
+            <div><img src="../../images/jay/behanceCommentsIcon.png"> {{ selectedProject.stats.comments}} </div>
+          </div>
+
+          <div v-for="module in selectedProject.modules">
+            <br/>
+            <h2>{{ module.text_plain }}</h2>
+            <img v-bind:src="module.src">
+          </div>
+        </div>
 
       </div>
-      <div class="selected-designer-character">
-        <img src="">
-      </div>
-    </div>
 
-    <!-- Selected Project details-->
-    <div v-for="data in selectedProject">
-      <h1> {{ data.name }} </h1>
-      <div class="projectStats">
-        <div> {{ data.stats.views}} </div>
-        <div> {{ data.stats.appreciations }} </div>
-        <div> {{ data.stats.comments}} </div>
-      </div>
-    <div> {{ data.description }} </div>
-    <div> {{ data.modules }} </div>
     </div>
 
   </div>
@@ -47,18 +68,52 @@
 <script>
 export default {
   name: 'gameDesignProject',
+  props: ['selectedProjectID'],
   data() {
     return {
-      selectedProject:[],
-      projectID: '4889175'
+      discoBall_iframeURL: 'https://jayabey.github.io/projects/DiscoBall/index.html',
+      discoBackground_iframeURL: 'https://jayabey.github.io/projects/DiscoBackground/',
+      designers: [
+        {
+          webID: "ducnguyenmai",
+          id: 14056285,
+          characterImage: require('../../images/jay/dustinNguyen.png'),
+          fullName: 'Dustin Nguyen',
+        },
+        {
+          webID: "atokaruk",
+          id: 3949737,
+          characterImage: require('../../images/jay/alexandraTokaryuk.png'),
+          fullName: 'Alexandra Tokaryuk'
+        },
+        {
+          webID: "Aleksey_Bazik",
+          id: 9876953,
+          characterImage: require('../../images/jay/alekseyBazik.png'),
+          fullName: 'Aleksey Bazik'
+        }
+      ],
+
+      selectedProject: [],
+      featuredDesigner: ''
     }
   },
 
   created: function() {
-    this.$http.jsonp('https://api.behance.net/v2/projects/' + this.projectID + '?&api_key=fBD5wQDeHCclck9MRpwifajnEDIz4KzA').then(response => {
-      this.selectedProject = response.body.selectedProject;
-      console.log(this.response);
+    //Alternative API key: fBD5wQDeHCclck9MRpwifajnEDIz4KzA
+    this.$http.jsonp('https://api.behance.net/v2/projects/' + this.selectedProjectID + '?&api_key=gUWR7I82EI6YUyylsJ4UwaratHObuX6Y').then(response => {
+      this.selectedProject = response.body.project;
     });
+  },
+
+  methods: {
+    getCharacterImage: function(info) {
+      for (var i = 0; i < this.designers.length; i++) {
+        if (info.display_name == this.designers[i].fullName) {
+          this.featuredDesigner = this.designers[i];
+        }
+      }
+    }
   }
 
 }
@@ -199,29 +254,26 @@ table {
 }
 
 
+/*DISCO BACKGROUND*/
 
-
-
+.disco-background {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
 
 
 /*CONTAINER*/
 
 .container {
-  /*background: url("../../images/homeBackground.png") no-repeat fixed center;*/
+  /*overflow: scroll;*/
+  z-index: 999;
+  position: absolute;
   width: 100vw;
   height: 100vh;
-  background-size: 100%;
-
-  background-color: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate3d(0, 0, 0);
 }
-
-
-
-
 
 
 /*HEADER*/
@@ -249,8 +301,8 @@ table {
   font-size: 1.1vw;
 }
 
-a {
-  color: #fff;
+.contact a {
+  color: white;
 }
 
 a:hover {
@@ -258,16 +310,157 @@ a:hover {
 }
 
 
+/*DESIGNER*/
+
+.selected-designer {
+  position: absolute;
+  margin-left: 5%;
+  color: white;
+  font-size: 25px;
+  font-family: 'Anonymous Pro', monospace;
+}
+
+.selected-designer div{
+  color: white;
+}
+
+.selected-designer .selected-designer-info {
+  margin-top: 160%;
+}
+
+.selected-designer .selected-designer-character {
+  margin-top: 30%;
+}
+
+.selected-designer-character img {
+  height: 400px;
+}
+
+
+
+/* PROJECT DISPLAY */
+
+.project-display {
+  left: 25%;
+  margin-top: 8%;
+  position: absolute;
+  height: 750px;
+  width: 1150px;
+  background-color: white;
+  overflow: auto;
+  overflow-x: hidden;
+  box-shadow: inset 0px 10px 10px 0px rgb(166, 166, 166), inset 0px 4px 20px 0 rgb(166, 166, 166);
+}
+
+
 /*BACK button*/
 
 .back-button {
-  position: absolute;
-  left: 12%;
-  margin-top: 17%;
+  margin-top: 3%;
   font-size: 1vw;
+}
+
+.back-button a {
+  color: #9E9E9E;
 }
 
 .back-button a:hover {
   font-size: 1.5vw;
+}
+
+
+
+/*PROJECT*/
+
+.selected-project {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 20px;
+}
+
+.selected-project h1 {
+  margin-top: 3%;
+  font-size: 40px;
+  color: #9E9E9E;
+}
+
+.projectStats {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #9E9E9E;
+}
+
+.projectStats div {
+  padding-right: 30px;
+}
+
+.projectStats img {
+  width: 50px;
+}
+
+
+/*REPONSIVE DESIGN */
+
+@media screen and (max-width:640px) {
+
+  /*header*/
+  .logo img {
+    width: 50vw;
+  }
+  .header .contact {
+    font-size: 2vw;
+  }
+  .contact:hover {
+    font-size: 2.2vw;
+  }
+  /*container*/
+  .container {
+    overflow-x: hidden;
+  }
+  /*disco ball*/
+  .container .disco-ball {
+    margin-top: 20%;
+    margin-left: 4%;
+  }
+  /*designer*/
+  .selected-designer .selected-designer-info {
+    margin-top: 30%;
+  }
+  .selected-designer .selected-designer-character {
+    margin-top: 10%;
+  }
+  .selected-designer-character img {
+    height: 300px;
+  }
+  .selected-designer {
+    margin-left: 41%;
+    font-size: 20px;
+  }
+  /*projects*/
+  .project-display {
+    left: 10%;
+    margin-top: 70%;
+    height: 1000px;
+    width: 500px;
+    overflow-x: hidden;
+  }
+  .back-button {
+    margin-top: 5%;
+    font-size: 2.5vw;
+  }
+  .back-button a:hover {
+    font-size: 3vw;
+  }
+  .selected-project {
+    font-size: 17px;
+    overflow-x: scroll;
+  }
+  .selected-project h1 {
+    margin-top: 5%;
+    font-size: 25px;
+  }
+  .projectStats img {
+    width: 30px;
+  }
 }
 </style>
